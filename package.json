@@ -1,0 +1,16 @@
+{
+  "name": "wally",
+  "version": "1.0.0",
+  "description": "{\r CIF-no.: {\r type: int,\r internal: true,\r unique: true,\r required: true,\r },\r fullName: {\r type: String.\r required: true,}\r DOB\r email add\r username\r password\r ontact\r address\r NRIC-no",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ]
+}
