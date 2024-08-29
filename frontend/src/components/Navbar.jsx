@@ -5,8 +5,11 @@ export default function Navbar(){
     return (<>
     
     <ul>
+        <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/signin">Sign In</NavLink></li>
         <li><NavLink to="/signup">Sign Up</NavLink></li>
+        <li><NavLink to="/about">About</NavLink></li>
+        <li><NavLink to="/facts">FAQ</NavLink></li>      
     </ul>
     
     </>)
