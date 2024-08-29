@@ -8,7 +8,7 @@
 # Commit Rules
 
  - feat (eg. involves coding)
- - chore (eg. creating pages or schemas)
+ - chore (eg. creating pages, schemas or rules)
 
 ## Create new customer schema
 
