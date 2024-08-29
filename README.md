@@ -1,5 +1,15 @@
 # wally
 
+# Setup Guide
+
+ - npm install
+ - check package.json for devdep and dep files in back/front end
+
+# Commit Rules
+
+ - feat (eg. involves coding)
+ - chore (eg. creating pages, schemas or rules)
+
 ## Create new customer schema
 
 {
