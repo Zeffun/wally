@@ -1,4 +1,4 @@
-# wally
+# Wally
 
 # Setup Guide
 
