@@ -20,14 +20,13 @@ const transactionSchema = new Schema(
       enum: currencyEnums,
     },
     amount: {
-      //validation, should not allow -ve values
       type: Number,
       required: true,
     },
     purpose: {
       type: String,
     },
-    accountId: { type: Schema.Types.ObjectId, ref: "Account" },
+    accountId: {type: mongoose.Schema.Types.ObjectId, ref: "Account"}
   },
   { timestamps: true }
 );

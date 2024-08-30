@@ -9,12 +9,7 @@ const accountSchema = new mongoose.Schema(
     },
     dateCreated: {
       //{timestamp}
-      type: Date,
-      required: true,
-    },
-    userid: {
-      //connect via obj id-s
-      type: Number,
+      type: String,
       required: true,
     },
     currency: {
@@ -25,7 +20,7 @@ const accountSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    user: { type: Schema.Types.ObjectId, ref: "User" },
+    userid: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
   },
   { timestamps: true }
 );
