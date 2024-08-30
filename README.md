@@ -5,6 +5,14 @@
 - npm install
 - check package.json for devdep and dep files in back/front end
 
+# Bruno
+
+eg. putPasswordForUser
+eg. getTransactionForUser
+eg. postNewUser
+
+ - [HTTPmethod][detailed use]
+
 # Commit Rules
 
 1. `build`:
