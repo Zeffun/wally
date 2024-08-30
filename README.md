@@ -1,19 +1,19 @@
 # Wally
 
-# Setup Guide
+## Setup Guide
 
 - npm install
 - check package.json for devdep and dep files in back/front end
 
-# Bruno
+## Bruno
 
 eg. putPasswordForUser
 eg. getTransactionForUser
 eg. postNewUser
 
- - [HTTPmethod][detailed use]
+- [HTTPmethod][detailed use]
 
-# Commit Rules
+## Commit Rules
 
 1. `build`:
 
