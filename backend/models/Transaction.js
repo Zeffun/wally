@@ -4,10 +4,6 @@ const currencyEnums = ["Sgd"];
 
 const transactionSchema = new Schema(
   {
-    userAcc: {
-      type: Number,
-      required: true,
-    },
     senderAcc: {
       //referencing
       type: Number,
@@ -31,7 +27,7 @@ const transactionSchema = new Schema(
     purpose: {
       type: String,
     },
-    user: { type: Schema.Types.ObjectId, ref: "User" },
+    accountId: { type: Schema.Types.ObjectId, ref: "Account" },
   },
   { timestamps: true }
 );
