@@ -1,6 +1,8 @@
-const mongoose = require("mongoose");
+const { Schema, model } = require("mongoose");
 
-const transactionSchema = new mongoose.Schema(
+const currencyEnums = ["Sgd"];
+
+const transactionSchema = new Schema(
   {
     senderAcc: {
       //referencing
@@ -13,8 +15,9 @@ const transactionSchema = new mongoose.Schema(
       required: true,
     },
     currency: {
-      type: string,
+      type: String,
       required: true,
+      enum: currencyEnums,
     },
     amount: {
       type: Number,
@@ -28,4 +31,5 @@ const transactionSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Transaction", transactionSchema);
+const Transaction = model("Transaction", transactionSchema);
+module.exports = Transaction;
