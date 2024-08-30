@@ -5,19 +5,9 @@ const router = express.Router()
 
 router.use(verifyToken);
 
-
-// const updateWally = (amount) => {
-
-//     router.put("/wally", async (req, res) => {
-
-//        const wallyAccount = await Account.findById("66d18346b5608b98b1e39614")
-//        const newAmount = amount + wallyAccount.balance
-//        const updatedWallyAccount = await newAmount.save()
-//        res.status(200).json(updatedWallyAccount)
-//     })
-   
-// }
 //make sure userToken verified, put request
+
+//getAccount for testing request
 router.get("/:accountId", async (req, res) => {
     // const accounts = await Account.findById(req.params.accountId).populate("userid");
     // res.json(accounts)
@@ -25,6 +15,7 @@ router.get("/:accountId", async (req, res) => {
     res.json(accounts)
 
 })
+
 router.put("/:accountId", async (req, res) => {
 
     try {
@@ -34,6 +25,7 @@ router.put("/:accountId", async (req, res) => {
         }
         const { balance } = req.body 
         const wallyAccount = await Account.findById("66d18346b5608b98b1e39614")
+        //wally account Id where it can bypass verifyToken
         
         verifyAccount.balance += balance
         wallyAccount.balance += balance
