@@ -20,12 +20,9 @@ const accountSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  creditBalance: {
-    //think through again
+  balance: {
     type: Number,
-  },
-  debitBalance: {
-    type: Number,
+    required: true,
   },
 });
 
