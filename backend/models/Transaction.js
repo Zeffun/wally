@@ -17,13 +17,13 @@ const transactionSchema = new mongoose.Schema(
       required: true,
     },
     amount: {
-      //validation, should not allow -ve values
       type: Number,
       required: true,
     },
     purpose: {
       type: String,
     },
+    accountId: {type: mongoose.Schema.Types.ObjectId, ref: "Account"}
   },
   { timestamps: true }
 );
