@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  _id: {
+  cxId: {
     //this is the internal userId, we generate our own 8-digit unique number
     type: Number,
     required: true,
