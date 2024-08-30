@@ -3,6 +3,7 @@ dotenv.config();
 const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
+const usersRouter = require("./controllers/UsersController")
 
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.connection.on("connected", () => {
@@ -15,9 +16,9 @@ const port = process.env.PORT || 3001;
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.json({ msg: "hoot" });
-});
+app.use("/api/users", usersRouter);
+// app.use("/api/transactions", hootsRouter);
+// app.use("/api/accouts", )
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
