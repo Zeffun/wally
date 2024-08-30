@@ -3,28 +3,25 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const User = require("../models/User")
 const jwt = require("jsonwebtoken");
-const { verifyToken } = require("../middleware/verify-token");
 
-const SALT_LENGTH = 20;
 
-const createJWT = (user) => {
-    const payload = { username: user.username, _id: user._id };
-    const secret = process.env.JWT_SECRET;
-    const options = { expiresIn: "8000hr" };
-    return jwt.sign(payload, secret, options);
-  };
+const SALT_LENGTH = 12;
+
+
+router.get("/signup", (req,res) => {
+    res.json({msg: "tot"})
+})
 
 router.post("/signup", async (req, res) => {
-    const { username } = req.body;
-    try {
-      const hashedPassword = await bcrypt.hash(req.body.password, SALT_LENGTH);
-      const user = await User.create({ username, hashedPassword });
-      const token = createJWT(user);
-      res.status(201).json({ user, token });
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  });
+    const user = await User.create({
+        cxId: req.body.cxId,
+        username: req.body.username,
+        hashedPassword: bcrypt.hashSync(req.body.password, SALT_LENGTH)
+    })
+    const token = jwt.sign({ cxId: req.body.cxId, username: req.body.username, _id: user._id}, process.env.JWT_SECRET, {expiresIn: "10000hr"});
+    res.status(201).json({user, token})
+})
+ 
   
 router.post("/login", async (req, res) => {
     const { username } = req.body;
@@ -34,7 +31,7 @@ router.post("/login", async (req, res) => {
   
       const match = await bcrypt.compare(req.body.password, user.hashedPassword);
       if (match) {
-        const token = createJWT(user);
+        const token = jwt.sign({ cxId: req.body.cxId, username: req.body.username, _id: user._id}, process.env.JWT_SECRET, {expiresIn: "10000hr"});
         return res.status(200).json({ token });
       }
       res.status(401).json({ error: "Invalid username or password." });
@@ -46,3 +43,6 @@ router.post("/login", async (req, res) => {
 
 
 module.exports = router;
+
+
+

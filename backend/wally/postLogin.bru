@@ -1,0 +1,23 @@
+meta {
+  name: postLogin
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:3000/api/user/login
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeElkIjozLCJ1c2VybmFtZSI6ImthaXRpbmciLCJfaWQiOiI2NmQxNzZjMTQ3ZDQxMDI1MzZhOTY1OTMiLCJpYXQiOjE3MjUwMDM0NTcsImV4cCI6MTc2MTAwMzQ1N30.x9OUVQAZZNwnNNAPEdaCpL5Nf5cE6earXew1Ly5E5yI
+}
+
+body:json {
+  {
+    "cxId": 2,
+    "username": "aloy",
+    "password": "1234"
+  }
+}
