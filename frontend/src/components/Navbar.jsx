@@ -1,31 +1,96 @@
+// import { useState } from 'react';
+// import Tabs from '@mui/material/Tabs';
+// import Tab from '@mui/material/Tab';
+// import Box from '@mui/material/Box';
+// import Button from '@mui/material/Button';
+// import { useNavigate } from 'react-router-dom';
+// import { createTheme, ThemeProvider } from '@mui/material';
+
+// const theme = createTheme({
+//   palette: {
+//     primary: {
+//       light: '#757ce8',
+//       main: '#01579b',
+//       dark: '#002884',
+//       contrastText: '#fff',
+//     },
+//     secondary: {
+//       light: '#ff7961',
+//       main: '#01579b',
+//       dark: '#ba000d',
+//       contrastText: '#000',
+//     },
+//   },
+// });
+
+
+// export default function Navbar(){
+
+//   const [page, setPage] = useState("home");
+//   const navigate = useNavigate()
+
+//   const handleChange = (event, newValue) => {
+
+//     setPage(newValue)
+
+//     if (newValue === "home") {
+//       navigate("/")
+//     } else if (newValue === "signIn") {
+//       navigate("/signin")
+//     } else if (newValue === "signUp") {
+//       navigate("/signup")
+//     } else if (newValue === "about") {
+//       navigate("/about")
+//     } else if (newValue === "facts") {
+//       navigate("/facts")
+//     }
+//   }
+
+  
+
+//   return (
+//     <ThemeProvider theme={theme}>
+//     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center'}}>
+
+//       <Tabs
+//         value={page}
+//         onChange={handleChange}
+//         textColor="secondary"
+//         indicatorColor="secondary"
+//         aria-label="homePageMenu"
+//         variant="scrollable"
+//         scrollButtons="auto"
+//       >
+//         <Tab sx={{ mx: 2 }} value="home" label="Home" />
+//         <Tab sx={{ mx: 2 }} value="signIn" label="Sign In" />
+//         <Tab sx={{ mx: 2 }} value="signUp" label="Sign Up" />
+//         <Tab sx={{ mx: 2 }} value="about" label="About" />
+//         <Tab sx={{ mx: 2 }} value="facts" label="FAQ" />
+//       </Tabs>
+//     </Box>
+//     </ThemeProvider>
+//   )
+// }
 import { useState } from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
-import { createTheme, ThemeProvider } from '@mui/material';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import AdbIcon from '@mui/icons-material/Adb';
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      light: '#757ce8',
-      main: '#01579b',
-      dark: '#002884',
-      contrastText: '#fff',
-    },
-    secondary: {
-      light: '#ff7961',
-      main: '#01579b',
-      dark: '#ba000d',
-      contrastText: '#000',
-    },
-  },
-});
+const pages = ['home', 'sign in', 'sign up', 'about', 'FAQ'];
 
-
-export default function Navbar(){
-
+export default function Navbar() {
+  const [anchorElNav, setAnchorElNav] = useState(null);
   const [page, setPage] = useState("home");
   const navigate = useNavigate()
 
@@ -35,144 +100,118 @@ export default function Navbar(){
 
     if (newValue === "home") {
       navigate("/")
-    } else if (newValue === "signIn") {
+    } else if (newValue === "sign in") {
       navigate("/signin")
-    } else if (newValue === "signUp") {
+    } else if (newValue === "sign up") {
       navigate("/signup")
     } else if (newValue === "about") {
       navigate("/about")
-    } else if (newValue === "facts") {
+    } else if (newValue === "FAQ") {
       navigate("/facts")
     }
   }
 
-  
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
 
   return (
-    <ThemeProvider theme={theme}>
-    <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center'}}>
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            // href="#app-bar-with-responsive-menu"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            WALLY
+          </Typography>
 
-      <Tabs
-        value={page}
-        onChange={handleChange}
-        textColor="secondary"
-        indicatorColor="secondary"
-        aria-label="homePageMenu"
-        variant="scrollable"
-        scrollButtons="auto"
-      >
-        <Tab sx={{ mx: 2 }} value="home" label="Home" />
-        <Tab sx={{ mx: 2 }} value="signIn" label="Sign In" />
-        <Tab sx={{ mx: 2 }} value="signUp" label="Sign Up" />
-        <Tab sx={{ mx: 2 }} value="about" label="About" />
-        <Tab sx={{ mx: 2 }} value="facts" label="FAQ" />
-      </Tabs>
-    </Box>
-    </ThemeProvider>
-  )
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{ display: { xs: 'block', md: 'none' } }}
+            >
+              {pages.map((page) => (
+                <MenuItem key={page} 
+                onClick={() => {
+                  handleChange(null, page);
+                  handleCloseNavMenu();
+                }}>
+                <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+              </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href="#app-bar-with-responsive-menu"
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            WALLY
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            {pages.map((page) => (
+              <Button
+              key={page}
+              onClick={() => handleChange(null, page)}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              {page}
+            </Button>
+            ))}
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
 }
-
-// export default function MenuListComposition() {
-//   const [open, setOpen] = React.useState(false);
-//   const anchorRef = React.useRef(null);
-
-//   const handleToggle = () => {
-//     setOpen((prevOpen) => !prevOpen);
-//   };
-
-//   const handleClose = (event) => {
-//     if (anchorRef.current && anchorRef.current.contains(event.target)) {
-//       return;
-//     }
-
-//     setOpen(false);
-//   };
-
-//   function handleListKeyDown(event) {
-//     if (event.key === "Tab") {
-//       event.preventDefault();
-//       setOpen(false);
-//     } else if (event.key === "Escape") {
-//       setOpen(false);
-//     }
-//   }
-
-//   // return focus to the button when we transitioned from !open -> open
-//   const prevOpen = React.useRef(open);
-//   React.useEffect(() => {
-//     if (prevOpen.current === true && open === false) {
-//       anchorRef.current.focus();
-//     }
-
-//     prevOpen.current = open;
-//   }, [open]);
-
-//   return (
-//     <Stack direction="row" spacing={2}>
-//       <Paper>
-//         <MenuList>
-//           <MenuItem component={NavLink} to="/">
-//             Home
-//           </MenuItem>
-//           <MenuItem component={NavLink} to="/">
-//             Log in
-//           </MenuItem>
-//           <MenuItem component={NavLink} to="/">
-//             Sign up
-//           </MenuItem>
-//           <MenuItem component={NavLink} to="/">
-//             Accounts
-//           </MenuItem>
-//           <MenuItem component={NavLink} to="/">
-//             FAQ
-//           </MenuItem>
-//         </MenuList>
-//       </Paper>
-//       <div>
-//         <Button
-//           ref={anchorRef}
-//           id="composition-button"
-//           aria-controls={open ? "composition-menu" : undefined}
-//           aria-expanded={open ? "true" : undefined}
-//           aria-haspopup="true"
-//           onClick={handleToggle}
-//         >
-//           Dashboard
-//         </Button>
-//         <Popper
-//           open={open}
-//           anchorEl={anchorRef.current}
-//           role={undefined}
-//           placement="bottom-start"
-//           transition
-//           disablePortal
-//         >
-//           {({ TransitionProps, placement }) => (
-//             <Grow
-//               {...TransitionProps}
-//               style={{
-//                 transformOrigin:
-//                   placement === "bottom-start" ? "left top" : "left bottom",
-//               }}
-//             >
-//               <Paper>
-//                 <ClickAwayListener onClickAway={handleClose}>
-//                   <MenuList
-//                     autoFocusItem={open}
-//                     id="composition-menu"
-//                     aria-labelledby="composition-button"
-//                     onKeyDown={handleListKeyDown}
-//                   >
-//                     <MenuItem onClick={handleClose}>Home</MenuItem>
-//                     <MenuItem onClick={handleClose}>Log in</MenuItem>
-//                     <MenuItem onClick={handleClose}>Sign up</MenuItem>
-//                   </MenuList>
-//                 </ClickAwayListener>
-//               </Paper>
-//             </Grow>
-//           )}
-//         </Popper>
-//       </div>
-//     </Stack>
-//   );
-// }
