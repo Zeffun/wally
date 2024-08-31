@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Paper, Button } from '@mui/material';
+import { Paper, Button, Typography } from '@mui/material';
 import { useState } from 'react';
 import * as authService from '../services/authService';
 import { useNavigate } from 'react-router-dom';
@@ -97,6 +97,20 @@ export default function SignUpPage(props) {
               required
             />
           </Box>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            sx={{ marginBottom: 1 }}
+          >
+            By signing up, you agree to wally terms and conditions. 
+          </Typography>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            sx={{ marginBottom: 1 }}
+          >
+            Your particulars will only be visible to wally =) 
+          </Typography>
           <Button
             fullWidth
             variant="contained"
