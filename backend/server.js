@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 const userRouter = require("./controllers/UsersController")
 const accountRouter = require("./controllers/AccountsController");
 const cors = require('cors');
-const accountRouter = require("./controllers/AccountsController")
 const depositRouter = require("./controllers/DepositsController")
 
 mongoose.connect(process.env.MONGODB_URI);
