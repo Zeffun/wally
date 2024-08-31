@@ -19,10 +19,15 @@ function App() {
   const location = useLocation()
   const showNavBar = !location.pathname.startsWith('/account');
 
+  const handleSignout = () => {
+    authService.signout();
+    setUser(null);
+  };
+
   return (
     <>
       <AuthedUserContext.Provider value={user}>
-        {showNavBar && <Navbar/>}
+        {showNavBar && <Navbar user={user} handleSignout={handleSignout}/>}
         <Routes>
           {user ? (
             <>
