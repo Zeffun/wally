@@ -10,6 +10,7 @@ import SignUpPage from "./pages/SignUpPage";
 import AboutPage from "./pages/AboutPage";
 import FaqPage from "./pages/FaqPage";
 import AccountMainPage from "./pages/AccountMainPage";
+import ProfilePage from "./pages/ProfilePage";
 import * as authService from '../src/services/authService';
 
 export const AuthedUserContext = createContext(null);
@@ -20,14 +21,27 @@ function App() {
   const showNavBar = !location.pathname.startsWith('/account');
   const showNavBarUser = location.pathname.startsWith('/account');
 
+  const handleSignout = () => {
+    authService.signout();
+    setUser(null);
+  };
+
   return (
     <>
       <AuthedUserContext.Provider value={user}>
-        {showNavBar && <Navbar/>}
-        {showNavBarUser && <NavbarUser/>}
+
+        {showNavBar && <Navbar user={user} handleSignout={handleSignout}/>}
+        {showNavBarUser && <NavbarUser user={user} handleSignout={handleSignout}/>}
+
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/signin" element={<SignInPage />} />
+          {user ? (
+            <>
+              <Route path="/" element={<ProfilePage />} />
+            </>
+          ) : (
+            <Route path="/" element={<HomePage />} />
+          )}
+          <Route path="/signin" element={<SignInPage setUser={setUser}/>} />
           <Route path="/signup" element={<SignUpPage setUser={setUser}/>} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/facts" element={<FaqPage />} />

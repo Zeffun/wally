@@ -109,7 +109,7 @@ export default function SignUpPage(props) {
             color="textSecondary"
             sx={{ marginBottom: 1 }}
           >
-            Your particulars will only be visible to wally =) 
+            Your particulars will only be visible to wally 
           </Typography>
           <Button
             fullWidth
