@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
+import NavbarUser from "./components/NavbarUser";
 import HomePage from "./pages/HomePage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
@@ -17,11 +18,13 @@ function App() {
   const [user, setUser] = useState(authService.getUser());
   const location = useLocation()
   const showNavBar = !location.pathname.startsWith('/account');
+  const showNavBarUser = location.pathname.startsWith('/account');
 
   return (
     <>
       <AuthedUserContext.Provider value={user}>
         {showNavBar && <Navbar/>}
+        {showNavBarUser && <NavbarUser/>}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/signin" element={<SignInPage />} />
