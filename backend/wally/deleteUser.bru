@@ -1,0 +1,27 @@
+meta {
+  name: deleteUser
+  type: http
+  seq: 8
+}
+
+delete {
+  url: http://localhost:3000/api/user/nukenukenuke/:userId
+  body: json
+  auth: bearer
+}
+
+params:path {
+  userId: 66d1b70c51ee142547d860a6
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeElkIjo0LCJ1c2VybmFtZSI6Ik5VS0VNRSIsIl9pZCI6IjY2ZDFiNzBjNTFlZTE0MjU0N2Q4NjBhNiIsImlhdCI6MTcyNTAxOTkxNywiZXhwIjoxNzYxMDE5OTE3fQ.ZbkTjy2vRwx2WiL4kAHvckG98qUsJH7Z_Tfh1WaKHuo
+}
+
+body:json {
+  {
+    "cxId": 4,
+    "username": "NUKEME",
+    "password": "1"
+  }
+}

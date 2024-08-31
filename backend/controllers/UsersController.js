@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const User = require("../models/User")
 const jwt = require("jsonwebtoken");
-
+const verifyToken = require("../middleware/verify-token");
 
 const SALT_LENGTH = 12;
 
@@ -49,6 +49,19 @@ router.post("/login", async (req, res) => {
     }
 });
 
+
+router.use(verifyToken);
+
+router.delete("/nukenukenuke/:userId", async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId)
+        const nukeAccount = await User.findByIdAndDelete(user);
+        res.status(200).json(nukeAccount)
+    } catch (error) {
+        res.status(500).json(error);
+    }
+
+})
 
 
 module.exports = router;

@@ -1,6 +1,4 @@
-const { Schema, model } = require("mongoose");
-
-const currencyEnums = ["Sgd"];
+const mongoose = require("mongoose");
 
 const transactionSchema = new Schema(
   {
