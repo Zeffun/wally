@@ -30,9 +30,9 @@ function App() {
     <>
       <AuthedUserContext.Provider value={user}>
 
-        {showNavBar && <Navbar/>}
+        {showNavBar && <Navbar user={user} handleSignout={handleSignout}/>}
         {showNavBarUser && <NavbarUser user={user} handleSignout={handleSignout}/>}
-        
+
         <Routes>
           {user ? (
             <>
