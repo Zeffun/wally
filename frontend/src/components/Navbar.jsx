@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material';
 
@@ -50,6 +51,7 @@ export default function Navbar(){
   return (
     <ThemeProvider theme={theme}>
     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center'}}>
+
       <Tabs
         value={page}
         onChange={handleChange}
