@@ -1,0 +1,28 @@
+meta {
+  name: getAccount
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://localhost:3000/api/deposit/:accountId
+  body: none
+  auth: bearer
+}
+
+params:path {
+  accountId: 66d19c9b0e7394a3ec3b6d48
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjeElkIjozLCJ1c2VybmFtZSI6ImthaXRpbmciLCJfaWQiOiI2NmQxOWJiNWM2OWI0MWRkYjNjY2Y3NzYiLCJpYXQiOjE3MjUwMTI5NDYsImV4cCI6MTc2MTAxMjk0Nn0.qz4YCwO6137uxe-6UYQY8Tf5l1_pFIa55YM6WDOm5GA
+}
+
+body:json {
+  {
+    "acId": 3,
+    "dateCreated": "today",
+    "currency": "sgd",
+    "balance": 8888
+  }
+}

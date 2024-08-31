@@ -5,7 +5,15 @@ meta {
 }
 
 post {
-  url: http://localhost:3000/api/users/signup
-  body: none
+  url: http://localhost:3000/api/user/signup
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "cxId": 4,
+    "username": "NUKEME",
+    "password": "1"
+  }
 }
