@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Paper, Button } from '@mui/material';
+import { Paper, Button, Typography } from '@mui/material';
 
 
 
@@ -26,7 +26,7 @@ export default function SignUpPage(){
         elevation={10}
         sx = {{padding: 6}}
         >
-          <Box sx={{ marginBottom: 5 }}>
+          <Box sx={{ marginBottom: 4 }}>
             <TextField
               id="username"
               label="Username"
@@ -47,6 +47,20 @@ export default function SignUpPage(){
               required
             />
           </Box>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            sx={{ marginBottom: 1 }}
+          >
+            By signing up, you agree to wally terms and conditions. 
+          </Typography>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            sx={{ marginBottom: 1 }}
+          >
+            Your particulars will only be visible to wally =) 
+          </Typography>
           <Button
             fullWidth
             variant="contained"
