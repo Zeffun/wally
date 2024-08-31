@@ -1,76 +1,4 @@
-// import { useState } from 'react';
-// import Tabs from '@mui/material/Tabs';
-// import Tab from '@mui/material/Tab';
-// import Box from '@mui/material/Box';
-// import Button from '@mui/material/Button';
-// import { useNavigate } from 'react-router-dom';
-// import { createTheme, ThemeProvider } from '@mui/material';
 
-// const theme = createTheme({
-//   palette: {
-//     primary: {
-//       light: '#757ce8',
-//       main: '#01579b',
-//       dark: '#002884',
-//       contrastText: '#fff',
-//     },
-//     secondary: {
-//       light: '#ff7961',
-//       main: '#01579b',
-//       dark: '#ba000d',
-//       contrastText: '#000',
-//     },
-//   },
-// });
-
-
-// export default function Navbar(){
-
-//   const [page, setPage] = useState("home");
-//   const navigate = useNavigate()
-
-//   const handleChange = (event, newValue) => {
-
-//     setPage(newValue)
-
-//     if (newValue === "home") {
-//       navigate("/")
-//     } else if (newValue === "signIn") {
-//       navigate("/signin")
-//     } else if (newValue === "signUp") {
-//       navigate("/signup")
-//     } else if (newValue === "about") {
-//       navigate("/about")
-//     } else if (newValue === "facts") {
-//       navigate("/facts")
-//     }
-//   }
-
-  
-
-//   return (
-//     <ThemeProvider theme={theme}>
-//     <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center'}}>
-
-//       <Tabs
-//         value={page}
-//         onChange={handleChange}
-//         textColor="secondary"
-//         indicatorColor="secondary"
-//         aria-label="homePageMenu"
-//         variant="scrollable"
-//         scrollButtons="auto"
-//       >
-//         <Tab sx={{ mx: 2 }} value="home" label="Home" />
-//         <Tab sx={{ mx: 2 }} value="signIn" label="Sign In" />
-//         <Tab sx={{ mx: 2 }} value="signUp" label="Sign Up" />
-//         <Tab sx={{ mx: 2 }} value="about" label="About" />
-//         <Tab sx={{ mx: 2 }} value="facts" label="FAQ" />
-//       </Tabs>
-//     </Box>
-//     </ThemeProvider>
-//   )
-// }
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
@@ -81,9 +9,7 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 

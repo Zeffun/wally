@@ -4,7 +4,8 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const userRouter = require("./controllers/UsersController")
-const accountRouter = require("./controllers/AccountsController")
+const accountRouter = require("./controllers/AccountsController");
+const cors = require('cors');
 const depositRouter = require("./controllers/DepositsController")
 
 mongoose.connect(process.env.MONGODB_URI);
@@ -16,6 +17,7 @@ mongoose.connection.on("connected", () => {
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(cors()); 
 app.use(morgan("dev"));
 app.use(express.json());
 
