@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Paper, Button } from '@mui/material';
+import { Paper, Button, Typography } from '@mui/material';
 import { useState } from 'react';
 import * as authService from '../services/authService';
 import { useNavigate } from 'react-router-dom';
