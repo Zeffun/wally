@@ -13,16 +13,13 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-const pages = ['home', 'sign in', 'sign up', 'about', 'FAQ', "sign out"];
+const pages = ['home', 'sign in', 'sign up', 'about', 'FAQ'];
 
-export default function Navbar(props) {
+export default function Navbar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [page, setPage] = useState("home");
   const navigate = useNavigate()
 
   const handleChange = (event, newValue) => {
-
-    setPage(newValue)
 
     if (newValue === "home") {
       navigate("/")
@@ -34,8 +31,6 @@ export default function Navbar(props) {
       navigate("/about")
     } else if (newValue === "FAQ") {
       navigate("/facts")
-    } else if (newValue === "sign out") {
-      props.handleSignout();
     }
   }
 
