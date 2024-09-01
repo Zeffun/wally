@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 
-const transactionSchema = new Schema(
+const currencyEnums = ["SGD"];
+
+const transactionSchema = new mongoose.Schema(
   {
     senderAcc: {
       //referencing
@@ -24,10 +26,9 @@ const transactionSchema = new Schema(
     purpose: {
       type: String,
     },
-    accountId: {type: mongoose.Schema.Types.ObjectId, ref: "Account"}
+    accountId: { type: mongoose.Schema.Types.ObjectId, ref: "Account" },
   },
   { timestamps: true }
 );
 
-const Transaction = model("Transaction", transactionSchema);
-module.exports = Transaction;
+module.exports = mongoose.model("Transaction", transactionSchema);
