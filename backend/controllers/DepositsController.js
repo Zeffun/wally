@@ -11,7 +11,7 @@ router.use(verifyToken);
 router.get("/:accountId", async (req, res) => {
     // const accounts = await Account.findById(req.params.accountId).populate("userid");
     // res.json(accounts)
-    const accounts = await Account.findById("66d19c9b0e7394a3ec3b6d48").populate("userid");
+    const accounts = await Account.findById("66d45975c259e9b5fa605725").populate("userid");
     res.json(accounts)
 
 })
@@ -24,7 +24,7 @@ router.put("/:accountId", async (req, res) => {
             return res.status(403).send("Cannot deposit in to thirdParty accounts")
         }
         const { balance } = req.body 
-        const wallyAccount = await Account.findById("66d18346b5608b98b1e39614")
+        const wallyAccount = await Account.findById("66d45975c259e9b5fa605725")
         //wally account Id where it can bypass verifyToken
         
         verifyAccount.balance += balance
