@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,36 +12,13 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { signout } from '../services/authService';
 
-const pages = ['dashboard', 'transactions', 'payments', 'deposits'];
-const settings = ['Profile', 'Help'];
+const pages = ['Dashboard', 'Transactions', 'Payments', 'Deposits'];
+const settings = ['Profile', 'Account', 'Help', 'Logout'];
 
-export default function NavbarUser({handleSignout}) {
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
- 
-  const navigate = useNavigate()
-
-  const handleChange = (event, newValue) => {
-    if (newValue === "dashboard") {
-      navigate("/account/main")
-    } else if (newValue === "transactions") {
-      navigate("/account/transaction")
-    } else if (newValue === "payments") {
-      navigate("/account/payment")
-    } else if (newValue === "deposits") {
-      navigate("/account/deposit")
-    } 
-  }
-
-  const handleProfileChange = (event, newValue) => {
-    if (newValue === "Profile") {
-      navigate("/account/profile")
-    } else if (newValue === "Help") {
-      navigate("/account/help")
-    } 
-  }
+export default function NavbarUser() {
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -110,13 +86,9 @@ export default function NavbarUser({handleSignout}) {
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} 
-                onClick={() => {
-                  handleChange(null, page);
-                  handleCloseNavMenu();
-                }}>
-                <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
-              </MenuItem>
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                </MenuItem>
               ))}
             </Menu>
           </Box>
@@ -140,14 +112,14 @@ export default function NavbarUser({handleSignout}) {
             WALLY
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          {pages.map((page) => (
+            {pages.map((page) => (
               <Button
-              key={page}
-              onClick={() => handleChange(null, page)}
-              sx={{ my: 2, color: 'white', display: 'block' }}
-            >
-              {page}
-            </Button>
+                key={page}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                {page}
+              </Button>
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
@@ -173,14 +145,10 @@ export default function NavbarUser({handleSignout}) {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={() => {
-                  handleProfileChange(null, setting);
-                  handleCloseUserMenu()
-                  }}>
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
                 </MenuItem>
               ))}
-                <MenuItem key= "signOut" onClick={handleSignout}>Signout</MenuItem>
             </Menu>
           </Box>
         </Toolbar>

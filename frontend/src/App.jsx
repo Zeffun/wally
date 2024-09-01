@@ -44,7 +44,7 @@ function App() {
         <Routes>
           {user ? (
             <>
-              <Route path="/" element={<ProfilePage />} />
+              <Route path="/" element={<HomePage />} />
             </>
           ) : (
             <Route path="/" element={<HomePage />} />

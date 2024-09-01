@@ -25,13 +25,13 @@ export default function SignUpPage(props) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async () => {
-    // e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
       const newUserResponse = await authService.signup(formData);
       props.setUser(newUserResponse.user);
       console.log(newUserResponse);
-      navigate('/');
+      navigate('/account');
     } catch (err) {
       updateMessage(err.message);
     }
