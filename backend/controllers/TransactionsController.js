@@ -23,6 +23,7 @@ router.post("/new", async (req, res) => {
 
     // Find the sender's account
     const senderAccount = await Account.findById(senderAcc);
+    debug(senderAccount);
     if (!senderAccount || senderAccount.balance < amount) {
       return res
         .status(400)
