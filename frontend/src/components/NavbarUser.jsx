@@ -15,7 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
 
-const pages = ['dashboard', 'transactions', 'transfer', 'deposit', 'create Account'];
+const pages = ['dashboard', 'transactions', 'transfer', 'deposit', 'withdraw', 'create Account'];
 const settings = ['Profile', 'Help'];
 
 export default function NavbarUser({handleSignout}) {
@@ -34,6 +34,8 @@ export default function NavbarUser({handleSignout}) {
       navigate("/account/transfer");
     } else if (newValue === "deposit") {
       navigate(`/account/deposit/`)
+    } else if (newValue === "withdraw") {
+      navigate(`/account/withdraw/`)
     } else if (newValue === "create Account") {
       navigate ("/account/createAccount")
     }

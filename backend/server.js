@@ -8,6 +8,7 @@ const accountRouter = require("./controllers/AccountsController");
 const cors = require("cors");
 const depositRouter = require("./controllers/DepositsController");
 const transactionRouter = require("./controllers/TransactionsController");
+const withdrawRouter = require("./controllers/WithdrawsController")
 
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.connection.on("connected", () => {
@@ -25,6 +26,7 @@ app.use("/api/user", userRouter);
 app.use("/api/account", accountRouter);
 app.use("/api/transaction", transactionRouter);
 app.use("/api/deposit", depositRouter),
+app.use("/api/withdraw", withdrawRouter),
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
   });
