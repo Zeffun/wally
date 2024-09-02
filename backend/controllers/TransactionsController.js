@@ -8,10 +8,12 @@ const verifyToken = require("../middleware/verify-token");
 
 router.use(verifyToken);
 
+// Test route
 router.get("/", async (req, res) => {
   await res.status(201).send("Route is working");
 });
 
+// Creating a new transaction
 router.post("/new", async (req, res) => {
   // await res.status(201).send("Route is working");
   debug(`body: %o`, req.body);
@@ -25,6 +27,24 @@ router.post("/new", async (req, res) => {
   }
 });
 
+// Viewing transaction history
+router.get("/history", async (req, res) => {
+  debug(`body: %o`, req.body);
+  try {
+    currentUserId = req.body.userid;
+    const transactionHistory = await Transaction.Find({
+      $or: [
+        { senderAcc: currentuserId },
+        { receiverAcc: currentuserId }
+      ]
+    });
+    res.status(200).json(transactionHistory);
+  } catch (error) {
+    console.error("Error retrieving transaction history:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Transaction.find({ userAcc: ac1Num })
 //   .sort({ date: -1 })
 //   .limit(50)
@@ -34,6 +54,7 @@ router.post("/new", async (req, res) => {
 //     }
 //     res.json(transactions);
 //   });
+
 
 module.exports = router;
 console.log("TransactionsController loaded");
