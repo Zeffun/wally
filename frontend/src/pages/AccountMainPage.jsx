@@ -15,8 +15,12 @@ export default function AccountMainPage(){
 
   
   return(<>
+
+  <ul>
+  {accounts.map((account, index) => (<li key={index}>{account.balance}</li>))}
+  </ul>
   
-  <h1>{accounts.map((account) => (account.balance))}</h1>
+  
   
   
   </>)

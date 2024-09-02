@@ -43,7 +43,8 @@ export default function AccountDepositsPage() {
     console.log(accountData.balance)
     event.preventDefault();
     try {
-      const newUserResponse = await authService.depositAccount(accountData, accountId);
+      const balance = parseFloat(accountData.balance)
+      const newUserResponse = await authService.depositAccount({...accountData, balance}, accountId);
       console.log(newUserResponse);
       navigate('/account/main');
     } catch (err) {

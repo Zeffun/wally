@@ -24,7 +24,6 @@ export const AuthedUserContext = createContext(null);
 
 function App() {
   const [user, setUser] = useState(authService.getUser());
-  const [accountId, setAccountId] = useState("")
   const location = useLocation()
   const navigate = useNavigate()
   const showNavBar = !location.pathname.startsWith('/account');
@@ -42,7 +41,7 @@ function App() {
       <AuthedUserContext.Provider value={user}>
 
         {showNavBar && <Navbar user={user} handleSignout={handleSignout}/>}
-        {showNavBarUser && <NavbarUser user={user} handleSignout={handleSignout} accountId = {accountId}/>}
+        {showNavBarUser && <NavbarUser user={user} handleSignout={handleSignout}/>}
 
         <Routes>
           {user ? (
@@ -59,10 +58,10 @@ function App() {
 
           <Route path="/account/createAccount" element={<CreateAccountPage/>} />
 
-          <Route path="/account/main" element={<AccountMainPage setAccountId = {setAccountId} user={user}/>}/>
+          <Route path="/account/main" element={<AccountMainPage user={user}/>}/>
           <Route path="/account/transaction" element={<AccountTransactionsPage/>}/>
           <Route path="/account/payment" element={<AccountPaymentsPage/>}/>
-          <Route path="/account/deposit/" element={<AccountDepositsPage accountId = {accountId}/>}/>
+          <Route path="/account/deposit/" element={<AccountDepositsPage />}/>
           <Route path="/account/help" element={<AccountHelpPage/>}/>
           <Route path="/account/profile" element={<AccountProfilePage/>}/>
           

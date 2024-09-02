@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-export default function CreateAccountPage({ setAccountId}){
+export default function CreateAccountPage(){
   const navigate = useNavigate();
   const [accountData, setAccountData] = useState({
     acId: 0,
@@ -27,7 +27,6 @@ export default function CreateAccountPage({ setAccountId}){
     try {
       const newAccountResponse = await authService.createAccount(accountData);
       console.log(newAccountResponse);
-      setAccountId(newAccountResponse)
       navigate('/account/main');
     } catch (err) {
       console.error(err.message);

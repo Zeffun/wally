@@ -18,7 +18,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 const pages = ['dashboard', 'transactions', 'transfer', 'deposit', 'create Account'];
 const settings = ['Profile', 'Help'];
 
-export default function NavbarUser({handleSignout, accountId}) {
+export default function NavbarUser({handleSignout}) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
