@@ -1,72 +1,56 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Paper, Button } from '@mui/material';
+import { Paper, Button, Select, FormControl, MenuItem, InputLabel } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import * as authService from '../services/authService';
-const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
+import { getAccounts } from '../services/authService';
 
 
 
+export default function AccountDepositsPage() {
+  
+  const nothing = ""
+  const navigate = useNavigate()
+  const [accountId, setAccountId] = useState ("")
+  const [accounts, setAccounts] = useState([])
+  const [accountData, setAccountData] = useState({
+    acId: 0,
+    currency: '',
+    balance: 0,
+  });
 
+  useEffect(() => {
+    const loadAccount = async () => {
+      const data = await getAccounts();
+      setAccounts(data);
+    };
+    loadAccount();
+  }, [])
 
+  const handleChangeAccounts = (event) => {
+    const { value } = event.target;
+    setAccountId(value)
+    console.log(value)
+  }
 
-export default function AccountDepositsPage(){
-   
-    const accountId = "66d53bfe24f856a49697a882"
-    const [deposit, setDeposit] = useState({
-        acId: "",
-        currency: "",
-        balance: 0
-    })
-    
-    // const { accountId } = useParams()
-    
-    useEffect(() => {
-        const handleDeposit = async() => {
-            const url = `${BACKEND_URL}/api/deposit/${accountId}`;
-            try {
-                const response = await fetch(url);
-                if(!response.ok) {
-                    throw new Error(`Response status: ${response.status}`);
-                }
-                const json = await response.json();
-                setDeposit(json);
-            } catch(error) {
-                console.error(error.message)
-            }
-        }
-        handleDeposit()
-    }, [accountId])
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setAccountData({ ...accountData, [name]: value })
+  };
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setDeposit({...deposit, [name]: value})
+  const handleDeposit = async (event) => {
+    console.log(accountData.balance)
+    event.preventDefault();
+    try {
+      const balance = parseFloat(accountData.balance)
+      const newUserResponse = await authService.depositAccount({...accountData, balance}, accountId);
+      console.log(newUserResponse);
+      navigate('/account/main');
+    } catch (err) {
+      console.error(err.message);
     }
-
-    const handleUpdate = async(event) => {
-        event.preventDefault()
-
-        
-        const url = `${BACKEND_URL}api/deposit/${accountId}`;
-        try {
-            const response = await fetch(url, {
-                method: "PUT",
-                body: JSON.stringify(deposit),
-                headers: {
-                    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsb3kiLCJfaWQiOiI2NmQ1MmI2MTRjNDc0MDFmYTE5MDUxZmQiLCJpYXQiOjE3MjUyNTAxMzYsImV4cCI6MTc2MTI1MDEzNn0.GipbrzR4Hy0z_awjvRlrDfRK0YdAntqFln038rvTsKA",
-                    "Content-Type": "application/json"
-                }
-            });
-            if(!response.ok) {
-                throw new Error(`Response status: ${response.status}`);
-            }
-            const json = await response.json();
-            setDeposit(json);
-        } catch(error) {
-                console.error(error.message)
-        }
-    }
+  };
   
     
     return(
@@ -80,6 +64,17 @@ export default function AccountDepositsPage(){
          elevation={10}
          sx = {{padding: 6}}
          >
+            <Box sx={{marginBottom: 1}}>
+              <FormControl>
+              <InputLabel>Account</InputLabel>
+              <Select
+              value= {nothing}
+              onChange={handleChangeAccounts}
+              >
+                {accounts.map((account) => (<MenuItem key={account._id} value = {account._id}>{account._id}</MenuItem>))}
+              </Select>
+              </FormControl>
+            </Box>
             <Box sx={{ marginBottom: 1 }}>
              <TextField
               id="acId"
@@ -88,7 +83,7 @@ export default function AccountDepositsPage(){
               margin="dense"
               variant="outlined"
               name="acId"
-              value={deposit.acId}
+              value={accountData.acId}
               onChange={handleChange}
               required
              />
@@ -101,7 +96,7 @@ export default function AccountDepositsPage(){
                margin="dense"
                variant="outlined"
                name="currency"
-               value={deposit.currency}
+               value={accountData.currency}
                onChange={handleChange}
                required
              />
@@ -114,7 +109,7 @@ export default function AccountDepositsPage(){
                margin="dense"
                variant="outlined"            
                name="balance"
-               value={deposit.balance}
+               value={accountData.balance}
                onChange={handleChange}
                required
              />
@@ -125,7 +120,7 @@ export default function AccountDepositsPage(){
              color="primary"
              type="submit"
              sx={{ mt: 2 }}
-             onClick={handleUpdate}
+             onClick={handleDeposit}
            >
              Deposit
            </Button>

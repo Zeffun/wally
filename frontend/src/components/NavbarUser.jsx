@@ -1,27 +1,29 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import AdbIcon from '@mui/icons-material/Adb';
 
-const pages = ["dashboard", "transactions", "transfer", "deposit"];
-const settings = ["Profile", "Help"];
 
-export default function NavbarUser({ handleSignout }) {
+const pages = ['dashboard', 'transactions', 'transfer', 'deposit', 'create Account'];
+const settings = ['Profile', 'Help'];
+
+export default function NavbarUser({handleSignout}) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
-  const navigate = useNavigate();
+ 
+  const navigate = useNavigate()
 
   const handleChange = (event, newValue) => {
     if (newValue === "dashboard") {
@@ -31,9 +33,11 @@ export default function NavbarUser({ handleSignout }) {
     } else if (newValue === "transfer") {
       navigate("/account/transfer");
     } else if (newValue === "deposit") {
-      navigate("/account/deposit");
+      navigate(`/account/deposit/`)
+    } else if (newValue === "create Account") {
+      navigate ("/account/createAccount")
     }
-  };
+  }
 
   const handleProfileChange = (event, newValue) => {
     if (newValue === "Profile") {
