@@ -25,7 +25,8 @@ export default function CreateAccountPage(){
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const newAccountResponse = await authService.createAccount(accountData);
+      const balance = parseFloat(accountData.balance)
+      const newAccountResponse = await authService.createAccount({...accountData, balance});
       console.log(newAccountResponse);
       navigate('/account/main');
     } catch (err) {

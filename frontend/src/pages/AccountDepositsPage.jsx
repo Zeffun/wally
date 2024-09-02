@@ -40,7 +40,6 @@ export default function AccountDepositsPage() {
   };
 
   const handleDeposit = async (event) => {
-    console.log(accountData.balance)
     event.preventDefault();
     try {
       const balance = parseFloat(accountData.balance)
@@ -65,17 +64,17 @@ export default function AccountDepositsPage() {
          sx = {{padding: 6}}
          >
             <Box sx={{marginBottom: 1}}>
-              <FormControl>
+              <FormControl sx={{width: "300px"}}>
               <InputLabel>Account</InputLabel>
               <Select
-              value= {nothing}
+              value= {accountId}
               onChange={handleChangeAccounts}
               >
                 {accounts.map((account) => (<MenuItem key={account._id} value = {account._id}>{account._id}</MenuItem>))}
               </Select>
               </FormControl>
             </Box>
-            <Box sx={{ marginBottom: 1 }}>
+            {/* <Box sx={{ marginBottom: 1 }}>
              <TextField
               id="acId"
               label="acId"
@@ -87,7 +86,7 @@ export default function AccountDepositsPage() {
               onChange={handleChange}
               required
              />
-           </Box>
+           </Box> */}
            <Box sx={{ marginBottom: 1 }}>
              <TextField
                id="currency"
