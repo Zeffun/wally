@@ -29,7 +29,7 @@ export default function SignInPage(props){
       const user = await authService.signin(formData);
       console.log(user);
       props.setUser(user);
-      navigate('/');
+      navigate('/account/main');
     } catch (err) {
       updateMessage(err.message);
     }
