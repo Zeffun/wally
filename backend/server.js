@@ -24,7 +24,6 @@ app.use(express.json());
 app.use("/api/user", userRouter);
 app.use("/api/account", accountRouter);
 app.use("/api/transaction", transactionRouter);
-console.log("Transaction routes initialized");
 app.use("/api/deposit", depositRouter),
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
