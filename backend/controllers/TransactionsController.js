@@ -2,33 +2,26 @@ const express = require("express");
 const router = express.Router();
 const Transaction = require("../models/Transaction");
 const debug = require("debug")("wally:transaction:TransactionsController");
-// const verifyToken = require("../middleware/verify-token");
+const verifyToken = require("../middleware/verify-token");
 
 //protected routes
 
-// router.use(verifyToken);
+router.use(verifyToken);
 
-// const mockAccount1 = {
-//   _id: 12345667,
-//   acId: 123456789101,
-// };
-// const mockAccount2 = {
-//   acId: 123456789102,
-// };
-
-// router.use(verifyToken);
+router.get("/", async (req, res) => {
+  await res.status(201).send("Route is working");
+});
 
 router.post("/new", async (req, res) => {
-  // res.status(201).send("Route is working");
+  // await res.status(201).send("Route is working");
   debug(`body: %o`, req.body);
   try {
-    req.body.userid = mockAccount1._id; // Corrected the variable name
-    const transaction = await Transaction.create(req.body);
-    transaction._doc.userid = mockAccount1._id; // Assuming currentUser is meant to be mockAccount1
-    res.status(201).json(transaction);
+    req.body.userid = req.user._id;
+    const newTransaction = await Transaction.create(req.body);
+    res.status(201).json(newTransaction);
   } catch (error) {
-    console.error("Error during transaction creation:", error); // More detailed logging
-    res.status(500).json({ error: error.message }); // Provide error message in response
+    console.error("Error during transaction creation:", error);
+    res.status(500).json({ error: error.message });
   }
 });
 
