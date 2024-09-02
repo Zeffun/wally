@@ -9,17 +9,14 @@ export default function AccountMainPage(){
     const loadAccount = async () => {
       const data = await getAccounts();
       setAccounts(data);
-      console.log(data)
-
     };
     loadAccount();
   }, [])
 
   
-  
   return(<>
   
-  <h1>MainPage</h1>
+  <h1>{accounts.map((account) => (account.balance))}</h1>
   
   
   </>)

@@ -1,20 +1,38 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Paper, Button } from '@mui/material';
+import { Paper, Button, Select, FormControl, MenuItem, InputLabel } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import * as authService from '../services/authService';
+import { getAccounts } from '../services/authService';
 
 
 
-export default function AccountDepositsPage({accountId}) {
+export default function AccountDepositsPage() {
+  
+  const nothing = ""
   const navigate = useNavigate()
+  const [accountId, setAccountId] = useState ("")
+  const [accounts, setAccounts] = useState([])
   const [accountData, setAccountData] = useState({
     acId: 0,
     currency: '',
     balance: 0,
   });
 
+  useEffect(() => {
+    const loadAccount = async () => {
+      const data = await getAccounts();
+      setAccounts(data);
+    };
+    loadAccount();
+  }, [])
+
+  const handleChangeAccounts = (event) => {
+    const { value } = event.target;
+    setAccountId(value)
+    console.log(value)
+  }
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -22,7 +40,7 @@ export default function AccountDepositsPage({accountId}) {
   };
 
   const handleDeposit = async (event) => {
-    console.log(accountId)
+    console.log(accountData.balance)
     event.preventDefault();
     try {
       const newUserResponse = await authService.depositAccount(accountData, accountId);
@@ -45,6 +63,17 @@ export default function AccountDepositsPage({accountId}) {
          elevation={10}
          sx = {{padding: 6}}
          >
+            <Box sx={{marginBottom: 1}}>
+              <FormControl>
+              <InputLabel>Account</InputLabel>
+              <Select
+              value= {nothing}
+              onChange={handleChangeAccounts}
+              >
+                {accounts.map((account) => (<MenuItem key={account._id} value = {account._id}>{account._id}</MenuItem>))}
+              </Select>
+              </FormControl>
+            </Box>
             <Box sx={{ marginBottom: 1 }}>
              <TextField
               id="acId"
