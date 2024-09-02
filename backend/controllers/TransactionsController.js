@@ -10,12 +10,7 @@ const verifyToken = require("../middleware/verify-token");
 
 router.use(verifyToken);
 
-// Test route
-router.get("/", async (req, res) => {
-  await res.status(201).send("Route is working");
-});
-
-// Creating a new transaction
+//creating a new transaction with receiver validation
 router.post("/new", async (req, res) => {
   debug(`body: %o`, req.body);
   try {
@@ -23,23 +18,25 @@ router.post("/new", async (req, res) => {
 
     // Find the sender's account
     const senderAccount = await Account.findById(senderAcc);
-    debug(senderAccount);
-    if (!senderAccount || senderAccount.balance < amount) {
-      return res
-        .status(400)
-        .json({ error: "Insufficient funds or account not found" });
-    }
 
+    if (!senderAccount || senderAccount.balance < amount) {
+      return res.status(400).json({ error: "Sender account not found" });
+    }
+    // Find the receiver's account
+    const receiverAccount = await Account.findById(receiverAcc);
+    if (!receiverAccount) {
+      return res.status(400).json({ error: "Receiver account not found" });
+    }
+    if (senderAccount.balance < amount) {
+      return res.status(400).json({ error: "Insufficient funds" });
+    }
     // Deduct the amount from the sender's account
     senderAccount.balance -= amount;
     await senderAccount.save();
 
-    // Optionally find the receiver's account and credit the amount
-    const receiverAccount = await Account.findById(receiverAcc);
-    if (receiverAccount) {
-      receiverAccount.balance += amount;
-      await receiverAccount.save();
-    }
+    // Credit the amount to the receiver's account
+    receiverAccount.balance += amount;
+    await receiverAccount.save();
 
     // Create the transaction
     const transaction = new Transaction(req.body);
