@@ -4,16 +4,16 @@ const currencyEnums = ["SGD"];
 
 const transactionSchema = new mongoose.Schema(
   {
-    senderAcc: { 
-      type: mongoose.Schema.Types.ObjectId, 
-      ref: "Account", 
-      required: true 
-    },     
-    receiverAcc: { 
-      type: mongoose.Schema.Types.ObjectId, 
-      ref: "Account", 
-      required: true 
-    },  
+    senderAcc: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Account",
+      required: true,
+    },
+    receiverAcc: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Account",
+      required: true,
+    },
     currency: {
       type: String,
       required: true,
@@ -25,7 +25,7 @@ const transactionSchema = new mongoose.Schema(
     },
     purpose: {
       type: String,
-    }
+    },
   },
   { timestamps: true }
 );
