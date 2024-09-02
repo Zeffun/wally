@@ -15,12 +15,13 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
 
-const pages = ['dashboard', 'transactions', 'transfer', 'deposit'];
+const pages = ['dashboard', 'transactions', 'transfer', 'deposit', 'create Account'];
 const settings = ['Profile', 'Help'];
 
-export default function NavbarUser({handleSignout}) {
+export default function NavbarUser({handleSignout, accountId}) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+
  
   const navigate = useNavigate()
 
@@ -32,8 +33,10 @@ export default function NavbarUser({handleSignout}) {
     } else if (newValue === "transfer") {
       navigate("/account/payment")
     } else if (newValue === "deposit") {
-      navigate("/account/deposit")
-    } 
+      navigate(`/account/deposit/`)
+    } else if (newValue === "create Account") {
+      navigate ("/account/createAccount")
+    }
   }
 
   const handleProfileChange = (event, newValue) => {

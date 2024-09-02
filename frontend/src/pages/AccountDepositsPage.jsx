@@ -4,69 +4,34 @@ import { Paper, Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import * as authService from '../services/authService';
-const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
 
 
+export default function AccountDepositsPage({accountId}) {
+  const navigate = useNavigate()
+  const [accountData, setAccountData] = useState({
+    acId: 0,
+    currency: '',
+    balance: 0,
+  });
 
 
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setAccountData({ ...accountData, [name]: value })
+  };
 
-export default function AccountDepositsPage(){
-   
-    const accountId = "66d53bfe24f856a49697a882"
-    const [deposit, setDeposit] = useState({
-        acId: "",
-        currency: "",
-        balance: 0
-    })
-    
-    // const { accountId } = useParams()
-    
-    useEffect(() => {
-        const handleDeposit = async() => {
-            const url = `${BACKEND_URL}/api/deposit/${accountId}`;
-            try {
-                const response = await fetch(url);
-                if(!response.ok) {
-                    throw new Error(`Response status: ${response.status}`);
-                }
-                const json = await response.json();
-                setDeposit(json);
-            } catch(error) {
-                console.error(error.message)
-            }
-        }
-        handleDeposit()
-    }, [accountId])
-
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setDeposit({...deposit, [name]: value})
+  const handleDeposit = async (event) => {
+    console.log(accountId)
+    event.preventDefault();
+    try {
+      const newUserResponse = await authService.depositAccount(accountData, accountId);
+      console.log(newUserResponse);
+      navigate('/account/main');
+    } catch (err) {
+      console.error(err.message);
     }
-
-    const handleUpdate = async(event) => {
-        event.preventDefault()
-
-        
-        const url = `${BACKEND_URL}api/deposit/${accountId}`;
-        try {
-            const response = await fetch(url, {
-                method: "PUT",
-                body: JSON.stringify(deposit),
-                headers: {
-                    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsb3kiLCJfaWQiOiI2NmQ1MmI2MTRjNDc0MDFmYTE5MDUxZmQiLCJpYXQiOjE3MjUyNTAxMzYsImV4cCI6MTc2MTI1MDEzNn0.GipbrzR4Hy0z_awjvRlrDfRK0YdAntqFln038rvTsKA",
-                    "Content-Type": "application/json"
-                }
-            });
-            if(!response.ok) {
-                throw new Error(`Response status: ${response.status}`);
-            }
-            const json = await response.json();
-            setDeposit(json);
-        } catch(error) {
-                console.error(error.message)
-        }
-    }
+  };
   
     
     return(
@@ -88,7 +53,7 @@ export default function AccountDepositsPage(){
               margin="dense"
               variant="outlined"
               name="acId"
-              value={deposit.acId}
+              value={accountData.acId}
               onChange={handleChange}
               required
              />
@@ -101,7 +66,7 @@ export default function AccountDepositsPage(){
                margin="dense"
                variant="outlined"
                name="currency"
-               value={deposit.currency}
+               value={accountData.currency}
                onChange={handleChange}
                required
              />
@@ -114,7 +79,7 @@ export default function AccountDepositsPage(){
                margin="dense"
                variant="outlined"            
                name="balance"
-               value={deposit.balance}
+               value={accountData.balance}
                onChange={handleChange}
                required
              />
@@ -125,7 +90,7 @@ export default function AccountDepositsPage(){
              color="primary"
              type="submit"
              sx={{ mt: 2 }}
-             onClick={handleUpdate}
+             onClick={handleDeposit}
            >
              Deposit
            </Button>

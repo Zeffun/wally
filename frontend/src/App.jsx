@@ -9,6 +9,8 @@ import SignUpPage from "./pages/SignUpPage";
 import AboutPage from "./pages/AboutPage";
 import FaqPage from "./pages/FaqPage";
 
+import CreateAccountPage from "./pages/CreateAccountPage";
+
 import AccountMainPage from "./pages/AccountMainPage";
 import AccountDepositsPage from "./pages/AccountDepositsPage";
 import AccountHelpPage from "./pages/AccountHelpPage";
@@ -22,6 +24,7 @@ export const AuthedUserContext = createContext(null);
 
 function App() {
   const [user, setUser] = useState(authService.getUser());
+  const [accountId, setAccountId] = useState("")
   const location = useLocation()
   const navigate = useNavigate()
   const showNavBar = !location.pathname.startsWith('/account');
@@ -39,7 +42,7 @@ function App() {
       <AuthedUserContext.Provider value={user}>
 
         {showNavBar && <Navbar user={user} handleSignout={handleSignout}/>}
-        {showNavBarUser && <NavbarUser user={user} handleSignout={handleSignout}/>}
+        {showNavBarUser && <NavbarUser user={user} handleSignout={handleSignout} accountId = {accountId}/>}
 
         <Routes>
           {user ? (
@@ -54,10 +57,12 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/facts" element={<FaqPage />} />
 
-          <Route path="/account/main" element={<AccountMainPage user={user}/>}/>
+          <Route path="/account/createAccount" element={<CreateAccountPage/>} />
+
+          <Route path="/account/main" element={<AccountMainPage setAccountId = {setAccountId} user={user}/>}/>
           <Route path="/account/transaction" element={<AccountTransactionsPage/>}/>
           <Route path="/account/payment" element={<AccountPaymentsPage/>}/>
-          <Route path="/account/deposit" element={<AccountDepositsPage/>}/>
+          <Route path="/account/deposit/" element={<AccountDepositsPage accountId = {accountId}/>}/>
           <Route path="/account/help" element={<AccountHelpPage/>}/>
           <Route path="/account/profile" element={<AccountProfilePage/>}/>
           
