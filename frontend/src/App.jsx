@@ -55,7 +55,7 @@ function App() {
           <Route path="/facts" element={<FaqPage />} />
 
           <Route path="/account/main" element={<AccountMainPage user={user}/>}/>
-          <Route path="/account/transaction" element={<AccountTransactionsPage/>}/>
+          <Route path="/account/transaction" element={<AccountTransactionsPage user={user}/>}/>
           <Route path="/account/payment" element={<AccountPaymentsPage/>}/>
           <Route path="/account/deposit" element={<AccountDepositsPage/>}/>
           <Route path="/account/help" element={<AccountHelpPage/>}/>
