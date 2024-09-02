@@ -7,11 +7,6 @@ const accountSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    dateCreated: {
-      //{timestamp}
-      type: String,
-      required: true,
-    },
     currency: {
       type: String,
       required: true,
@@ -20,7 +15,7 @@ const accountSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    userid: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }
 );
