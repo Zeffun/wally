@@ -17,6 +17,7 @@ import AccountHelpPage from "./pages/AccountHelpPage";
 import AccountTransfersPage from "./pages/AccountTransfersPage";
 import AccountProfilePage from "./pages/AccountProfilePage";
 import AccountTransactionsPage from "./pages/AccountTransactionsPage";
+import AccountWithdrawPage from "./pages/AccountWithdrawPage";
 
 import * as authService from "../src/services/authService";
 
@@ -59,18 +60,13 @@ function App() {
 
           <Route path="/account/createAccount" element={<CreateAccountPage/>} />
 
-          <Route
-            path="/account/main"
-            element={<AccountMainPage user={user} />}
-          />
-          <Route
-            path="/account/transaction"
-            element={<AccountTransactionsPage />}
-          />
+          <Route path="/account/main" element={<AccountMainPage user={user} />}/>
+          <Route path="/account/transaction"element={<AccountTransactionsPage />}/>
           <Route path="/account/transfer" element={<AccountTransfersPage />} />
           <Route path="/account/deposit" element={<AccountDepositsPage />} />
           <Route path="/account/help" element={<AccountHelpPage />} />
           <Route path="/account/profile" element={<AccountProfilePage />} />
+          <Route path="/account/withdraw" element={<AccountWithdrawPage/>} />
         </Routes>
       </AuthedUserContext.Provider>
     </>
