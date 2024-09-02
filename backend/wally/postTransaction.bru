@@ -5,9 +5,13 @@ meta {
 }
 
 post {
-  url: http://localhost:3000//api/transaction/new
+  url: http://localhost:3000/api/transaction/new
   body: json
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNNSCIsIl9pZCI6IjY2ZDUxYTk4MGIwMmU5NDZiZjUwM2UyYSIsImlhdCI6MTcyNTI0MjAwOCwiZXhwIjoxNzYxMjQyMDA4fQ.Yi_brquiSVXYh4-rMSVmuF4p2gW68t05MuKhLCb_FGE
 }
 
 body:json {

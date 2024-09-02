@@ -7,6 +7,7 @@ const transactionSchema = new mongoose.Schema(
     senderAcc: {
       //referencing
       type: Number,
+      // userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
       required: true,
     },
     receiverAcc: {
@@ -26,7 +27,7 @@ const transactionSchema = new mongoose.Schema(
     purpose: {
       type: String,
     },
-    accountId: { type: mongoose.Schema.Types.ObjectId, ref: "Account" },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }
 );

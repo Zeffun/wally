@@ -20,7 +20,7 @@ const accountSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    userid: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
+    userid: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }
 );

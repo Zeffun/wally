@@ -24,8 +24,11 @@ app.use(express.json());
 app.use("/api/user", userRouter);
 app.use("/api/account", accountRouter);
 app.use("/api/transaction", transactionRouter);
+// app.get("/api/transactions", async (req, res) => {
+//   await res.status(201).send("route is working");
+// });
+console.log("Transaction routes initialized");
 app.use("/api/deposit", depositRouter),
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
   });
-  

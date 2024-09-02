@@ -1,0 +1,21 @@
+meta {
+  name: getTransaction
+  type: http
+  seq: 10
+}
+
+get {
+  url: http://localhost:3000//api/transaction/
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "senderAcc": 12345,
+    "receiverAcc": 908768,
+    "currency": "SGD",
+    "amount": 1000,
+    "purpose": "test"
+  }
+}
