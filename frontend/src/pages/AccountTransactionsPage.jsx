@@ -1,20 +1,29 @@
 import { AuthedUserContext } from "../App";
-import { useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import * as transactionService from "../services/transactionService";
+import { getUser } from "../services/authService";
 
 export default function AccountTransactionsPage() {
 
     const user = useContext(AuthedUserContext);
 
-    const handleClick = async (userId) => {
-        const transactions = await transactionService.getTransactionHistory(userId);
-        console.log(transactions);
-    };
+    // const getUserTransactionHistory = async () => {
+    //     const userTransactions = await transactionService.getTransactionHistory();
+    //     return userTransactions;
+    // };
+
+    // const transactions = getUserTransactionHistory();
+
+    
+
+    // console.log(transactions);
+
+    
 
     return (
         <>
             <h1>Transactions</h1>
-            <button onClick={() => handleClick(user._id)}></button>
+            
         </>
-    )
+    ) 
 };
