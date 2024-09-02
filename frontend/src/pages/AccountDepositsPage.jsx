@@ -4,7 +4,7 @@ import { Paper, Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import * as authService from '../services/authService';
-
+const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
 
 
@@ -13,10 +13,9 @@ import * as authService from '../services/authService';
 
 export default function AccountDepositsPage(){
    
-    const accountId = "66d459c4c259e9b5fa605728"
+    const accountId = "66d53bfe24f856a49697a882"
     const [deposit, setDeposit] = useState({
         acId: "",
-        dateCreated: "",
         currency: "",
         balance: 0
     })
@@ -25,7 +24,7 @@ export default function AccountDepositsPage(){
     
     useEffect(() => {
         const handleDeposit = async() => {
-            const url = `api/deposit/${accountId}`;
+            const url = `${BACKEND_URL}/api/deposit/${accountId}`;
             try {
                 const response = await fetch(url);
                 if(!response.ok) {
@@ -49,13 +48,13 @@ export default function AccountDepositsPage(){
         event.preventDefault()
 
         
-        const url = `api/deposit/${accountId}`;
+        const url = `${BACKEND_URL}api/deposit/${accountId}`;
         try {
             const response = await fetch(url, {
                 method: "PUT",
                 body: JSON.stringify(deposit),
                 headers: {
-                    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsb3kiLCJfaWQiOiI2NmQ0NTkwM2MyNTllOWI1ZmE2MDU3MjIiLCJpYXQiOjE3MjUxOTI5MDcsImV4cCI6MTc2MTE5MjkwN30.hV7fU5FOLPBDUL-GUXO8pupne7sjfI6ayx-6NH6A6e8",
+                    Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsb3kiLCJfaWQiOiI2NmQ1MmI2MTRjNDc0MDFmYTE5MDUxZmQiLCJpYXQiOjE3MjUyNTAxMzYsImV4cCI6MTc2MTI1MDEzNn0.GipbrzR4Hy0z_awjvRlrDfRK0YdAntqFln038rvTsKA",
                     "Content-Type": "application/json"
                 }
             });
@@ -90,19 +89,6 @@ export default function AccountDepositsPage(){
               variant="outlined"
               name="acId"
               value={deposit.acId}
-              onChange={handleChange}
-              required
-             />
-           </Box>
-           <Box sx={{ marginBottom: 1 }}>
-             <TextField
-              id="dateCreated"
-              label="dateCreated"
-              fullWidth
-              margin="dense"
-              variant="outlined"  
-              name="dateCreated"
-              value={deposit.dateCreated}
               onChange={handleChange}
               required
              />

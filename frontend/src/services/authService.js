@@ -47,8 +47,28 @@ const signin = async (user) => {
   }
 };
 
+const createAccount = async (accountData) => {
+  try {
+    const res = await fetch(`${BACKEND_URL}/api/account/create`, {
+      method: 'POST',
+      headers: { 
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        'Content-Type': 'application/json', 
+       },
+      body: JSON.stringify(accountData),
+    });
+    const json = await res.json();
+    if (json.error) {
+      throw new Error(json.error);
+    }
+    return json; 
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 const signout = () => {
   localStorage.removeItem('token');
 };
 
-export { signup, signin, getUser, signout };
+export { signup, signin, getUser, signout, createAccount };
