@@ -13,6 +13,7 @@ router.use(verifyToken);
 //creating a new transaction with receiver validation
 router.post("/new", async (req, res) => {
   debug(`body: %o`, req.body);
+  const amountRegex = /^\d*\.?\d{0,2}$/;
   try {
     const { senderAcc, receiverAcc, amount } = req.body;
 
@@ -26,6 +27,10 @@ router.post("/new", async (req, res) => {
     const receiverAccount = await Account.findById(receiverAcc);
     if (!receiverAccount) {
       return res.status(400).json({ error: "Receiver account not found" });
+    }
+
+    if (!amountRegex.test(amount)) {
+      return res.status(400).json({ error: "Invalid amount" });
     }
     // Check if sender's account has enough balance
     if (senderAccount.balance < amount) {
@@ -48,14 +53,14 @@ router.post("/new", async (req, res) => {
     console.error("Transaction error:", error);
     res.status(500).json({ error: error.message });
   }
-}); //Find way to save the payee so that user doesn't have to remember the account id for each subsequent transaction 
+}); //Find way to save the payee so that user doesn't have to remember the account id for each subsequent transaction
 
 // Viewing transaction history
 router.get("/history", async (req, res) => {
   // try {
   //   currentUserId = req.user._id;
   //   const allTransactions = await Transaction.find({}).populate("senderAcc").populate("receiverAcc");
-  //   const transactionHistory = allTransactions.filter(transaction => 
+  //   const transactionHistory = allTransactions.filter(transaction =>
   //     transaction.senderAcc?.userId == currentUserId || transaction.receiverAcc?.userId == currentUserId
   //   );
   //   res.status(200).json(transactionHistory); //allTransactions[0].senderAcc.userId
@@ -66,22 +71,21 @@ router.get("/history", async (req, res) => {
   userId = req.user._id;
   try {
     // Step 1: Find all account IDs associated with the given userId
-    const accountIds = await Account.find({ userId: userId })//.distinct('_id');
+    const accountIds = await Account.find({ userId: userId }); //.distinct('_id');
 
     // Step 2: Fetch all transactions where senderAcc or receiverAcc matches any of the account IDs
     const transactions = await Transaction.find({
       $or: [
         { senderAcc: { $in: accountIds } },
-        { receiverAcc: { $in: accountIds } }
-      ]
-    }).populate('senderAcc receiverAcc'); // Optional: Populate account details
+        { receiverAcc: { $in: accountIds } },
+      ],
+    }).populate("senderAcc receiverAcc"); // Optional: Populate account details
 
     res.json(transactions);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: "Internal server error" });
   }
-
 });
 
 // router.post("/new", async (req, res) => {
