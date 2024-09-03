@@ -4,11 +4,13 @@ import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import { newTransfer } from "../services/transfService";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 
 const accounts = [
   {
-    value: "66d57482ce2adcf76dfba383",
-    label: "66d57482ce2adcf76dfba383",
+    value: "66d5749fce2adcf76dfba388",
+    label: "66d5749fce2adcf76dfba388",
   },
   {
     value: "123",
@@ -42,11 +44,11 @@ export default function AccountTransfersPage() {
     event.preventDefault();
     try {
       const amount = parseFloat(transferData.amount);
-      const newTransferResponse = await authService.createAccount({
-        ...accountData,
-        balance,
+      const newTransferResponse = await newTransfer({
+        ...transferData,
+        amount,
       });
-      console.log(newAccountResponse);
+      console.log(newTransferResponse);
       navigate("/account/main");
     } catch (err) {
       console.error(err.message);
@@ -138,6 +140,19 @@ export default function AccountTransfersPage() {
           name="amount"
           onChange={handleChange}
         />
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end", // Align button to the right
+          width: "100%", // Full width
+          maxWidth: "400px", // Limit the width of the main container
+          mt: 3, // Add some spacing above the button
+        }}
+      >
+        <Button variant="contained" onClick={handleSubmit}>
+          Send now
+        </Button>
       </Box>
     </Box>
   );
