@@ -21,9 +21,9 @@ export default function AccountWithdrawPage() {
     balance: 0,
   });
   const [withdrawTransaction, setWithdrawTransaction] = useState({
-    receiverAcc: "",
+    account: "",
     currency: "SGD",
-    amount: -0,
+    amount: 0,
     purpose: "WITHDRAWAL",
   })
 
@@ -93,7 +93,7 @@ export default function AccountWithdrawPage() {
               
               <TextField
               select
-              name='receiverAcc'
+              name='account'
               label = "Account"
               value= {accountId}
               onChange={handleChangeAccounts}

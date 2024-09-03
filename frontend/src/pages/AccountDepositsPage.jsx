@@ -20,7 +20,7 @@ export default function AccountDepositsPage() {
     balance: 0,
   });
   const [depositTransaction, setDepositTransaction] = useState({
-    receiverAcc: "",
+    account: "",
     currency: "SGD",
     amount: 0,
     purpose: "DEPOSIT",
@@ -84,7 +84,7 @@ export default function AccountDepositsPage() {
               
               <TextField
               select
-              name='receiverAcc'
+              name='account'
               label = "Account"
               value= {accountId}
               onChange={handleChangeAccounts}

@@ -63,12 +63,34 @@ router.put("/deposit/:accountId", async (req, res) => {
 })
 
 router.post("/transactions/:accountId", async (req, res) => {
-    try {  
-      const user = await Update.create(req.body);
-      res.status(201).json(user);
+    try {
+      req.body.userId = req.user._id;  
+      const transactions = await Update.create(req.body);
+      res.status(201).json(transactions);
     } catch (error) {
       res.status(500).json(error)
     }
+  });
+
+  router.get("/transactions", async (req, res) => {
+    user = req.user._id;
+    try {
+      // Step 1: Find all account IDs associated with the given userId
+      const accountIds = await Account.find({ userId: user })//.distinct('_id');
+  
+      // Step 2: Fetch all transactions where senderAcc or receiverAcc matches any of the account IDs
+      const updates = await Update.find({
+        $or: [
+          { account: { $in: accountIds } },
+        ]
+      }).populate('account'); // Optional: Populate account details
+  
+      res.json(updates);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  
   });
 
 module.exports = router;

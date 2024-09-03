@@ -4,7 +4,7 @@ const currencyEnums = ["SGD"];
 
 const updateSchema = new mongoose.Schema(
   {
-    receiverAcc: {
+    account: {
       type: String,
       ref: "Account",
       required: true,
