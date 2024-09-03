@@ -22,13 +22,13 @@ export default function AccountTransactionsPage() {
         const loadUpdates = async () => {
           const data = await transactionService.getUpdatesHistory();
           setUpdates(data);
-          console.log(data[0].amount)
+          console.log(data[0])
         };
         loadUpdates();
         
       }, [])
 
-    // const ifNegative = (amount) => {return -amount ? }
+    // const ifNegative = (amount) => {return -amount ? (withdrawn)}
 
     return (
         <>
@@ -40,12 +40,12 @@ export default function AccountTransactionsPage() {
                         ${transaction.amount} sent from Account {transaction.senderAcc.acId} (User: {transaction.senderAcc.userId}) to Account {transaction.receiverAcc.acId} (User: {transaction.receiverAcc.userId}) for {transaction.purpose}
                     </li>
                 ))}
-                 {/* {updates.map((update, index) => (
+                 {updates.map((update, index) => (
                     <li key={index}>
                         <br></br>
-                        ${update.amount} sent from Account {transaction.senderAcc.acId} (User: {transaction.senderAcc.userId}) to Account {transaction.receiverAcc.acId} (User: {transaction.receiverAcc.userId}) for {transaction.purpose}
+                        ${update.amount}
                     </li>
-                ))} */}
+                ))}
             </ul>
         </>
     ) 

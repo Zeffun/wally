@@ -72,19 +72,10 @@ router.post("/transactions/:accountId", async (req, res) => {
     }
   });
 
-  router.get("/transactions", async (req, res) => {
-    user = req.user._id;
+  router.get("/transactions/", async (req, res) => {
     try {
-      // Step 1: Find all account IDs associated with the given userId
-      const accountIds = await Account.find({ userId: user })//.distinct('_id');
-  
-      // Step 2: Fetch all transactions where senderAcc or receiverAcc matches any of the account IDs
-      const updates = await Update.find({
-        $or: [
-          { account: { $in: accountIds } },
-        ]
-      }).populate('account'); // Optional: Populate account details
-  
+      
+      const updates = await Update.find({userId: req.user._id})
       res.json(updates);
     } catch (error) {
       console.error(error);
