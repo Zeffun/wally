@@ -76,13 +76,15 @@ export default function AccountWithdrawPage() {
             <Typography>{errorMsg}</Typography>
             <Box sx={{marginBottom: 1}}>
               <FormControl sx={{width: "300px", marginBottom: 1}}>
-              <InputLabel>Account</InputLabel>
-              <Select
+              
+              <TextField
+              select
+              label = "Account"
               value= {accountId}
               onChange={handleChangeAccounts}
               >
                 {accounts.map((account) => (<MenuItem key={account._id} value = {account._id}>{account._id}</MenuItem>))}
-              </Select>
+              </TextField>
               </FormControl>
             </Box>
             {/* <Box sx={{ marginBottom: 1 }}>
@@ -110,9 +112,10 @@ export default function AccountWithdrawPage() {
                onChange={handleChange}
                required
              /> */}
-             <FormControl sx={{width: "300px", mb: 1}}>
-              <InputLabel>Currency</InputLabel>
-              <Select
+             <FormControl sx={{width: "300px", mb: 1}}>            
+              <TextField
+              label ="currency"
+              select
               id="currency"
               name="currency"
               value={accountData.currency}
@@ -120,7 +123,7 @@ export default function AccountWithdrawPage() {
               required
               >
                 <MenuItem value = "SGD" >SGD</MenuItem>
-              </Select>
+              </TextField>
               </FormControl>
            </Box>
            
