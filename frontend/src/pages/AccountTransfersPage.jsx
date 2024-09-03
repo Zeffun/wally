@@ -2,6 +2,7 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
+import { useNavigate } from "react-router-dom";
 
 const accounts = [
   {
@@ -21,6 +22,32 @@ const currencies = [
   },
 ];
 export default function AccountTransfersPage() {
+  const navigate = useNavigate();
+  const [accountData, setAccountData] = useState({
+    acId: 0,
+    currency: "",
+    balance: 0,
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setAccountData({ ...accountData, [name]: value });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const balance = parseFloat(accountData.balance);
+      const newAccountResponse = await authService.createAccount({
+        ...accountData,
+        balance,
+      });
+      console.log(newAccountResponse);
+      navigate("/account/main");
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
   const [acnum, setAcnum] = useState("Receipient Account");
   return (
     <Box
