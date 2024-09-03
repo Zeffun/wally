@@ -1,15 +1,18 @@
 import { getAccounts } from "../services/authService"
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button'
+import AddIcon from '@mui/icons-material/Add';
 import * as React from 'react';
 
 export default function AccountMainPage(){
-
+  const navigate = useNavigate()
   const [accounts, setAccounts] = useState([])
+  const [disabled, setDisabled] = useState(false)
 
   useEffect(() => {
     const loadAccount = async () => {
@@ -17,7 +20,15 @@ export default function AccountMainPage(){
       setAccounts(data);
     };
     loadAccount();
-  }, [])
+    if (accounts.length >= 3){
+      setDisabled(true)
+    }
+  }, [accounts])
+
+  const handleClick = (event) => {
+    event.preventDefault()
+    navigate ("/account/createAccount")
+  }
 
   
   return(<>
@@ -27,11 +38,11 @@ export default function AccountMainPage(){
   component="section"
   sx={{
     p: 2,
-    display: { xs: "flex", md: "flex" },
+    display: { xs: "block", md: "flex" },
     width: '80%',
-    height: '20vh', 
+    height: { xs: "auto", md: "20vh" }, 
     margin: '0 auto', 
-    justifyContent: { xs: 'space-around', md: 'space-around'},
+    justifyContent: { xs: 'center', md: 'space-around'},
     alignItems: 'center',
     flexWrap: 'wrap',
     boxShadow: 3, 
@@ -42,9 +53,9 @@ export default function AccountMainPage(){
     <Card
       key={index}
       sx={{
-        width: {xs: '50px', md: '200px'}, 
-        height: {xs: '50px', md: '100px'}, 
-        display: 'flex',
+        width: {xs: '100%', md: '200px'}, 
+        height: {xs: '100%', md: '100px'}, 
+        display: {xs: 'block', md: 'flex'},
         alignItems: 'center',
         justifyContent: 'center',
         mb: { xs: 2, md: 0},
@@ -69,8 +80,8 @@ export default function AccountMainPage(){
       sx={{
         p: 2,
         display: { xs: "flex", md: "flex" },
-        width: '80%',
-        height: '20vh',
+        width: '15%',
+        height: '100%',
         margin: '0 auto',
         justifyContent: { xs: 'space-around', md: 'space-around' },
         alignItems: 'center',
@@ -78,8 +89,15 @@ export default function AccountMainPage(){
         boxShadow: 3,
         marginTop: "20px"
       }}>
-<Button variant="outlined" ></Button>
-</Box>
+      <Button
+        disabled={disabled}
+        variant="outlined"
+        startIcon={<AddIcon />}
+        onClick={handleClick}
+      >
+        Create Account
+      </Button>
+    </Box>
 
  
   
