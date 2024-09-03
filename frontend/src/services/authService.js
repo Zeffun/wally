@@ -61,14 +61,79 @@ const createAccount = async (accountData) => {
     if (json.error) {
       throw new Error(json.error);
     }
-    return json; 
+    const accountId = json.accountId
+    return accountId; 
   } catch (err) {
     throw new Error(err);
   }
 };
 
+const getAccounts = async () => {
+  try {
+    const res = await fetch(`${BACKEND_URL}/api/account/`, {
+      method: 'GET',
+      headers: { 
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        'Content-Type': 'application/json', 
+       },     
+    });
+    const json = await res.json();
+    if (json.error) {
+      throw new Error(json.error);
+    }
+    const accounts = json
+    return accounts; 
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+const depositAccount = async (depositData, accountId) => {
+  const url = `${BACKEND_URL}/api/deposit/${accountId}`;
+  try {
+    const response = await fetch(url, {
+      method: "PUT",
+      body: JSON.stringify(depositData),
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      }
+    });
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const json = await response.json();
+    return json;
+  } catch (err) {
+    throw new Error(err);
+  }
+
+}
+
+const withdrawAccount = async (withdrawData, accountId) => {
+  const url = `${BACKEND_URL}/api/withdraw/${accountId}`;
+  try {
+    const response = await fetch(url, {
+      method: "PUT",
+      body: JSON.stringify(withdrawData),
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      }
+    });
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const json = await response.json();
+    return json;
+  } catch (err) {
+    throw new Error(err);
+  }
+
+}
+
 const signout = () => {
   localStorage.removeItem('token');
 };
 
-export { signup, signin, getUser, signout, createAccount };
+export { signup, signin, getUser, signout, createAccount,  getAccounts, depositAccount, withdrawAccount };

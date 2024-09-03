@@ -3,18 +3,9 @@ const verifyToken = require("../middleware/verify-token");
 const Account = require("../models/Account");
 const router = express.Router()
 
+
 router.use(verifyToken);
 
-//make sure userToken verified, put request
-
-//getAccount for testing request
-router.get("/:accountId", async (req, res) => {
-    // const accounts = await Account.findById(req.params.accountId).populate("userid");
-    // res.json(accounts)
-    const accounts = await Account.findById("66d45975c259e9b5fa605725").populate("userid");
-    res.json(accounts)
-
-})
 
 router.put("/:accountId", async (req, res) => {
     
@@ -28,9 +19,11 @@ router.put("/:accountId", async (req, res) => {
         const { balance } = req.body 
         const wallyAccount = await Account.findById("66d57ede343436e6b44a06b1")
         //wally account Id where it can bypass verifyToken
-        
-        verifyAccount.balance += balance
-        wallyAccount.balance += balance
+        if (balance > verifyAccount.balance){
+            return res.json({ error: "Insufficent Balance" })
+        }
+        verifyAccount.balance -= balance
+        wallyAccount.balance -= balance
         
         await wallyAccount.save()
         const updateDepositToAccount = await verifyAccount.save()
@@ -45,4 +38,3 @@ router.put("/:accountId", async (req, res) => {
 
 
 module.exports = router
-

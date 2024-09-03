@@ -1,17 +1,18 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Paper, Button, Select, FormControl, MenuItem, InputLabel } from '@mui/material';
+import { Paper, Button, Select, FormControl, MenuItem, InputLabel, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import * as authService from '../services/authService';
 import { getAccounts } from '../services/authService';
 
 
 
-export default function AccountDepositsPage() {
+export default function AccountWithdrawPage() {
   
   
   const navigate = useNavigate()
+  const [errorMsg, setErrorMsg] = useState([""])
   const [accountId, setAccountId] = useState ("")
   const [accounts, setAccounts] = useState([])
   const [accountData, setAccountData] = useState({
@@ -19,6 +20,8 @@ export default function AccountDepositsPage() {
     currency: '',
     balance: 0,
   });
+
+  const errorMessage = (msg) => setErrorMsg(msg)
 
   useEffect(() => {
     const loadAccount = async () => {
@@ -39,15 +42,18 @@ export default function AccountDepositsPage() {
     setAccountData({ ...accountData, [name]: value })
   };
 
-  const handleDeposit = async (event) => {
+  const handleWithdraw = async (event) => {
     event.preventDefault();
     try {
       const balance = parseFloat(accountData.balance)
-      const newUserResponse = await authService.depositAccount({...accountData, balance}, accountId);
+      if (balance > accounts.balance){
+        errorMessage("Insufficient Balance!!")
+      }
+      const newUserResponse = await authService.withdrawAccount({...accountData, balance}, accountId);
       console.log(newUserResponse);
       navigate('/account/main');
     } catch (err) {
-      console.error(err.message);
+      errorMessage(err.message);
     }
   };
   
@@ -63,6 +69,7 @@ export default function AccountDepositsPage() {
          elevation={10}
          sx = {{padding: 6}}
          >
+            <Typography>{errorMsg}</Typography>
             <Box sx={{marginBottom: 1}}>
               <FormControl sx={{width: "300px"}}>
               <InputLabel>Account</InputLabel>
@@ -119,9 +126,9 @@ export default function AccountDepositsPage() {
              color="primary"
              type="submit"
              sx={{ mt: 2 }}
-             onClick={handleDeposit}
+             onClick={handleWithdraw}
            >
-             Deposit
+             Withdraw
            </Button>
          </Paper>
         </Box>
