@@ -8,7 +8,12 @@ const getTransactionHistory = async () => {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             }
         });
-        return res.json();
+        const json = await res.json();
+        if (json.error) {
+          throw new Error(json.error);
+        }
+        const transactions = json
+        return transactions; 
       } catch (error) {
         console.log(error);
       }

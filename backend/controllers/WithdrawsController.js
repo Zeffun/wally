@@ -17,7 +17,7 @@ router.put("/:accountId", async (req, res) => {
             return res.status(403).send("Cannot deposit in to thirdParty accounts")
         }
         const { balance } = req.body 
-        const wallyAccount = await Account.findById("66d57ede343436e6b44a06b1")
+        const wallyAccount = await Account.findById("66d53bce24f856a49697a87d")
         //wally account Id where it can bypass verifyToken
         if (balance > verifyAccount.balance){
             return res.json({ error: "Insufficent Balance" })

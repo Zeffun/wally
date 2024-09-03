@@ -1,29 +1,32 @@
-import { AuthedUserContext } from "../App";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import * as transactionService from "../services/transactionService";
-import { getUser } from "../services/authService";
 
 export default function AccountTransactionsPage() {
 
-    const user = useContext(AuthedUserContext);
+    const [transactions, setTransactions] = useState([])
 
-    // const getUserTransactionHistory = async () => {
-    //     const userTransactions = await transactionService.getTransactionHistory();
-    //     return userTransactions;
-    // };
-
-    // const transactions = getUserTransactionHistory();
-
-    
-
-    // console.log(transactions);
+    useEffect(() => {
+      const loadTransactions = async () => {
+        const data = await transactionService.getTransactionHistory();
+        setTransactions(data);
+      };
+      loadTransactions();
+      
+    }, [])
 
     
 
     return (
         <>
             <h1>Transactions</h1>
-            
+            <ul>
+                {transactions.map((transaction, index) => (
+                    <li key={index}>
+                        <br></br>
+                        ${transaction.amount} sent from Account {transaction.senderAcc.acId} (User: {transaction.senderAcc.userId}) to Account {transaction.receiverAcc.acId} (User: {transaction.receiverAcc.userId}) for {transaction.purpose}
+                    </li>
+                ))}
+            </ul>
         </>
     ) 
 };
