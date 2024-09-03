@@ -153,6 +153,7 @@ export default function AccountTransfersPage() {
         <Button variant="contained" onClick={handleSubmit}>
           Send now
         </Button>
+        <Button variant="contained" onClick={handleSubmit}></Button>
       </Box>
     </Box>
   );
