@@ -39,6 +39,11 @@ export default function AccountDepositsPage() {
     setAccountData({ ...accountData, [name]: value })
   };
 
+  const handleCurrency = (event) => {
+    const { name, value } = event.target;
+    setAccountData({...accountData, [name]: value})
+  }
+
   const handleDeposit = async (event) => {
     event.preventDefault();
     try {
@@ -64,7 +69,7 @@ export default function AccountDepositsPage() {
          sx = {{padding: 6}}
          >
             <Box sx={{marginBottom: 1}}>
-              <FormControl sx={{width: "300px"}}>
+              <FormControl sx={{width: "300px", mb: 1}}>
               <InputLabel>Account</InputLabel>
               <Select
               value= {accountId}
@@ -88,7 +93,7 @@ export default function AccountDepositsPage() {
              />
            </Box> */}
            <Box sx={{ marginBottom: 1 }}>
-             <TextField
+             {/* <TextField
                id="currency"
                label="currency"
                fullWidth
@@ -98,7 +103,19 @@ export default function AccountDepositsPage() {
                value={accountData.currency}
                onChange={handleChange}
                required
-             />
+             /> */}
+             <FormControl sx={{width: "300px", mb: 1}}>
+              <InputLabel>Currency</InputLabel>
+              <Select
+              id="currency"
+              name="currency"
+              value={accountData.currency}
+              onChange={handleCurrency}
+              required
+              >
+                <MenuItem value = "SGD" >SGD</MenuItem>
+              </Select>
+              </FormControl>
            </Box>
            <Box sx={{ marginBottom: 1 }}>
              <TextField
