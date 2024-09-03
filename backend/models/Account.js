@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const accountSchema = new mongoose.Schema(
   {
     acId: {
-      //this is the account number, we generate our own 12-digit unique number
+      //user-generated
       type: Number,
       required: true,
     },

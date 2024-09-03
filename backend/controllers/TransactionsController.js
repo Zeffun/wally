@@ -16,6 +16,9 @@ router.post("/new", async (req, res) => {
   try {
     const { senderAcc, receiverAcc, amount } = req.body;
 
+    // Check/ensure that input amount is positive 
+    
+
     // Find the sender's account
     const senderAccount = await Account.findById(senderAcc);
 
@@ -27,6 +30,7 @@ router.post("/new", async (req, res) => {
     if (!receiverAccount) {
       return res.status(400).json({ error: "Receiver account not found" });
     }
+    // Check if sender's account has enough balance
     if (senderAccount.balance < amount) {
       return res.status(400).json({ error: "Insufficient funds" });
     }
@@ -47,31 +51,16 @@ router.post("/new", async (req, res) => {
     console.error("Transaction error:", error);
     res.status(500).json({ error: error.message });
   }
-});
+}); //Find way to save the payee so that user doesn't have to remember the account id for each subsequent transaction 
 
 // Viewing transaction history
 router.get("/history", async (req, res) => {
-  debug(`body: %o`, req.body);
   try {
-    currentUserId = req.body.userid;
-    const transactionHistory = await Transaction.Find({
-      $or: [{ senderAcc: currentuserId }, { receiverAcc: currentuserId }],
-    });
-    res.status(200).json(transactionHistory);
-  } catch (error) {
-    console.error("Error retrieving transaction history:", error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Viewing transaction history
-router.get("/history", async (req, res) => {
-  debug(`body: %o`, req.body);
-  try {
-    currentUserId = req.body.userid;
-    const transactionHistory = await Transaction.Find({
-      $or: [{ senderAcc: currentuserId }, { receiverAcc: currentuserId }],
-    });
+    currentUserId = req.user._id;
+    const allTransactions = await Transaction.find({}).populate("senderAcc").populate("receiverAcc"); //filter using mongoose NOT js- fix
+    const transactionHistory = allTransactions.filter(transaction => 
+      transaction.senderAcc?.userId == currentUserId || transaction.receiverAcc?.userId == currentUserId
+    );
     res.status(200).json(transactionHistory);
   } catch (error) {
     console.error("Error retrieving transaction history:", error);
