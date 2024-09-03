@@ -4,12 +4,12 @@ const Account = require("../models/Account");
 const router = express.Router();
 
 router.use(verifyToken);
-
+const wallyId = "66d53bce24f856a49697a87d"
 router.post("/create", async (req, res) => {
   req.body.userId = req.user._id;
   const newAccount = await Account.create(req.body);
   const { balance } = req.body 
-  const wallyAccount = await Account.findById("66d53bce24f856a49697a87d")
+  const wallyAccount = await Account.findById(wallyId)
   wallyAccount.balance += balance       
   await wallyAccount.save()
   // Account._doc.userid = req.user
