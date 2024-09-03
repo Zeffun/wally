@@ -22,7 +22,7 @@ export default function AccountTransfersPage() {
     receiverAcc: "",
     currency: "SGD",
     amount: 0,
-    purpose: "from react",
+    purpose: "",
   });
 
   const navigate = useNavigate();
@@ -136,6 +136,22 @@ export default function AccountTransfersPage() {
           label=""
           value={transferData.amount}
           name="amount"
+          onChange={handleChange}
+        />
+      </Box>
+      <Box
+        sx={{
+          width: "46ch",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Box sx={{ marginRight: 2 }}>Purpose:</Box> {/* Label on the left */}
+        <TextField
+          id="Purpose"
+          label="Purpose of transfer"
+          variant="filled"
+          name="purpose"
           onChange={handleChange}
         />
       </Box>
