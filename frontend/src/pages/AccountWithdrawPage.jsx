@@ -12,7 +12,7 @@ export default function AccountWithdrawPage() {
   
   
   const navigate = useNavigate()
-  const [errorMsg, setErrorMsg] = useState([""])
+  const [errorMsg, setErrorMsg] = useState("")
   const [accountId, setAccountId] = useState ("")
   const [accounts, setAccounts] = useState([])
   const [accountData, setAccountData] = useState({
@@ -37,6 +37,11 @@ export default function AccountWithdrawPage() {
     console.log(value)
   }
 
+  const handleCurrency = (event) => {
+    const { name, value } = event.target;
+    setAccountData({...accountData, [name]: value})
+  }
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setAccountData({ ...accountData, [name]: value })
@@ -51,7 +56,6 @@ export default function AccountWithdrawPage() {
       }
       const newUserResponse = await authService.withdrawAccount({...accountData, balance}, accountId);
       console.log(newUserResponse);
-      navigate('/account/main');
     } catch (err) {
       errorMessage(err.message);
     }
@@ -71,7 +75,7 @@ export default function AccountWithdrawPage() {
          >
             <Typography>{errorMsg}</Typography>
             <Box sx={{marginBottom: 1}}>
-              <FormControl sx={{width: "300px"}}>
+              <FormControl sx={{width: "300px", marginBottom: 1}}>
               <InputLabel>Account</InputLabel>
               <Select
               value= {accountId}
@@ -94,8 +98,8 @@ export default function AccountWithdrawPage() {
               required
              />
            </Box> */}
-           <Box sx={{ marginBottom: 1 }}>
-             <TextField
+           <Box sx={{ marginBottom: 1}}>
+             {/* <TextField
                id="currency"
                label="currency"
                fullWidth
@@ -105,8 +109,21 @@ export default function AccountWithdrawPage() {
                value={accountData.currency}
                onChange={handleChange}
                required
-             />
+             /> */}
+             <FormControl sx={{width: "300px", mb: 1}}>
+              <InputLabel>Currency</InputLabel>
+              <Select
+              id="currency"
+              name="currency"
+              value={accountData.currency}
+              onChange={handleCurrency}
+              required
+              >
+                <MenuItem value = "SGD" >SGD</MenuItem>
+              </Select>
+              </FormControl>
            </Box>
+           
            <Box sx={{ marginBottom: 1 }}>
              <TextField
                id="balance"
