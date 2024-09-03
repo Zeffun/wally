@@ -16,7 +16,7 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
 
 
-const pages = ['dashboard', 'transactions', 'transfer', 'deposit', 'withdraw', 'create Account'];
+const pages = ['dashboard', 'transactions', 'transfer', 'deposit', 'withdraw'];
 const settings = ['Profile', 'Help'];
 
 export default function NavbarUser({handleSignout}) {
@@ -37,8 +37,6 @@ export default function NavbarUser({handleSignout}) {
       navigate(`/account/deposit/`)
     } else if (newValue === "withdraw") {
       navigate(`/account/withdraw/`)
-    } else if (newValue === "create Account") {
-      navigate ("/account/createAccount")
     }
   }
 
