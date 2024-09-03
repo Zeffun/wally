@@ -109,7 +109,7 @@ export default function CreateAccountPage(){
             sx={{ mt: 2 }}
             onClick={handleSubmit}
           >
-            Sign Up
+            + Create Account
           </Button>
         </Paper>
        </Box>

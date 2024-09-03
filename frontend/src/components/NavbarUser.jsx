@@ -23,7 +23,7 @@ export default function NavbarUser({handleSignout}) {
   const [anchorElUser, setAnchorElUser] = useState(null);
 
  
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
     if (newValue === "dashboard") {
