@@ -1,23 +1,31 @@
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { Paper, Button, Select, FormControl, MenuItem, InputLabel, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useNavigate} from 'react-router-dom';
-import * as authService from '../services/authService';
-import { getAccounts } from '../services/authService';
-
-
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import {
+  Paper,
+  Button,
+  Select,
+  FormControl,
+  MenuItem,
+  InputLabel,
+  Typography,
+} from "@mui/material";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import * as authService from "../services/authService";
+import { getAccounts } from "../services/authService";
 
 export default function AccountWithdrawPage() {
-  
-  
-  const navigate = useNavigate()
-  const [errorMsg, setErrorMsg] = useState("")
-  const [accountId, setAccountId] = useState ("")
-  const [accounts, setAccounts] = useState([])
+  const navigate = useNavigate();
+  const [errorMsg, setErrorMsg] = useState("");
+  const [accountId, setAccountId] = useState("");
+  const [accounts, setAccounts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [accountData, setAccountData] = useState({
     acId: 0,
-    currency: '',
+    currency: "",
     balance: 0,
   });
   const [withdrawTransaction, setWithdrawTransaction] = useState({
@@ -25,9 +33,9 @@ export default function AccountWithdrawPage() {
     currency: "SGD",
     amount: 0,
     purpose: "WITHDRAWAL",
-  })
+  });
 
-  const errorMessage = (msg) => setErrorMsg(msg)
+  const errorMessage = (msg) => setErrorMsg(msg);
 
   useEffect(() => {
     const loadAccount = async () => {
@@ -35,74 +43,103 @@ export default function AccountWithdrawPage() {
       setAccounts(data);
     };
     loadAccount();
-  }, [])
+  }, []);
 
   const handleChangeAccounts = (event) => {
     const { name, value } = event.target;
-    setAccountId(value)
-    setWithdrawTransaction({...withdrawTransaction, [name]: value})
-    console.log(value)
-  }
+    setAccountId(value);
+    setWithdrawTransaction({ ...withdrawTransaction, [name]: value });
+    console.log(value);
+  };
 
   const handleChange = (event) => {
+    const amountRegex = /^\d*\.?\d{0,2}$/;
     const { name, value, id } = event.target;
-    setAccountData({ ...accountData, [name]: value })
-    setWithdrawTransaction({...withdrawTransaction, [id]: value})
+    if (value === "") {
+      setAccountData({ ...accountData, [name]: value });
+      setWithdrawTransaction({ ...withdrawTransaction, [id]: value });
+      setError(null);
+    }
+    if (amountRegex.test(value)) {
+      setAccountData({ ...accountData, [name]: value });
+      setWithdrawTransaction({ ...withdrawTransaction, [id]: value });
+      setError(null);
+    } else {
+      setError("Invalid amount");
+    }
   };
 
   const handleCurrency = (event) => {
     const { name, value } = event.target;
-    setAccountData({...accountData, [name]: value})
-  }
-
-  
+    setAccountData({ ...accountData, [name]: value });
+  };
 
   const handleWithdraw = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     try {
-      const balance = parseFloat(accountData.balance)
-      const amount = -parseFloat(withdrawTransaction.amount)
-      if (balance > accounts.balance){
-        errorMessage("Insufficient Balance!!")
+      const balance = parseFloat(accountData.balance);
+      const amount = -parseFloat(withdrawTransaction.amount);
+      if (balance > accounts.balance) {
+        errorMessage("Insufficient Balance!!");
       }
-      const withdrawResponse = await authService.withdrawAccount({...accountData, balance}, accountId);
-      const newTransactionResponse = await authService.updateTransaction({...withdrawTransaction, amount}, accountId);
+      const withdrawResponse = await authService.withdrawAccount(
+        { ...accountData, balance },
+        accountId
+      );
+      const newTransactionResponse = await authService.updateTransaction(
+        { ...withdrawTransaction, amount },
+        accountId
+      );
       console.log(withdrawResponse);
       console.log(newTransactionResponse);
-      navigate("/account/main")
+      navigate("/account/main");
     } catch (err) {
       errorMessage(err.message);
+    } finally {
+      setIsLoading(false);
     }
   };
-  
-    
-    return(
-        <Box
-            component="form"
-            sx={{ height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}
-            noValidate
-            autoComplete="off"          
-        >
-         <Paper 
-         elevation={10}
-         sx = {{padding: 6}}
-         >
-            <Typography>{errorMsg}</Typography>
-            <Box sx={{marginBottom: 1}}>
-              <FormControl sx={{width: "300px", marginBottom: 1}}>
-              
+
+  return (
+    <>
+      <Backdrop
+        sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
+        open={isLoading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      <Box
+        component="form"
+        sx={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <Paper elevation={10} sx={{ padding: 6 }}>
+          <Typography>{errorMsg}</Typography>
+          <Box sx={{ marginBottom: 1 }}>
+            <FormControl sx={{ width: "300px", marginBottom: 1 }}>
               <TextField
-              select
-              name='account'
-              label = "Account"
-              value= {accountId}
-              onChange={handleChangeAccounts}
+                select
+                name="account"
+                label="Account"
+                value={accountId}
+                onChange={handleChangeAccounts}
               >
-                {accounts.map((account) => (<MenuItem key={account._id} value = {account._id}>{account._id}</MenuItem>))}
+                {accounts.map((account) => (
+                  <MenuItem key={account._id} value={account._id}>
+                    {account._id}
+                  </MenuItem>
+                ))}
               </TextField>
-              </FormControl>
-            </Box>
-            {/* <Box sx={{ marginBottom: 1 }}>
+            </FormControl>
+          </Box>
+          {/* <Box sx={{ marginBottom: 1 }}>
              <TextField
               id="acId"
               label="acId"
@@ -115,8 +152,8 @@ export default function AccountWithdrawPage() {
               required
              />
            </Box> */}
-           <Box sx={{ marginBottom: 1}}>
-             {/* <TextField
+          <Box sx={{ marginBottom: 1 }}>
+            {/* <TextField
                id="currency"
                label="currency"
                fullWidth
@@ -127,46 +164,48 @@ export default function AccountWithdrawPage() {
                onChange={handleChange}
                required
              /> */}
-             <FormControl sx={{width: "300px", mb: 1}}>            
+            <FormControl sx={{ width: "300px", mb: 1 }}>
               <TextField
-              label ="currency"
-              select
-              id="currency"
-              name="currency"
-              value={accountData.currency}
-              onChange={handleCurrency}
-              required
+                label="currency"
+                select
+                id="currency"
+                name="currency"
+                value={accountData.currency}
+                onChange={handleCurrency}
+                required
               >
-                <MenuItem value = "SGD" >SGD</MenuItem>
+                <MenuItem value="SGD">SGD</MenuItem>
               </TextField>
-              </FormControl>
-           </Box>
-           
-           <Box sx={{ marginBottom: 1 }}>
-             <TextField
-               id="amount"
-               label="amount"
-               fullWidth
-               margin="dense"
-               variant="outlined"            
-               name="balance"
-               value={accountData.balance}
-               onChange={handleChange}
-               required
-             />
-           </Box>
-           <Button
-             fullWidth
-             variant="contained"
-             color="primary"
-             type="submit"
-             sx={{ mt: 2 }}
-             onClick={handleWithdraw}
-           >
-             Withdraw
-           </Button>
-         </Paper>
-        </Box>
-     )}
+            </FormControl>
+          </Box>
 
-
+          <Box sx={{ marginBottom: 1 }}>
+            <TextField
+              id="amount"
+              label="amount"
+              fullWidth
+              margin="dense"
+              variant="outlined"
+              name="balance"
+              value={accountData.balance}
+              onChange={handleChange}
+              error={error}
+              helperText={error}
+              required
+            />
+          </Box>
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            type="submit"
+            sx={{ mt: 2 }}
+            onClick={handleWithdraw}
+          >
+            Withdraw
+          </Button>
+        </Paper>
+      </Box>
+    </>
+  );
+}
