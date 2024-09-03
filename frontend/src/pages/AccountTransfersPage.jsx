@@ -1,22 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import { newTransfer } from "../services/transfService";
+import { getAccounts } from "../services/authService";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-
-const accounts = [
-  {
-    value: "66d5749fce2adcf76dfba388",
-    label: "66d5749fce2adcf76dfba388",
-  },
-  {
-    value: "123",
-    label: "No.",
-  },
-];
 
 const currencies = [
   {
@@ -26,13 +16,14 @@ const currencies = [
 ];
 export default function AccountTransfersPage() {
   const [isLoading, setIsLoading] = useState(true);
+  const [accounts, setAccounts] = useState([]);
   const [transferData, setTransferData] = useState({
+    senderAcc: "",
     receiverAcc: "",
     currency: "SGD",
     amount: 0,
     purpose: "from react",
   });
-  const [acnum, setAcnum] = useState("Receipient Account");
 
   const navigate = useNavigate();
   const handleChange = (event) => {
@@ -42,6 +33,7 @@ export default function AccountTransfersPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(transferData);
     try {
       const amount = parseFloat(transferData.amount);
       const newTransferResponse = await newTransfer({
@@ -54,6 +46,13 @@ export default function AccountTransfersPage() {
       console.error(err.message);
     }
   };
+  useEffect(() => {
+    const loadAccount = async () => {
+      const data = await getAccounts();
+      setAccounts(data);
+    };
+    loadAccount();
+  }, []);
 
   return (
     <Box
@@ -77,14 +76,12 @@ export default function AccountTransfersPage() {
         }}
       >
         <Box sx={{ marginRight: 2 }}>Send it to : </Box>{" "}
-        {/* Label on the left */}
         <TextField
           id="controlled acnum"
           label="Receipient account no."
-          value={acnum}
-          onChange={(event) => {
-            setAcnum(event.target.value);
-          }}
+          name="receiverAcc"
+          value={transferData.receiverAcc}
+          onChange={handleChange}
         />
       </Box>
       <Box
@@ -95,15 +92,16 @@ export default function AccountTransfersPage() {
       >
         <Box sx={{ marginRight: 2 }}>Send from:</Box> {/* Label on the left */}
         <TextField
-          id="outlined-select-currency"
+          id="senderAcc"
           select
           label="Please select sending account"
-          defaultValue="123"
           helperText=""
+          name="senderAcc"
+          onChange={handleChange}
         >
-          {accounts.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
+          {accounts.map((account) => (
+            <MenuItem key={account._id} value={account._id}>
+              {account._id}
             </MenuItem>
           ))}
         </TextField>
@@ -117,7 +115,7 @@ export default function AccountTransfersPage() {
       >
         <Box sx={{ marginRight: 2 }}>Currency</Box> {/* Label on the left */}
         <TextField
-          id="outlined-select-currency"
+          id="currency"
           select
           label="Select currency"
           defaultValue="S$"
@@ -153,7 +151,6 @@ export default function AccountTransfersPage() {
         <Button variant="contained" onClick={handleSubmit}>
           Send now
         </Button>
-        <Button variant="contained" onClick={handleSubmit}></Button>
       </Box>
     </Box>
   );
