@@ -47,9 +47,7 @@ router.put("/:accountId", async (req, res) => {
     const updateDepositToAccount = await verifyAccount.save();
 
     res.status(200).json(updateDepositToAccount);
-  } catch (error) {
-    res.status(500).json(error);
-  }
+
 });
 
 module.exports = router;

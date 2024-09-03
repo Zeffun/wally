@@ -9,7 +9,7 @@ router.post("/create", async (req, res) => {
   req.body.userId = req.user._id;
   const newAccount = await Account.create(req.body);
   const { balance } = req.body 
-  const wallyAccount = await Account.findById("66d57ede343436e6b44a06b1")
+  const wallyAccount = await Account.findById("66d53bce24f856a49697a87d")
   wallyAccount.balance += balance       
   await wallyAccount.save()
   // Account._doc.userid = req.user
