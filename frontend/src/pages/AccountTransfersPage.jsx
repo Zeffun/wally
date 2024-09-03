@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
@@ -12,13 +12,12 @@ const accounts = [
     value: "123",
     label: "No.",
   },
+];
+
+const currencies = [
   {
-    value: "BTC",
-    label: "฿",
-  },
-  {
-    value: "JPY",
-    label: "¥",
+    value: "S$",
+    label: "SGD",
   },
 ];
 export default function AccountTransfersPage() {
@@ -75,6 +74,30 @@ export default function AccountTransfersPage() {
             </MenuItem>
           ))}
         </TextField>
+      </Box>
+      <Box
+        sx={{
+          width: "46ch",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Box sx={{ marginRight: 1 }}>Currency</Box> {/* Label on the left */}
+        <TextField
+          id="outlined-select-currency"
+          select
+          label="Select currency"
+          defaultValue="S$"
+          helperText=""
+        >
+          {currencies.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <Box sx={{ marginRight: 1 }}>Amt:</Box> {/* Label on the left */}
+        <TextField id="amt" label="" value="" />
       </Box>
     </Box>
   );
