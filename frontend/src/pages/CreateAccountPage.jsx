@@ -1,4 +1,4 @@
-import { Box, Paper, Typography, Button } from "@mui/material"
+import { Box, Paper, Typography, Button, FormControl, MenuItem } from "@mui/material"
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import * as authService from '../services/authService';
@@ -47,8 +47,8 @@ export default function CreateAccountPage(){
         elevation={10}
         sx = {{padding: 6}}
         >
-          <p>createAccount</p>
-          <Box sx={{ marginBottom: 5 }}>
+          <Typography>CreateAccount</Typography>
+          <Box sx={{ marginBottom: 2 }}>
             <TextField
               id="acId"
               label="acId"
@@ -61,19 +61,21 @@ export default function CreateAccountPage(){
               required
             />
           </Box>
-          <Box sx={{ marginBottom: 2 }}>
-            <TextField
-              id="currency"
-              label="currency"
-              fullWidth
-              margin="dense"
-              variant="outlined"
-              name="currency"
-              value={accountData.currency}
-              onChange={handleChange}
-              required
-            />
-          </Box>
+         <Box sx={{ marginBottom: 2 }}>
+           <FormControl sx={{ width: "100%", mb: 1 }}>
+             <TextField
+               label="currency"
+               select
+               id="currency"
+               name="currency"
+               value={accountData.currency}
+               onChange={handleChange}
+               required
+             >
+               <MenuItem value="SGD" >SGD</MenuItem>
+             </TextField>
+           </FormControl>
+         </Box>
           <Box sx={{ marginBottom: 2 }}>
             <TextField
               id="balance"

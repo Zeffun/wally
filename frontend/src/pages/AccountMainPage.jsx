@@ -16,14 +16,23 @@ export default function AccountMainPage(){
 
   useEffect(() => {
     const loadAccount = async () => {
+     
       const data = await getAccounts();
       setAccounts(data);
+      
     };
     loadAccount();
-    if (accounts.length >= 3){
-      setDisabled(true)
+   
+   
+  }, [])
+
+  useEffect(() => {
+    if (accounts.length >= 3) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
     }
-  }, [accounts])
+  }, [accounts]);
 
   const handleClick = (event) => {
     event.preventDefault()

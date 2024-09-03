@@ -19,5 +19,23 @@ const getTransactionHistory = async () => {
       }
 };
 
-export { getTransactionHistory };
+const getUpdatesHistory = async () => { 
+  try {
+    const res = await fetch(`${BACKEND_URL}/api/updates/transactions`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+    });
+    const json = await res.json();
+    if (json.error) {
+      throw new Error(json.error);
+    }
+    const updates = json
+    return updates; 
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { getTransactionHistory, getUpdatesHistory };
 

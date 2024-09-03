@@ -1,6 +1,7 @@
 const express = require("express");
 const verifyToken = require("../middleware/verify-token");
 const Account = require("../models/Account");
+const Update = require("../models/Update");
 const router = express.Router();
 
 router.use(verifyToken);
@@ -60,5 +61,27 @@ router.put("/deposit/:accountId", async (req, res) => {
         res.status(500).json(error)
     }
 })
+
+router.post("/transactions/:accountId", async (req, res) => {
+    try {
+      req.body.userId = req.user._id;  
+      const transactions = await Update.create(req.body);
+      res.status(201).json(transactions);
+    } catch (error) {
+      res.status(500).json(error)
+    }
+  });
+
+  router.get("/transactions/", async (req, res) => {
+    try {
+      
+      const updates = await Update.find({userId: req.user._id})
+      res.json(updates);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  
+  });
 
 module.exports = router;

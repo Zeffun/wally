@@ -132,8 +132,30 @@ const withdrawAccount = async (withdrawData, accountId) => {
 
 }
 
+const updateTransaction = async (depositTransaction, accountId) => {
+  const url = `${BACKEND_URL}/api/updates/transactions/${accountId}`;
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(depositTransaction),
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      }
+    });
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const json = await response.json();
+    return json;
+  } catch (err) {
+    throw new Error(err);
+  }
+
+}
+
 const signout = () => {
   localStorage.removeItem('token');
 };
 
-export { signup, signin, getUser, signout, createAccount,  getAccounts, depositAccount, withdrawAccount };
+export { signup, signin, getUser, signout, createAccount,  getAccounts, depositAccount, withdrawAccount, updateTransaction };
