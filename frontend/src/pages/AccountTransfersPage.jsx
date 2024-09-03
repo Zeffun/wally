@@ -60,10 +60,9 @@ export default function AccountTransfersPage() {
         "& .MuiTextField-root": { m: 1.5, width: "35ch" },
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "flex-end",
+        justifyContent: "center", // Center vertically
+        alignItems: "center", // Center horizontally
         height: "100vh",
-        paddingRight: 20,
       }}
       noValidate
       autoComplete="off"
@@ -75,7 +74,8 @@ export default function AccountTransfersPage() {
           justifyContent: "center", // Align the text fields and labels to the left
         }}
       >
-        <Box sx={{ marginRight: 2 }}>Send to:</Box> {/* Label on the left */}
+        <Box sx={{ marginRight: 2 }}>Send it to : </Box>{" "}
+        {/* Label on the left */}
         <TextField
           id="controlled acnum"
           label="Receipient account no."
@@ -113,7 +113,7 @@ export default function AccountTransfersPage() {
           alignItems: "center",
         }}
       >
-        <Box sx={{ marginRight: 1 }}>Currency</Box> {/* Label on the left */}
+        <Box sx={{ marginRight: 2 }}>Currency</Box> {/* Label on the left */}
         <TextField
           id="outlined-select-currency"
           select
@@ -130,7 +130,7 @@ export default function AccountTransfersPage() {
             </MenuItem>
           ))}
         </TextField>
-        <Box sx={{ marginRight: 1 }}>Amt:</Box> {/* Label on the left */}
+        <Box sx={{ marginRight: 2 }}>Amt:</Box> {/* Label on the left */}
         <TextField
           id="amt"
           label=""
