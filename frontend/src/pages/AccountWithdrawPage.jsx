@@ -20,6 +20,12 @@ export default function AccountWithdrawPage() {
     currency: '',
     balance: 0,
   });
+  const [withdrawTransaction, setWithdrawTransaction] = useState({
+    receiverAcc: "",
+    currency: "SGD",
+    amount: -0,
+    purpose: "WITHDRAWAL",
+  })
 
   const errorMessage = (msg) => setErrorMsg(msg)
 
@@ -32,30 +38,37 @@ export default function AccountWithdrawPage() {
   }, [])
 
   const handleChangeAccounts = (event) => {
-    const { value } = event.target;
+    const { name, value } = event.target;
     setAccountId(value)
+    setWithdrawTransaction({...withdrawTransaction, [name]: value})
     console.log(value)
   }
+
+  const handleChange = (event) => {
+    const { name, value, id } = event.target;
+    setAccountData({ ...accountData, [name]: value })
+    setWithdrawTransaction({...withdrawTransaction, [id]: value})
+  };
 
   const handleCurrency = (event) => {
     const { name, value } = event.target;
     setAccountData({...accountData, [name]: value})
   }
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setAccountData({ ...accountData, [name]: value })
-  };
+  
 
   const handleWithdraw = async (event) => {
     event.preventDefault();
     try {
       const balance = parseFloat(accountData.balance)
+      const amount = -parseFloat(withdrawTransaction.amount)
       if (balance > accounts.balance){
         errorMessage("Insufficient Balance!!")
       }
-      const newUserResponse = await authService.withdrawAccount({...accountData, balance}, accountId);
-      console.log(newUserResponse);
+      const withdrawResponse = await authService.withdrawAccount({...accountData, balance}, accountId);
+      const newTransactionResponse = await authService.updateTransaction({...withdrawTransaction, amount}, accountId);
+      console.log(withdrawResponse);
+      console.log(newTransactionResponse);
       navigate("/account/main")
     } catch (err) {
       errorMessage(err.message);
@@ -80,6 +93,7 @@ export default function AccountWithdrawPage() {
               
               <TextField
               select
+              name='receiverAcc'
               label = "Account"
               value= {accountId}
               onChange={handleChangeAccounts}
@@ -130,7 +144,7 @@ export default function AccountWithdrawPage() {
            
            <Box sx={{ marginBottom: 1 }}>
              <TextField
-               id="balance"
+               id="amount"
                label="amount"
                fullWidth
                margin="dense"
