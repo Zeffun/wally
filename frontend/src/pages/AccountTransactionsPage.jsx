@@ -22,13 +22,13 @@ export default function AccountTransactionsPage() {
         const loadUpdates = async () => {
           const data = await transactionService.getUpdatesHistory();
           setUpdates(data);
-          console.log(data[0])
+          console.log(typeof data[0].amount)
         };
         loadUpdates();
         
       }, [])
 
-    // const ifNegative = (amount) => {return -amount ? (withdrawn)}
+    const ifNegative = (amount) => {return amount < 0 ? ("withdrawn") : ("deposited")}
 
     return (
         <>
@@ -43,7 +43,7 @@ export default function AccountTransactionsPage() {
                  {updates.map((update, index) => (
                     <li key={index}>
                         <br></br>
-                        ${update.amount}
+                        ${update.amount} was {ifNegative(update.amount)} from {update.account} 
                     </li>
                 ))}
             </ul>
