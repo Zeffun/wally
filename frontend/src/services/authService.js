@@ -49,7 +49,7 @@ const signin = async (user) => {
 
 const createAccount = async (accountData) => {
   try {
-    const res = await fetch(`${BACKEND_URL}/api/account/create`, {
+    const res = await fetch(`${BACKEND_URL}/api/accounts/create`, {
       method: 'POST',
       headers: { 
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -70,7 +70,7 @@ const createAccount = async (accountData) => {
 
 const getAccounts = async () => {
   try {
-    const res = await fetch(`${BACKEND_URL}/api/account/`, {
+    const res = await fetch(`${BACKEND_URL}/api/accounts/`, {
       method: 'GET',
       headers: { 
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -89,7 +89,7 @@ const getAccounts = async () => {
 };
 
 const depositAccount = async (depositData, accountId) => {
-  const url = `${BACKEND_URL}/api/deposit/${accountId}`;
+  const url = `${BACKEND_URL}/api/updates/deposit/${accountId}`;
   try {
     const response = await fetch(url, {
       method: "PUT",
@@ -111,7 +111,7 @@ const depositAccount = async (depositData, accountId) => {
 }
 
 const withdrawAccount = async (withdrawData, accountId) => {
-  const url = `${BACKEND_URL}/api/withdraw/${accountId}`;
+  const url = `${BACKEND_URL}/api/updates/withdraw/${accountId}`;
   try {
     const response = await fetch(url, {
       method: "PUT",

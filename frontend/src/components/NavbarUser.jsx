@@ -12,7 +12,8 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+
 
 
 const pages = ['dashboard', 'transactions', 'transfer', 'deposit', 'withdraw', 'create Account'];
@@ -23,7 +24,7 @@ export default function NavbarUser({handleSignout}) {
   const [anchorElUser, setAnchorElUser] = useState(null);
 
  
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
     if (newValue === "dashboard") {
@@ -68,7 +69,7 @@ export default function NavbarUser({handleSignout}) {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <AccountBalanceWalletIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -127,7 +128,7 @@ export default function NavbarUser({handleSignout}) {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <AccountBalanceWalletIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
