@@ -17,7 +17,7 @@ export default function AccountMainPage(){
   return(<>
 
   <ul>
-  {accounts.map((account, index) => (<li key={index}>{account.balance}</li>))}
+  {accounts.map((account, index) => (<li key={index}>Account: {account.acId} | Balance: {account.currency} {account.balance}</li>))}
   </ul>
   
   
