@@ -51,28 +51,13 @@ router.post("/new", async (req, res) => {
 
 // Viewing transaction history
 router.get("/history", async (req, res) => {
-  debug(`body: %o`, req.body);
   try {
-    currentUserId = req.body.userid;
-    const transactionHistory = await Transaction.Find({
-      $or: [{ senderAcc: currentuserId }, { receiverAcc: currentuserId }],
-    });
-    res.status(200).json(transactionHistory);
-  } catch (error) {
-    console.error("Error retrieving transaction history:", error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Viewing transaction history
-router.get("/history", async (req, res) => {
-  debug(`body: %o`, req.body);
-  try {
-    currentUserId = req.body.userid;
-    const transactionHistory = await Transaction.Find({
-      $or: [{ senderAcc: currentuserId }, { receiverAcc: currentuserId }],
-    });
-    res.status(200).json(transactionHistory);
+    currentUserId = req.user._id;
+    const allTransactions = await Transaction.find({}).populate("senderAcc").populate("receiverAcc");
+    const transactionHistory = allTransactions.filter(transaction => 
+      transaction.senderAcc?.userId == currentUserId || transaction.receiverAcc?.userId == currentUserId
+    );
+    res.status(200).json(transactionHistory); //allTransactions[0].senderAcc.userId
   } catch (error) {
     console.error("Error retrieving transaction history:", error);
     res.status(500).json({ error: error.message });
