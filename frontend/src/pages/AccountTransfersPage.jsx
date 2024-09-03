@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { newTransfer } from "../services/transfService";
 import { getAccounts } from "../services/authService";
 import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
+// import Stack from "@mui/material/Stack";
 
 const currencies = [
   {
@@ -15,8 +15,9 @@ const currencies = [
   },
 ];
 export default function AccountTransfersPage() {
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const [accounts, setAccounts] = useState([]);
+  const [error, setError] = useState(null);
   const [transferData, setTransferData] = useState({
     senderAcc: "",
     receiverAcc: "",
@@ -29,6 +30,22 @@ export default function AccountTransfersPage() {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setTransferData({ ...transferData, [name]: value });
+  };
+
+  const handleChangeAmt = (event) => {
+    const amountRegex = /^\d*\.?\d{0,2}$/;
+    const value = event.target.value;
+    if (value === "") {
+      setTransferData({ ...transferData, amount: value });
+      setError(null);
+      return;
+    }
+    if (amountRegex.test(value)) {
+      setTransferData({ ...transferData, amount: value });
+      setError(null);
+    } else {
+      setError("Invalid amount");
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -136,7 +153,9 @@ export default function AccountTransfersPage() {
           label=""
           value={transferData.amount}
           name="amount"
-          onChange={handleChange}
+          onChange={handleChangeAmt}
+          error={error}
+          helperText={error}
         />
       </Box>
       <Box
