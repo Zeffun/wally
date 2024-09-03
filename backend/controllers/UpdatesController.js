@@ -1,6 +1,7 @@
 const express = require("express");
 const verifyToken = require("../middleware/verify-token");
 const Account = require("../models/Account");
+const Update = require("../models/Update");
 const router = express.Router();
 
 router.use(verifyToken);
@@ -60,5 +61,14 @@ router.put("/deposit/:accountId", async (req, res) => {
         res.status(500).json(error)
     }
 })
+
+router.post("/transactions/:accountId", async (req, res) => {
+    try {  
+      const user = await Update.create(req.body);
+      res.status(201).json(user);
+    } catch (error) {
+      res.status(500).json(error)
+    }
+  });
 
 module.exports = router;
