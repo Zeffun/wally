@@ -3,11 +3,12 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
+import { newTransfer } from "../services/transfService";
 
 const accounts = [
   {
-    value: "100000000011231231231231231",
-    label: "100000000011231231231231231",
+    value: "66d57482ce2adcf76dfba383",
+    label: "66d57482ce2adcf76dfba383",
   },
   {
     value: "123",
@@ -17,28 +18,31 @@ const accounts = [
 
 const currencies = [
   {
-    value: "S$",
+    value: "SGD",
     label: "SGD",
   },
 ];
 export default function AccountTransfersPage() {
-  const navigate = useNavigate();
-  const [accountData, setAccountData] = useState({
-    acId: 0,
-    currency: "",
-    balance: 0,
+  const [isLoading, setIsLoading] = useState(true);
+  const [transferData, setTransferData] = useState({
+    receiverAcc: "",
+    currency: "SGD",
+    amount: 0,
+    purpose: "from react",
   });
+  const [acnum, setAcnum] = useState("Receipient Account");
 
+  const navigate = useNavigate();
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setAccountData({ ...accountData, [name]: value });
+    setTransferData({ ...transferData, [name]: value });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const balance = parseFloat(accountData.balance);
-      const newAccountResponse = await authService.createAccount({
+      const amount = parseFloat(transferData.amount);
+      const newTransferResponse = await authService.createAccount({
         ...accountData,
         balance,
       });
@@ -48,7 +52,7 @@ export default function AccountTransfersPage() {
       console.error(err.message);
     }
   };
-  const [acnum, setAcnum] = useState("Receipient Account");
+
   return (
     <Box
       component="form"
@@ -59,7 +63,7 @@ export default function AccountTransfersPage() {
         justifyContent: "center",
         alignItems: "flex-end",
         height: "100vh",
-        paddingRight: 80,
+        paddingRight: 20,
       }}
       noValidate
       autoComplete="off"
@@ -116,6 +120,9 @@ export default function AccountTransfersPage() {
           label="Select currency"
           defaultValue="S$"
           helperText=""
+          value={transferData.currency}
+          name="currency"
+          onChange={handleChange}
         >
           {currencies.map((option) => (
             <MenuItem key={option.value} value={option.value}>
@@ -124,7 +131,13 @@ export default function AccountTransfersPage() {
           ))}
         </TextField>
         <Box sx={{ marginRight: 1 }}>Amt:</Box> {/* Label on the left */}
-        <TextField id="amt" label="" value="" />
+        <TextField
+          id="amt"
+          label=""
+          value={transferData.amount}
+          name="amount"
+          onChange={handleChange}
+        />
       </Box>
     </Box>
   );
