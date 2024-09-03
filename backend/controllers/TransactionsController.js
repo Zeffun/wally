@@ -17,7 +17,7 @@ router.post("/new", async (req, res) => {
     const { senderAcc, receiverAcc, amount } = req.body;
 
     // Check/ensure that input amount is positive 
-    
+
 
     // Find the sender's account
     const senderAccount = await Account.findById(senderAcc);
@@ -55,17 +55,31 @@ router.post("/new", async (req, res) => {
 
 // Viewing transaction history
 router.get("/history", async (req, res) => {
-  try {
-    currentUserId = req.user._id;
-    const allTransactions = await Transaction.find({}).populate("senderAcc").populate("receiverAcc"); //filter using mongoose NOT js- fix
-    const transactionHistory = allTransactions.filter(transaction => 
-      transaction.senderAcc?.userId == currentUserId || transaction.receiverAcc?.userId == currentUserId
-    );
-    res.status(200).json(transactionHistory);
-  } catch (error) {
-    console.error("Error retrieving transaction history:", error);
-    res.status(500).json({ error: error.message });
-  }
+  // try {
+  //   currentUserId = req.user._id;
+  //   const allTransactions = await Transaction.find({}).populate("senderAcc").populate("receiverAcc"); //filter using mongoose NOT js- fix
+  //   const transactionHistory = allTransactions.filter(transaction => 
+  //     transaction.senderAcc?.userId == currentUserId || transaction.receiverAcc?.userId == currentUserId
+  //   );
+  //   res.status(200).json(transactionHistory);
+  // } catch (error) {
+  //   console.error("Error retrieving transaction history:", error);
+  //   res.status(500).json({ error: error.message });
+  // }
+  userId = req.user._id;
+
+  // Step 1: Find all account IDs associated with the given userId
+  const accountIds = await Account.find({ userId: userId })//.distinct('_id');
+
+  // Step 2: Fetch all transactions where senderAcc or receiverAcc matches any of the account IDs
+  const transactions = await Transaction.find({
+    $or: [
+      { senderAcc: { $in: accountIds } },
+      { receiverAcc: { $in: accountIds } }
+    ]
+  }).populate('senderAcc receiverAcc'); // Optional: Populate account details
+
+  res.json(transactions);
 });
 
 // router.post("/new", async (req, res) => {
