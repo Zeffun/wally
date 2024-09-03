@@ -1,20 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
 import { newTransfer } from "../services/transfService";
-
-const accounts = [
-  {
-    value: "66d57482ce2adcf76dfba383",
-    label: "66d57482ce2adcf76dfba383",
-  },
-  {
-    value: "123",
-    label: "No.",
-  },
-];
+import { getAccounts } from "../services/authService";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 
 const currencies = [
   {
@@ -24,13 +16,14 @@ const currencies = [
 ];
 export default function AccountTransfersPage() {
   const [isLoading, setIsLoading] = useState(true);
+  const [accounts, setAccounts] = useState([]);
   const [transferData, setTransferData] = useState({
+    senderAcc: "",
     receiverAcc: "",
     currency: "SGD",
     amount: 0,
     purpose: "from react",
   });
-  const [acnum, setAcnum] = useState("Receipient Account");
 
   const navigate = useNavigate();
   const handleChange = (event) => {
@@ -40,18 +33,26 @@ export default function AccountTransfersPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(transferData);
     try {
       const amount = parseFloat(transferData.amount);
-      const newTransferResponse = await authService.createAccount({
-        ...accountData,
-        balance,
+      const newTransferResponse = await newTransfer({
+        ...transferData,
+        amount,
       });
-      console.log(newAccountResponse);
+      console.log(newTransferResponse);
       navigate("/account/main");
     } catch (err) {
       console.error(err.message);
     }
   };
+  useEffect(() => {
+    const loadAccount = async () => {
+      const data = await getAccounts();
+      setAccounts(data);
+    };
+    loadAccount();
+  }, []);
 
   return (
     <Box
@@ -75,14 +76,12 @@ export default function AccountTransfersPage() {
         }}
       >
         <Box sx={{ marginRight: 2 }}>Send it to : </Box>{" "}
-        {/* Label on the left */}
         <TextField
           id="controlled acnum"
           label="Receipient account no."
-          value={acnum}
-          onChange={(event) => {
-            setAcnum(event.target.value);
-          }}
+          name="receiverAcc"
+          value={transferData.receiverAcc}
+          onChange={handleChange}
         />
       </Box>
       <Box
@@ -93,15 +92,16 @@ export default function AccountTransfersPage() {
       >
         <Box sx={{ marginRight: 2 }}>Send from:</Box> {/* Label on the left */}
         <TextField
-          id="outlined-select-currency"
+          id="senderAcc"
           select
           label="Please select sending account"
-          defaultValue="123"
           helperText=""
+          name="senderAcc"
+          onChange={handleChange}
         >
-          {accounts.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
+          {accounts.map((account) => (
+            <MenuItem key={account._id} value={account._id}>
+              {account._id}
             </MenuItem>
           ))}
         </TextField>
@@ -115,7 +115,7 @@ export default function AccountTransfersPage() {
       >
         <Box sx={{ marginRight: 2 }}>Currency</Box> {/* Label on the left */}
         <TextField
-          id="outlined-select-currency"
+          id="currency"
           select
           label="Select currency"
           defaultValue="S$"
@@ -138,6 +138,19 @@ export default function AccountTransfersPage() {
           name="amount"
           onChange={handleChange}
         />
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end", // Align button to the right
+          width: "100%", // Full width
+          maxWidth: "400px", // Limit the width of the main container
+          mt: 3, // Add some spacing above the button
+        }}
+      >
+        <Button variant="contained" onClick={handleSubmit}>
+          Send now
+        </Button>
       </Box>
     </Box>
   );
