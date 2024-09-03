@@ -56,6 +56,7 @@ export default function AccountWithdrawPage() {
       }
       const newUserResponse = await authService.withdrawAccount({...accountData, balance}, accountId);
       console.log(newUserResponse);
+      navigate("/account/main")
     } catch (err) {
       errorMessage(err.message);
     }

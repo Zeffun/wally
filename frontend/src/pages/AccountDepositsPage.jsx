@@ -19,6 +19,12 @@ export default function AccountDepositsPage() {
     currency: '',
     balance: 0,
   });
+  const [depositTransaction, setDepositTransaction] = useState({
+    receiverAcc: "",
+    currency: "SGD",
+    amount: 0,
+    purpose: "DEPOSIT",
+  })
 
   useEffect(() => {
     const loadAccount = async () => {
@@ -29,14 +35,16 @@ export default function AccountDepositsPage() {
   }, [])
 
   const handleChangeAccounts = (event) => {
-    const { value } = event.target;
+    const { name, value } = event.target;
     setAccountId(value)
-    console.log(value)
+    setDepositTransaction({...depositTransaction, [name]: value})
+    console.log(accountData)
   }
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value, id } = event.target;
     setAccountData({ ...accountData, [name]: value })
+    setDepositTransaction({...depositTransaction, [id]: value})
   };
 
   const handleCurrency = (event) => {
@@ -50,6 +58,7 @@ export default function AccountDepositsPage() {
       const balance = parseFloat(accountData.balance)
       const newUserResponse = await authService.depositAccount({...accountData, balance}, accountId);
       console.log(newUserResponse);
+      console.log(depositTransaction);
       navigate('/account/main');
     } catch (err) {
       console.error(err.message);
@@ -73,6 +82,7 @@ export default function AccountDepositsPage() {
               
               <TextField
               select
+              name='receiverAcc'
               label = "Account"
               value= {accountId}
               onChange={handleChangeAccounts}
@@ -122,7 +132,7 @@ export default function AccountDepositsPage() {
            </Box>
            <Box sx={{ marginBottom: 1 }}>
              <TextField
-               id="balance"
+               id="amount"
                label="amount"
                fullWidth
                margin="dense"
