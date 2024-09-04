@@ -7,7 +7,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { newTransfer } from "../services/transfService";
-import { getAccounts } from "../services/authService";
+import { getAccountById, getAccounts } from "../services/authService";
 // import Stack from "@mui/material/Stack";
 
 const currencies = [
@@ -50,8 +50,22 @@ export default function AccountTransfersPage() {
       setError("Invalid amount");
     }
   };
-  const handleCheckName = (event) => {
+  const handleCheckName = async (event) => {
     event.preventDefault();
+    try {
+      // Extract receiverAcc from transferData
+      const { receiverAcc } = transferData;
+
+      // Call getAccountById with receiverAcc as a parameter
+      const checkNameResponse = await getAccountById({
+        accountId: receiverAcc,
+      });
+      const { acId } = checkNameResponse;
+      setRecName(acId);
+    } catch (err) {
+      console.error(err.message);
+      setRecName("No account found");
+    }
   };
 
   const handleSubmit = async (event) => {

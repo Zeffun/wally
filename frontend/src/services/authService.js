@@ -88,7 +88,7 @@ const getAccounts = async () => {
   }
 };
 
-const getAccountById = async (accountId) => {
+const getAccountById = async ({ accountId }) => {
   try {
     const res = await fetch(`${BACKEND_URL}/api/accounts/${accountId}`, {
       method: "GET",
@@ -97,10 +97,15 @@ const getAccountById = async (accountId) => {
         "Content-Type": "application/json",
       },
     });
-    const json = await res.json();
-    if (json.error) {
-      throw new Error(json.error);
+    if (!res.ok) {
+      throw new Error(`Account not found or server error: ${res.status}`);
     }
+
+    const json = await res.json();
+    if (!json || !json.acId) {
+      throw new Error("No account found with the provided ID");
+    }
+
     return json;
   } catch (err) {
     throw new Error(err.message);
