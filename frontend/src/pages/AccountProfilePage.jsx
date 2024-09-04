@@ -2,10 +2,13 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
 import {
-  Paper,
+  Card,
   Button,
   Typography,
+  Container,
 } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import KeyIcon from '@mui/icons-material/Key';
 import { useState } from "react";
 import * as authService from "../services/authService";
 
@@ -66,75 +69,146 @@ export default function AccountProfilePage({ handleSignout }){
     }
     
     return (
-        <Box
-        component="form"
-        sx={{
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <Paper sx={{ m: 1 }}>
-            <TextField
-              id="password"
-              label="New Password"
-              fullWidth
-              margin="dense"
-              variant="outlined"
-              name="password"
-              onChange={handleNewPassword}
-              helperText={passwordIndicator ? "Password Changed" : ""}
-              required
-            />
-            <Button
-            onClick={handleChangePassword}
-            >
-                Change Password
-            </Button>
-        </Paper>
-        <Paper sx={{ m: 1 }}>
-            <TextField
-                id="username"
-                label="Username"
-                fullWidth
-                margin="dense"
-                variant="outlined"
-                name="username"
-                required
-                error={error}
-                helperText={error ? "WRONG USER" : ""}
-                onChange={handleDeleteAuth}
-            />
-            <Typography
-                variant="body2"
-                color="textSecondary"
-                sx={{ marginBottom: 1 }}
+        <Container 
+        sx={{display: {xs: "block", md: "flex"}, 
+        justifyContent: "center", 
+        alignItems: "center", 
+        minHeight: "100vh"}
+        }>
+        
+            <Card sx={{ m: 3, display: "flex", flexDirection: "column", height: {xs: "auto", md: "300px"}, width: {xs: "auto", md: "35%"}, justifyContent: "center", alignItems: "center" }}>
+                <TextField
+                    id="password"
+                    label="New Password"
+                    margin="dense"
+                    variant="outlined"
+                    name="password"
+                    onChange={handleNewPassword}
+                    helperText={passwordIndicator ? "Password Changed" : ""}
+                    required
+                    sx={{width: "80%"}}
+                />
+                <Button
+                    onClick={handleChangePassword}
+                    sx={{m: 2}}
+                    variant="outlined"
+                    startIcon={<KeyIcon/>}
                 >
-                Please key in the text "I agree to delete all accounts and my user from Wally"
-            </Typography>
-            <TextField
-              id="text"
-              label="Confirmation Text"
-              fullWidth
-              margin="dense"
-              variant="outlined"
-              value={conText.user}
-              name="user"
-              required
-              onChange={handleConfirmationText}
-            />
-            <Button
-            onClick={handleDelete}
-            disabled = {deleteButtonDisabled()}
-            >
-                Delete Account
-            </Button>
-        </Paper>
-      </Box>
+                    Change Password
+                </Button>
+            </Card>    
+             <Card sx={{ m: 3, display: "flex", flexDirection: "column", height: {xs: "auto", md: "300px"}, width: {xs: "auto", md: "35%"}, justifyContent: "center", alignItems: "center" }}>
+                <TextField
+                    id="username"
+                    label="Username"
+                    margin="dense"
+                    variant="outlined"
+                    name="username"
+                    required
+                    error={error}
+                    helperText={error ? "WRONG USER" : ""}
+                    onChange={handleDeleteAuth}
+                    sx={{width: "80%"}}
+                />
+                <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    sx={{ m: 1, textAlign: "center" }}
+                >
+                    Please key in the text "I agree to delete all accounts and my user from Wally"
+                </Typography>
+                <TextField
+                    id="text"
+                    label="Confirmation Text"
+                    margin="dense"
+                    variant="outlined"
+                    value={conText.user}
+                    name="user"
+                    required
+                    onChange={handleConfirmationText}
+                    sx={{width: "80%"}}
+                />
+                <Button
+                    onClick={handleDelete}
+                    disabled={deleteButtonDisabled()}
+                    sx={{m: 2}}
+                    variant="outlined"
+                    endIcon={<DeleteIcon/>}
+                >
+                    Delete Account
+                </Button>
+            </Card>
+        </Container>
+        // <Box
+        //     component="form"
+        //     sx={{
+        //         height: "100vh",
+        //         display: "flex",
+        //         justifyContent: "center",
+        //         alignItems: "center",
+        //         padding: "20px",
+        //         boxShadow: 3,
+        //     }}
+        //     noValidate
+        //     autoComplete="off"
+            
+        // >
+        //     <Card sx={{ m: 1 }}>
+        //         <TextField
+        //             id="password"
+        //             label="New Password"
+        //             fullWidth
+        //             margin="dense"
+        //             variant="outlined"
+        //             name="password"
+        //             onChange={handleNewPassword}
+        //             helperText={passwordIndicator ? "Password Changed" : ""}
+        //             required
+        //         />
+        //         <Button
+        //             onClick={handleChangePassword}
+        //         >
+        //             Change Password
+        //         </Button>
+        //     </Card>
+        //     <Card sx={{ m: 1 }}>
+        //         <TextField
+        //             id="username"
+        //             label="Username"
+        //             fullWidth
+        //             margin="dense"
+        //             variant="outlined"
+        //             name="username"
+        //             required
+        //             error={error}
+        //             helperText={error ? "WRONG USER" : ""}
+        //             onChange={handleDeleteAuth}
+        //         />
+        //         <Typography
+        //             variant="body2"
+        //             color="textSecondary"
+        //             sx={{ marginBottom: 1 }}
+        //         >
+        //             Please key in the text "I agree to delete all accounts and my user from Wally"
+        //         </Typography>
+        //         <TextField
+        //             id="text"
+        //             label="Confirmation Text"
+        //             fullWidth
+        //             margin="dense"
+        //             variant="outlined"
+        //             value={conText.user}
+        //             name="user"
+        //             required
+        //             onChange={handleConfirmationText}
+        //         />
+        //         <Button
+        //             onClick={handleDelete}
+        //             disabled={deleteButtonDisabled()}
+        //         >
+        //             Delete Account
+        //         </Button>
+        //     </Card>
+        // </Box>
     
-
-)
-}
+)}
