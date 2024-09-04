@@ -222,4 +222,4 @@ const signout = () => {
   localStorage.removeItem("token");
 };
 
-export { signup, signin, getUser, signout, createAccount, deleteUser, changePassword, getAccounts, depositAccount, withdrawAccount, updateTransaction };
+export { signup, signin, getUser, signout, createAccount, deleteUser, changePassword, getAccounts, getAccountById, depositAccount, withdrawAccount, updateTransaction };
