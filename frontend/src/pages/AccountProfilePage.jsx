@@ -15,7 +15,7 @@ import * as authService from "../services/authService";
 
 
 
-export default function AccountProfilePage(){
+export default function AccountProfilePage({ handleSignout }){
     const navigate = useNavigate()
     const [error, setError] = useState(false);
     const [userAuth, setuserAuth] = useState({username: ""})
@@ -38,6 +38,7 @@ export default function AccountProfilePage(){
         event.preventDefault();    
         try {
             const newTransactionResponse = await authService.deleteUser(userAuth);
+            handleSignout();
             navigate("/");
             console.log(newTransactionResponse)
         } catch (err) {
