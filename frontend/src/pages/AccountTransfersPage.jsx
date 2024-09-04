@@ -19,6 +19,7 @@ const currencies = [
 export default function AccountTransfersPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [accounts, setAccounts] = useState([]);
+  const [recName, setRecName] = useState("Receipient account no.");
   const [error, setError] = useState(null);
   const [transferData, setTransferData] = useState({
     senderAcc: "",
@@ -48,6 +49,9 @@ export default function AccountTransfersPage() {
     } else {
       setError("Invalid amount");
     }
+  };
+  const handleCheckName = (event) => {
+    event.preventDefault();
   };
 
   const handleSubmit = async (event) => {
@@ -106,11 +110,22 @@ export default function AccountTransfersPage() {
           <Box sx={{ marginRight: 2 }}>Send it to : </Box>{" "}
           <TextField
             id="controlled acnum"
-            label="Receipient account no."
+            label={recName}
             name="receiverAcc"
             value={transferData.receiverAcc}
             onChange={handleChange}
           />
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end", // Align button to the right
+            width: "100%", // Full width
+            maxWidth: "400px", // Limit the width of the main container
+            mt: 0.25, // Add some spacing above the button
+          }}
+        >
+          <Button onClick={handleCheckName}>Check receipient</Button>
         </Box>
         <Box
           sx={{
