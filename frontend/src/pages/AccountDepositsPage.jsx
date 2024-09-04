@@ -122,6 +122,7 @@ export default function AccountDepositsPage() {
                 label="Account"
                 value={accountId}
                 onChange={handleChangeAccounts}
+                required
               >
                 {accounts.map((account) => (
                   <MenuItem key={account._id} value={account._id}>

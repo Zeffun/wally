@@ -25,10 +25,8 @@ export const AuthedUserContext = createContext(null);
 
 function App() {
   const [user, setUser] = useState(authService.getUser());
-  const location = useLocation();
   const navigate = useNavigate();
-  const showNavBar = !location.pathname.startsWith("/account");
-  const showNavBarUser = location.pathname.startsWith("/account");
+  
 
   const handleSignout = () => {
     authService.signout();
@@ -40,15 +38,19 @@ function App() {
   return (
     <>
       <AuthedUserContext.Provider value={user}>
-        {showNavBar && <Navbar user={user} handleSignout={handleSignout} />}
-        {showNavBarUser && (
-          <NavbarUser user={user} handleSignout={handleSignout} />
-        )}
-
+        {user ? <NavbarUser user={user} handleSignout={handleSignout} /> :  <Navbar />}
         <Routes>
           {user ? (
             <>
               <Route path="/" element={<HomePage />} />
+              <Route path="/account/createAccount" element={<CreateAccountPage/>} />
+              <Route path="/account/main" element={<AccountMainPage user={user} />}/>
+              <Route path="/account/transaction"element={<AccountTransactionsPage />}/>
+              <Route path="/account/transfer" element={<AccountTransfersPage />} />
+              <Route path="/account/deposit" element={<AccountDepositsPage />} />
+              <Route path="/account/help" element={<AccountHelpPage />} />
+              <Route path="/account/profile" element={<AccountProfilePage />} />
+              <Route path="/account/withdraw" element={<AccountWithdrawPage/>} />
             </>
           ) : (
             <Route path="/" element={<HomePage />} />
@@ -58,15 +60,7 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/facts" element={<FaqPage />} />
 
-          <Route path="/account/createAccount" element={<CreateAccountPage/>} />
-
-          <Route path="/account/main" element={<AccountMainPage user={user} />}/>
-          <Route path="/account/transaction"element={<AccountTransactionsPage />}/>
-          <Route path="/account/transfer" element={<AccountTransfersPage />} />
-          <Route path="/account/deposit" element={<AccountDepositsPage />} />
-          <Route path="/account/help" element={<AccountHelpPage />} />
-          <Route path="/account/profile" element={<AccountProfilePage />} />
-          <Route path="/account/withdraw" element={<AccountWithdrawPage/>} />
+         
         </Routes>
       </AuthedUserContext.Provider>
     </>
