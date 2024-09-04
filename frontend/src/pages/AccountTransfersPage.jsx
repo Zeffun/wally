@@ -125,6 +125,7 @@ export default function AccountTransfersPage() {
             select
             label="Please select sending account"
             helperText=""
+            value={transferData.senderAcc}
             name="senderAcc"
             onChange={handleChange}
           >
