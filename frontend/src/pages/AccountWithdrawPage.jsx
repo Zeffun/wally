@@ -130,6 +130,7 @@ export default function AccountWithdrawPage() {
                 label="Account"
                 value={accountId}
                 onChange={handleChangeAccounts}
+                required
               >
                 {accounts.map((account) => (
                   <MenuItem key={account._id} value={account._id}>
@@ -166,7 +167,7 @@ export default function AccountWithdrawPage() {
              /> */}
             <FormControl sx={{ width: "300px", mb: 1 }}>
               <TextField
-                label="currency"
+                label="Currency"
                 select
                 id="currency"
                 name="currency"
