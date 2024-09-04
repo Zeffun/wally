@@ -1,24 +1,24 @@
 const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
 const getUser = () => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   if (!token) return null;
-  const user = JSON.parse(atob(token.split('.')[1]));
+  const user = JSON.parse(atob(token.split(".")[1]));
   return user;
 };
 
 const signup = async (formData) => {
   try {
     const res = await fetch(`${BACKEND_URL}/api/user/signup`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     });
     const json = await res.json();
     if (json.error) {
       throw new Error(json.error);
     }
-    localStorage.setItem('token', json.token);
+    localStorage.setItem("token", json.token);
     return json;
   } catch (err) {
     throw new Error(err);
@@ -28,8 +28,8 @@ const signup = async (formData) => {
 const signin = async (user) => {
   try {
     const res = await fetch(`${BACKEND_URL}/api/user/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user),
     });
     const json = await res.json();
@@ -37,8 +37,8 @@ const signin = async (user) => {
       throw new Error(json.error);
     }
     if (json.token) {
-      localStorage.setItem('token', json.token);
-      const user = JSON.parse(atob(json.token.split('.')[1]));
+      localStorage.setItem("token", json.token);
+      const user = JSON.parse(atob(json.token.split(".")[1]));
       return user;
     }
   } catch (err) {
@@ -50,19 +50,19 @@ const signin = async (user) => {
 const createAccount = async (accountData) => {
   try {
     const res = await fetch(`${BACKEND_URL}/api/accounts/create`, {
-      method: 'POST',
-      headers: { 
+      method: "POST",
+      headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-        'Content-Type': 'application/json', 
-       },
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(accountData),
     });
     const json = await res.json();
     if (json.error) {
       throw new Error(json.error);
     }
-    const accountId = json.accountId
-    return accountId; 
+    const accountId = json.accountId;
+    return accountId;
   } catch (err) {
     throw new Error(err);
   }
@@ -71,20 +71,44 @@ const createAccount = async (accountData) => {
 const getAccounts = async () => {
   try {
     const res = await fetch(`${BACKEND_URL}/api/accounts/`, {
-      method: 'GET',
-      headers: { 
+      method: "GET",
+      headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-        'Content-Type': 'application/json', 
-       },     
+        "Content-Type": "application/json",
+      },
     });
     const json = await res.json();
     if (json.error) {
       throw new Error(json.error);
     }
-    const accounts = json
-    return accounts; 
+    const accounts = json;
+    return accounts;
   } catch (err) {
     throw new Error(err);
+  }
+};
+
+const getAccountById = async ({ accountId }) => {
+  try {
+    const res = await fetch(`${BACKEND_URL}/api/accounts/${accountId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    });
+    if (!res.ok) {
+      throw new Error(`Account not found or server error: ${res.status}`);
+    }
+
+    const json = await res.json();
+    if (!json || !json.acId) {
+      throw new Error("No account found with the provided ID");
+    }
+
+    return json;
+  } catch (err) {
+    throw new Error(err.message);
   }
 };
 
@@ -96,8 +120,8 @@ const depositAccount = async (depositData, accountId) => {
       body: JSON.stringify(depositData),
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
@@ -107,8 +131,7 @@ const depositAccount = async (depositData, accountId) => {
   } catch (err) {
     throw new Error(err);
   }
-
-}
+};
 
 const withdrawAccount = async (withdrawData, accountId) => {
   const url = `${BACKEND_URL}/api/updates/withdraw/${accountId}`;
@@ -118,8 +141,8 @@ const withdrawAccount = async (withdrawData, accountId) => {
       body: JSON.stringify(withdrawData),
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
@@ -129,8 +152,7 @@ const withdrawAccount = async (withdrawData, accountId) => {
   } catch (err) {
     throw new Error(err);
   }
-
-}
+};
 
 const updateTransaction = async (depositTransaction, accountId) => {
   const url = `${BACKEND_URL}/api/updates/transactions/${accountId}`;
@@ -140,8 +162,8 @@ const updateTransaction = async (depositTransaction, accountId) => {
       body: JSON.stringify(depositTransaction),
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
@@ -151,8 +173,7 @@ const updateTransaction = async (depositTransaction, accountId) => {
   } catch (err) {
     throw new Error(err);
   }
-
-}
+};
 
 const deleteUser = async (username) => {
   const url = `${BACKEND_URL}/api/user/nukenukenuke`;
@@ -160,6 +181,27 @@ const deleteUser = async (username) => {
     const response = await fetch(url, {
       method: "DELETE",
       body: JSON.stringify(username),
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const json = await response.json();
+    return json;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+const changePassword = async (password) => {
+  const url = `${BACKEND_URL}/api/user/changepassword`;
+  try {
+    const response = await fetch(url, {
+      method: "PUT",
+      body: JSON.stringify(password),
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json"
@@ -198,7 +240,7 @@ const changePassword = async (password) => {
 }
 
 const signout = () => {
-  localStorage.removeItem('token');
+  localStorage.removeItem("token");
 };
 
 export { signup, signin, getUser, signout, createAccount, deleteUser, changePassword, getAccounts, depositAccount, withdrawAccount, updateTransaction };

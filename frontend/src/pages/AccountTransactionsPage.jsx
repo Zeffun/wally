@@ -33,17 +33,23 @@ export default function AccountTransactionsPage() {
     return (
         <>
             <h1>Transactions</h1>
+            <br></br>
+            <h2>Transfers</h2>
             <ul>
                 {transactions.map((transaction, index) => (
                     <li key={index}>
                         <br></br>
-                        ${transaction.amount} sent from Account {transaction.senderAcc.acId} (User: {transaction.senderAcc.userId}) to Account {transaction.receiverAcc.acId} (User: {transaction.receiverAcc.userId}) for {transaction.purpose}
+                        <strong>${transaction.amount}</strong> sent from <strong>Account ID: {transaction.senderAcc._id}</strong> <u>(User: {transaction.senderAcc.userId})</u> to <strong>Account ID: {transaction.receiverAcc._id}</strong> <u>(User: {transaction.receiverAcc.userId})</u> for <em>{transaction.purpose}</em>
                     </li>
                 ))}
+            </ul>
+            <br></br>
+            <h2>Deposits/Withdrawals</h2>
+            <ul>
                  {updates.map((update, index) => (
                     <li key={index}>
                         <br></br>
-                        ${update.amount} was {ifNegative(update.amount)} from {update.account} 
+                        <strong>${Math.abs(update.amount)}</strong> was {ifNegative(update.amount)} {ifNegative(update.amount) === "deposited" ? "into" : "from"} <strong>Account ID: {update.account}</strong>
                     </li>
                 ))}
             </ul>

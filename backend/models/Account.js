@@ -4,7 +4,7 @@ const accountSchema = new mongoose.Schema(
   {
     acId: {
       //user-generated
-      type: Number,
+      type: String,
       required: true,
     },
     currency: {

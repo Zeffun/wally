@@ -1,0 +1,24 @@
+meta {
+  name: getAccounts
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://localhost:3000/api/accounts/
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJhdG1hbiIsIl9pZCI6IjY2ZDU3NDkzY2UyYWRjZjc2ZGZiYTM4NiIsImlhdCI6MTcyNTQxOTU2MCwiZXhwIjoxNzYxNDE5NTYwfQ.jyzncafUL5MIuFFp6Rpoacku4ODTydIaGNgCSwpz74k
+}
+
+body:json {
+  {
+    "acId": 3,
+    "dateCreated": "today",
+    "currency": "sgd",
+    "balance": 8888
+  }
+}

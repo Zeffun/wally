@@ -7,7 +7,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { newTransfer } from "../services/transfService";
-import { getAccounts } from "../services/authService";
+import { getAccountById, getAccounts } from "../services/authService";
 // import Stack from "@mui/material/Stack";
 
 const currencies = [
@@ -19,6 +19,7 @@ const currencies = [
 export default function AccountTransfersPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [accounts, setAccounts] = useState([]);
+  const [recName, setRecName] = useState("Receipient account no.");
   const [error, setError] = useState(null);
   const [transferData, setTransferData] = useState({
     senderAcc: "",
@@ -47,6 +48,23 @@ export default function AccountTransfersPage() {
       setError(null);
     } else {
       setError("Invalid amount");
+    }
+  };
+  const handleCheckName = async (event) => {
+    event.preventDefault();
+    try {
+      // Extract receiverAcc from transferData
+      const { receiverAcc } = transferData;
+
+      // Call getAccountById with receiverAcc as a parameter
+      const checkNameResponse = await getAccountById({
+        accountId: receiverAcc,
+      });
+      const { acId } = checkNameResponse;
+      setRecName(acId);
+    } catch (err) {
+      console.error(err.message);
+      setRecName("No account found");
     }
   };
 
@@ -106,11 +124,22 @@ export default function AccountTransfersPage() {
           <Box sx={{ marginRight: 2 }}>Send it to : </Box>{" "}
           <TextField
             id="controlled acnum"
-            label="Receipient account no."
+            label={recName}
             name="receiverAcc"
             value={transferData.receiverAcc}
             onChange={handleChange}
           />
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end", // Align button to the right
+            width: "100%", // Full width
+            maxWidth: "400px", // Limit the width of the main container
+            mt: 0.25, // Add some spacing above the button
+          }}
+        >
+          <Button onClick={handleCheckName}>Check receipient</Button>
         </Box>
         <Box
           sx={{
