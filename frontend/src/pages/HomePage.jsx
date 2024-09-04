@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import background from "../assets/singapore.jpg";
 
+
 export default function HomePage({ handleSignout }) {
   const backgroundStyle = {
     backgroundImage: `url(${background})`,
