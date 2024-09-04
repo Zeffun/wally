@@ -154,8 +154,51 @@ const updateTransaction = async (depositTransaction, accountId) => {
 
 }
 
+const deleteUser = async (username) => {
+  const url = `${BACKEND_URL}/api/user/nukenukenuke`;
+  try {
+    const response = await fetch(url, {
+      method: "DELETE",
+      body: JSON.stringify(username),
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json"
+      }
+    });
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const json = await response.json();
+    return json;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
+// const changePassword = async (withdrawData, accountId) => {
+//   const url = `${BACKEND_URL}/api/updates/withdraw/${accountId}`;
+//   try {
+//     const response = await fetch(url, {
+//       method: "PUT",
+//       body: JSON.stringify(withdrawData),
+//       headers: {
+//         Authorization: `Bearer ${localStorage.getItem("token")}`,
+//         "Content-Type": "application/json"
+//       }
+//     });
+//     if (!response.ok) {
+//       throw new Error(`Response status: ${response.status}`);
+//     }
+//     const json = await response.json();
+//     return json;
+//   } catch (err) {
+//     throw new Error(err);
+//   }
+
+// }
+
 const signout = () => {
   localStorage.removeItem('token');
 };
 
-export { signup, signin, getUser, signout, createAccount,  getAccounts, depositAccount, withdrawAccount, updateTransaction };
+export { signup, signin, getUser, signout, createAccount, deleteUser, getAccounts, depositAccount, withdrawAccount, updateTransaction };
