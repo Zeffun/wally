@@ -1,28 +1,32 @@
-import { Card, Container}  from '@mui/material';
+import { Card, Container, Box}  from '@mui/material';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
-
+import aloyImage from "../assets/aloy.jpg"
+import zephanImage from "../assets/zephan.jpg"
+import mhImage from "../assets/mh.jpg"
 
 export default function AboutPage() {
-  return (
-    <Container>
+  return (<>
+    <Box sx={{m: 2}}>
+    <Typography sx={{textAlign: "center", fontSize: 60}}>Founders</Typography>
+    </Box>
+    <Container sx={{display: {xs: 'block', md: "flex"}, justifyContent: "space-around", alignItems: "center" }}> 
       <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
-          image="../assets/aloy.jpg"
-          alt="green iguana"
+          height="300"
+          image={zephanImage}
+          alt="zephan"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            Zephan
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            Hello 
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -30,17 +34,16 @@ export default function AboutPage() {
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
-          image="/assets/aloy.jpg"
-          alt="green iguana"
+          height="300"
+          image={aloyImage}
+          alt="aloy"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            Aloysious Leow
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+          Hello 
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -48,21 +51,21 @@ export default function AboutPage() {
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
-          image="frontend\src\assets\MH.jpg"
-          alt="green iguana"
+          height="300"
+          image={mhImage}
+          alt="minghan"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            Ming Han
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+          Hello 
           </Typography>
         </CardContent>
       </CardActionArea>
     </Card>
     </Container>
+    </>
   );
 }
