@@ -22,6 +22,7 @@ const transactionSchema = new mongoose.Schema(
     amount: {
       type: Number,
       required: true,
+      match: [/^\d*\.?\d{0,2}$/, "Invalid amount"],
     },
     purpose: {
       type: String,
