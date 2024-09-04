@@ -51,7 +51,7 @@ export default function CreateAccountPage(){
           <Box sx={{ marginBottom: 2 }}>
             <TextField
               id="acId"
-              label="acId"
+              label="Account ID"
               fullWidth
               margin="dense"
               variant="outlined"
@@ -64,7 +64,7 @@ export default function CreateAccountPage(){
          <Box sx={{ marginBottom: 2 }}>
            <FormControl sx={{ width: "100%", mb: 1 }}>
              <TextField
-               label="currency"
+               label="Currency"
                select
                id="currency"
                name="currency"
@@ -79,7 +79,7 @@ export default function CreateAccountPage(){
           <Box sx={{ marginBottom: 2 }}>
             <TextField
               id="balance"
-              label="balance"
+              label="Balance"
               fullWidth
               margin="dense"
               variant="outlined"
