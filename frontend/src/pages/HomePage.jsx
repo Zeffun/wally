@@ -1,6 +1,7 @@
+import { useEffect } from "react";
 import background from "../assets/singapore.jpg";
 
-export default function HomePage() {
+export default function HomePage({ handleSignout }) {
   const backgroundStyle = {
     backgroundImage: `url(${background})`,
     backgroundSize: "cover",
@@ -11,6 +12,12 @@ export default function HomePage() {
     paddingTop: "35px",
     paddingLeft: "35px",
   };
+
+  useEffect(()=>{
+    handleSignout();
+  },[])
+  
+  
   return (
     <div style={backgroundStyle}>
       <h1 style={headingStyle}>Welcome, Simon.</h1>
