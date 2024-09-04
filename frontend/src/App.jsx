@@ -1,4 +1,4 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
@@ -32,7 +32,6 @@ function App() {
     authService.signout();
     setUser(null);
     navigate("/");
-    console.log("test");
   };
 
   return (
@@ -42,7 +41,7 @@ function App() {
         <Routes>
           {user ? (
             <>
-              <Route path="/" element={<HomePage />} />
+              <Route path="/" element={<HomePage handleSignout={handleSignout}/>} />
               <Route path="/account/createAccount" element={<CreateAccountPage/>} />
               <Route path="/account/main" element={<AccountMainPage user={user} />}/>
               <Route path="/account/transaction"element={<AccountTransactionsPage />}/>
@@ -53,7 +52,7 @@ function App() {
               <Route path="/account/withdraw" element={<AccountWithdrawPage/>} />
             </>
           ) : (
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<HomePage handleSignout={handleSignout}/>} />
           )}
           <Route path="/signin" element={<SignInPage setUser={setUser} />} />
           <Route path="/signup" element={<SignUpPage setUser={setUser} />} />

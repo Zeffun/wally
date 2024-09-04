@@ -5,7 +5,8 @@ const jwt = require("jsonwebtoken");
 const verifyToken = require("../middleware/verify-token");
 const User = require("../models/User");
 const Account = require("../models/Account")
-const Update = require("../models/Update")
+const Update = require("../models/Update");
+const Transaction = require("../models/Transaction");
 const SALT_LENGTH = 12;
 
 // router.get("/signup", (req,res) => {
@@ -79,6 +80,7 @@ router.delete("/nukenukenuke", async (req, res) => {
     }
     await Account.deleteMany({userId: req.user._id})
     await Update.deleteMany({userId: req.user._id})
+    
     const nukeUser = await User.findByIdAndDelete(req.user._id);
     res.status(200).json(nukeUser)
   } catch (error) {

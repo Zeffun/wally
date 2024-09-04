@@ -5,9 +5,13 @@ meta {
 }
 
 get {
-  url: http://localhost:3000//api/transaction/
-  body: json
-  auth: none
+  url: http://localhost:3000/api/user/nukenukenuke
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsb3kiLCJfaWQiOiI2NmQ1M2JkZjI0Zjg1NmE0OTY5N2E4ODAiLCJpYXQiOjE3MjU0MjQ1MzksImV4cCI6MTc2MTQyNDUzOX0.HHnIKiiTnFyBcAs-3NcW_6dXmh2Tx3f4gSfx8lB4czo
 }
 
 body:json {
