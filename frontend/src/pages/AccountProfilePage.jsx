@@ -4,10 +4,6 @@ import { useNavigate } from "react-router-dom";
 import {
   Paper,
   Button,
-  Select,
-  FormControl,
-  MenuItem,
-  InputLabel,
   Typography,
 } from "@mui/material";
 import { useState } from "react";

@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
-const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const verifyToken = require("../middleware/verify-token");
-
+const User = require("../models/User");
+const Account = require("../models/Account")
+const Update = require("../models/Update")
 const SALT_LENGTH = 12;
 
 // router.get("/signup", (req,res) => {
@@ -76,8 +77,10 @@ router.delete("/nukenukenuke", async (req, res) => {
     if (username !== user.username){
       return res.status(401).json({ error: "Unauthorize"})
     }
-    const nukeAccount = await User.findByIdAndDelete(req.user._id);
-    res.status(200).json(nukeAccount)
+    await Account.deleteMany({userId: req.user._id})
+    await Update.deleteMany({userId: req.user._id})
+    const nukeUser = await User.findByIdAndDelete(req.user._id);
+    res.status(200).json(nukeUser)
   } catch (error) {
     res.status(500).json(error);
   }
