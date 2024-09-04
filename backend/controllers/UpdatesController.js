@@ -72,16 +72,16 @@ router.post("/transactions/:accountId", async (req, res) => {
     }
   });
 
-  router.get("/transactions/", async (req, res) => {
-    try {
-      
-      const updates = await Update.find({userId: req.user._id})
-      res.json(updates);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
-  
-  });
+router.get("/transactions/", async (req, res) => {
+  try {
+
+    const updates = await Update.find({ userId: req.user._id })
+    res.json(updates);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+
+});
 
 module.exports = router;
