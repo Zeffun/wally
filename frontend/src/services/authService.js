@@ -215,27 +215,6 @@ const changePassword = async (password) => {
   } catch (err) {
     throw new Error(err);
   }
-}
-
-const changePassword = async (password) => {
-  const url = `${BACKEND_URL}/api/user/changepassword`;
-  try {
-    const response = await fetch(url, {
-      method: "PUT",
-      body: JSON.stringify(password),
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json"
-      }
-    });
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-    const json = await response.json();
-    return json;
-  } catch (err) {
-    throw new Error(err);
-  }
 
 }
 
