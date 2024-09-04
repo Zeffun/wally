@@ -175,6 +175,28 @@ const deleteUser = async (username) => {
   }
 }
 
+// const changePassword = async (withdrawData, accountId) => {
+//   const url = `${BACKEND_URL}/api/updates/withdraw/${accountId}`;
+//   try {
+//     const response = await fetch(url, {
+//       method: "PUT",
+//       body: JSON.stringify(withdrawData),
+//       headers: {
+//         Authorization: `Bearer ${localStorage.getItem("token")}`,
+//         "Content-Type": "application/json"
+//       }
+//     });
+//     if (!response.ok) {
+//       throw new Error(`Response status: ${response.status}`);
+//     }
+//     const json = await response.json();
+//     return json;
+//   } catch (err) {
+//     throw new Error(err);
+//   }
+
+// }
+
 const signout = () => {
   localStorage.removeItem('token');
 };

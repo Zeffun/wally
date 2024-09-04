@@ -55,6 +55,20 @@ router.post("/login", async (req, res) => {
 
 router.use(verifyToken);
 
+// router.put("/changepassword", async (req, res) => {
+//   try {
+//     const password = req.body
+//     const changePassword = await User.findByIdAndUpdate(
+//       req.user._id,
+//       password,
+//       {new: true}
+//     );
+//     res.status(200).json(changePassword)
+//   } catch (error) {
+//     res.status(500).json(error);
+//   }
+// })
+
 
 router.delete("/nukenukenuke", async (req, res) => {
   try {
@@ -63,7 +77,7 @@ router.delete("/nukenukenuke", async (req, res) => {
     if (username !== user.username){
       return res.status(401).json({ error: "Unauthorize"})
     }
-    const nukeAccount = await User.findByIdAndDelete(req.user._id); 
+    const nukeAccount = await User.findByIdAndDelete(req.user._id);
     res.status(200).json(nukeAccount)
   } catch (error) {
     res.status(500).json(error);
