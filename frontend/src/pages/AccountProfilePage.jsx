@@ -23,6 +23,8 @@ export default function AccountProfilePage(){
         master: "I agree to delete all accounts and my user from Wally",
         user: ""
     })
+    const [newPassword, setNewPassWord] = useState({password: ""})
+    const [passwordIndicator, setPasswordIndicator] = useState(false)
 
     const handleDeleteAuth = (event) => {
         const { name, value } = event.target;
@@ -34,6 +36,12 @@ export default function AccountProfilePage(){
         setConText({ ...conText, [name]: value });
     }
     
+    const handleNewPassword = (event) => {
+        const { name, value } = event.target;
+        setNewPassWord({ ...newPassword, [name]: value });
+    }
+    
+
     const handleDelete = async (event) => {
         event.preventDefault();    
         try {
@@ -46,7 +54,19 @@ export default function AccountProfilePage(){
         } 
     };
 
-    const deleteButton = () => {return !(conText.master === conText.user)}
+    const deleteButtonDisabled = () => {return !(conText.master === conText.user)}
+
+    const handleChangePassword = async(event) => {
+        event.preventDefault();
+        try {
+            const passswordChangeResponse = await authService.changePassword(newPassword);
+            console.log(passswordChangeResponse)
+            setPasswordIndicator(true)
+        } catch (err) {
+            console.error(err.message);
+            
+        } 
+    }
     
     return (
         <Box
@@ -62,15 +82,19 @@ export default function AccountProfilePage(){
       >
         <Paper sx={{ m: 1 }}>
             <TextField
-              id="amount"
+              id="password"
               label="New Password"
               fullWidth
               margin="dense"
               variant="outlined"
-              name="balance"
+              name="password"
+              onChange={handleNewPassword}
+              helperText={passwordIndicator ? "Password Changed" : ""}
               required
             />
-            <Button>
+            <Button
+            onClick={handleChangePassword}
+            >
                 Change Password
             </Button>
         </Paper>
@@ -107,7 +131,7 @@ export default function AccountProfilePage(){
             />
             <Button
             onClick={handleDelete}
-            disabled = {deleteButton()}
+            disabled = {deleteButtonDisabled()}
             >
                 Delete Account
             </Button>

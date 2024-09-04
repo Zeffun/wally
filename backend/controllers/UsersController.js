@@ -53,21 +53,20 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.use(verifyToken);
+router.use(verifyToken)
 
-// router.put("/changepassword", async (req, res) => {
-//   try {
-//     const password = req.body
-//     const changePassword = await User.findByIdAndUpdate(
-//       req.user._id,
-//       password,
-//       {new: true}
-//     );
-//     res.status(200).json(changePassword)
-//   } catch (error) {
-//     res.status(500).json(error);
-//   }
-// })
+router.put("/changepassword", async (req, res) => {
+  try {
+    const updatePassword = await User.findByIdAndUpdate(
+      req.user._id,
+      {hashedPassword: bcrypt.hashSync(req.body.password, SALT_LENGTH)},
+      {new: true}
+    )
+    res.status(200).json(updatePassword)
+  } catch (error) {
+    res.status(500).json(error);
+  }
+})
 
 
 router.delete("/nukenukenuke", async (req, res) => {
