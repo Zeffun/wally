@@ -1,29 +1,26 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 
+const pages = ["dashboard", "transactions", "transfer", "deposit", "withdraw"];
+const settings = ["Profile", "Help"];
 
-
-const pages = ['dashboard', 'transactions', 'transfer', 'deposit', 'withdraw'];
-const settings = ['Profile', 'Help'];
-
-export default function NavbarUser({handleSignout}) {
+export default function NavbarUser({ handleSignout }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
- 
   const navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
@@ -34,11 +31,11 @@ export default function NavbarUser({handleSignout}) {
     } else if (newValue === "transfer") {
       navigate("/account/transfer");
     } else if (newValue === "deposit") {
-      navigate(`/account/deposit/`)
+      navigate(`/account/deposit/`);
     } else if (newValue === "withdraw") {
-      navigate(`/account/withdraw/`)
+      navigate(`/account/withdraw/`);
     }
-  }
+  };
 
   const handleProfileChange = (event, newValue) => {
     if (newValue === "Profile") {
@@ -67,7 +64,9 @@ export default function NavbarUser({handleSignout}) {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AccountBalanceWalletIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <AccountBalanceWalletIcon
+            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+          />
           <Typography
             variant="h6"
             noWrap
@@ -126,7 +125,9 @@ export default function NavbarUser({handleSignout}) {
               ))}
             </Menu>
           </Box>
-          <AccountBalanceWalletIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <AccountBalanceWalletIcon
+            sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
+          />
           <Typography
             variant="h5"
             noWrap
@@ -159,7 +160,7 @@ export default function NavbarUser({handleSignout}) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="user" src="" />
               </IconButton>
             </Tooltip>
             <Menu
