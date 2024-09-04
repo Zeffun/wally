@@ -84,7 +84,7 @@ export default function AccountProfilePage({ handleSignout }){
                     variant="outlined"
                     name="password"
                     onChange={handleNewPassword}
-                    helperText={passwordIndicator ? "Password Changed" : ""}
+                    helperText={passwordIndicator ? "Password Changed, please remember your password" : ""}
                     required
                     sx={{width: "80%"}}
                 />
@@ -139,76 +139,5 @@ export default function AccountProfilePage({ handleSignout }){
                 </Button>
             </Card>
         </Container>
-        // <Box
-        //     component="form"
-        //     sx={{
-        //         height: "100vh",
-        //         display: "flex",
-        //         justifyContent: "center",
-        //         alignItems: "center",
-        //         padding: "20px",
-        //         boxShadow: 3,
-        //     }}
-        //     noValidate
-        //     autoComplete="off"
-            
-        // >
-        //     <Card sx={{ m: 1 }}>
-        //         <TextField
-        //             id="password"
-        //             label="New Password"
-        //             fullWidth
-        //             margin="dense"
-        //             variant="outlined"
-        //             name="password"
-        //             onChange={handleNewPassword}
-        //             helperText={passwordIndicator ? "Password Changed" : ""}
-        //             required
-        //         />
-        //         <Button
-        //             onClick={handleChangePassword}
-        //         >
-        //             Change Password
-        //         </Button>
-        //     </Card>
-        //     <Card sx={{ m: 1 }}>
-        //         <TextField
-        //             id="username"
-        //             label="Username"
-        //             fullWidth
-        //             margin="dense"
-        //             variant="outlined"
-        //             name="username"
-        //             required
-        //             error={error}
-        //             helperText={error ? "WRONG USER" : ""}
-        //             onChange={handleDeleteAuth}
-        //         />
-        //         <Typography
-        //             variant="body2"
-        //             color="textSecondary"
-        //             sx={{ marginBottom: 1 }}
-        //         >
-        //             Please key in the text "I agree to delete all accounts and my user from Wally"
-        //         </Typography>
-        //         <TextField
-        //             id="text"
-        //             label="Confirmation Text"
-        //             fullWidth
-        //             margin="dense"
-        //             variant="outlined"
-        //             value={conText.user}
-        //             name="user"
-        //             required
-        //             onChange={handleConfirmationText}
-        //         />
-        //         <Button
-        //             onClick={handleDelete}
-        //             disabled={deleteButtonDisabled()}
-        //         >
-        //             Delete Account
-        //         </Button>
-        //     </Card>
-        // </Box>
     
 )}
