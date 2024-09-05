@@ -16,6 +16,21 @@ const currencies = [
     label: "SGD",
   },
 ];
+
+const boxShadowStyle = {
+  boxShadow: "-4px 4px 6px rgba(0, 0, 0, 0.1)",
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "gray",
+    },
+    "&:hover fieldset": {
+      borderColor: "blue",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: (theme) => theme.palette.primary.main,
+    },
+  },
+};
 export default function AccountTransfersPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [accounts, setAccounts] = useState([]);
@@ -104,12 +119,13 @@ export default function AccountTransfersPage() {
       <Box
         component="form"
         sx={{
-          "& .MuiTextField-root": { m: 1.5, width: "35ch" },
+          "& .MuiTextField-root": { m: 1.5, width: "35ch" }, // TextField margin and width
           display: "flex",
           flexDirection: "column",
           justifyContent: "center", // Center vertically
           alignItems: "center", // Center horizontally
           height: "100vh",
+          paddingTop: "64px",
         }}
         noValidate
         autoComplete="off"
@@ -127,6 +143,7 @@ export default function AccountTransfersPage() {
             label={recName}
             name="receiverAcc"
             value={transferData.receiverAcc}
+            sx={boxShadowStyle}
             onChange={handleChange}
           />
         </Box>
@@ -156,6 +173,7 @@ export default function AccountTransfersPage() {
             helperText=""
             value={transferData.senderAcc}
             name="senderAcc"
+            sx={boxShadowStyle}
             onChange={handleChange}
           >
             {accounts.map((account) => (
@@ -181,6 +199,7 @@ export default function AccountTransfersPage() {
             helperText=""
             value={transferData.currency}
             name="currency"
+            sx={boxShadowStyle}
             onChange={handleChange}
           >
             {currencies.map((option) => (
@@ -195,6 +214,7 @@ export default function AccountTransfersPage() {
             label=""
             value={transferData.amount}
             name="amount"
+            sx={boxShadowStyle}
             onChange={handleChangeAmt}
             error={error}
             helperText={error}
@@ -213,6 +233,7 @@ export default function AccountTransfersPage() {
             label="Purpose of transfer"
             variant="filled"
             name="purpose"
+            sx={boxShadowStyle}
             onChange={handleChange}
           />
         </Box>
@@ -225,7 +246,11 @@ export default function AccountTransfersPage() {
             mt: 3, // Add some spacing above the button
           }}
         >
-          <Button variant="contained" onClick={handleSubmit}>
+          <Button
+            sx={boxShadowStyle}
+            variant="contained"
+            onClick={handleSubmit}
+          >
             Send now
           </Button>
         </Box>

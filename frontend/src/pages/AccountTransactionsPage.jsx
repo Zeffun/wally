@@ -59,6 +59,8 @@ export default function AccountTransactionsPage(props) {
                     marginTop: "20px",
                 }}
             >
+                <br></br>
+                <br></br>
                 <Typography  sx={{ padding: 2, fontSize:{ xs: "1rem", md: "2rem"} }}><h1>Transfers</h1></Typography>
                 {transactions.map((transaction, index) => (
                     <Card key={index} sx={{ mb: 2, width: "100%" }}>

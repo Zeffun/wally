@@ -1,18 +1,23 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import PersonIcon from '@mui/icons-material/Person';
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Button,
+  Tooltip,
+  MenuItem,
+} from "@mui/material";
+
+import {
+  Menu as MenuIcon,
+  Person as PersonIcon,
+  AccountBalanceWallet as AccountBalanceWalletIcon,
+} from "@mui/icons-material";
 
 const pages = ["dashboard", "transactions", "transfer", "deposit", "withdraw"];
 const settings = ["Profile", "Help"];
@@ -61,7 +66,7 @@ export default function NavbarUser({ handleSignout }) {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AccountBalanceWalletIcon
@@ -160,7 +165,7 @@ export default function NavbarUser({ handleSignout }) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <PersonIcon sx={{fontSize: 50}} />
+                <PersonIcon sx={{ fontSize: 50 }} />
               </IconButton>
             </Tooltip>
             <Menu
