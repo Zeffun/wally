@@ -56,7 +56,7 @@ export default function AccountMainPage() {
           p: 2,
           display: { xs: "block", md: "flex" },
           width: "80%",
-          height: { xs: "auto", md: "20vh" },
+          height: { xs: "20vh", md: "20vh" },
           margin: "0 auto",
           justifyContent: { xs: "center", md: "space-around" },
           alignItems: "center",
@@ -110,7 +110,7 @@ export default function AccountMainPage() {
         sx={{
           p: 2,
           display: { xs: "flex", md: "flex" },
-          width: "15%",
+          width: {xs:"50%", md: "15%"},
           height: "100%",
           margin: "0 auto",
           justifyContent: { xs: "space-around", md: "space-around" },
