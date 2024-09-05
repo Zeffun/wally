@@ -63,4 +63,7 @@ If you have any questions or concerns regarding these terms, please contact our 
 ## Summarised review after completion
 
 ## Future state of Wally
-
+- Delete account feature
+- Add more user profile info fields, e.g address, occupation, etc
+- Apply for loans and other financial products from Wally
+- Interest rates for accounts
