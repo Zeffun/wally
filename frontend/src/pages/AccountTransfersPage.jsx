@@ -104,7 +104,7 @@ export default function AccountTransfersPage() {
       <Box
         component="form"
         sx={{
-          "& .MuiTextField-root": { m: 1.5, width: "35ch" },
+          "& .MuiTextField-root": { m: 1.5, width: "35ch" }, // TextField margin and width
           display: "flex",
           flexDirection: "column",
           justifyContent: "center", // Center vertically
@@ -127,6 +127,20 @@ export default function AccountTransfersPage() {
             label={recName}
             name="receiverAcc"
             value={transferData.receiverAcc}
+            sx={{
+              boxShadow: "-4px 4px 6px rgba(0, 0, 0, 0.1)",
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "gray",
+                },
+                "&:hover fieldset": {
+                  borderColor: "blue", // Border color on hover
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: (theme) => theme.palette.primary.main, // Border color when focused
+                },
+              },
+            }}
             onChange={handleChange}
           />
         </Box>
@@ -156,6 +170,20 @@ export default function AccountTransfersPage() {
             helperText=""
             value={transferData.senderAcc}
             name="senderAcc"
+            sx={{
+              boxShadow: "-4px 4px 6px rgba(0, 0, 0, 0.1)", // Add shadow
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "gray", // Normal border color
+                },
+                "&:hover fieldset": {
+                  borderColor: "blue", // Border color on hover
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: (theme) => theme.palette.primary.main, // Border color when focused
+                },
+              },
+            }}
             onChange={handleChange}
           >
             {accounts.map((account) => (
@@ -181,6 +209,20 @@ export default function AccountTransfersPage() {
             helperText=""
             value={transferData.currency}
             name="currency"
+            sx={{
+              boxShadow: "-4px 4px 6px rgba(0, 0, 0, 0.1)", // Add shadow
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "gray", // Normal border color
+                },
+                "&:hover fieldset": {
+                  borderColor: "blue", // Border color on hover
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: (theme) => theme.palette.primary.main, // Border color when focused
+                },
+              },
+            }}
             onChange={handleChange}
           >
             {currencies.map((option) => (
@@ -195,6 +237,20 @@ export default function AccountTransfersPage() {
             label=""
             value={transferData.amount}
             name="amount"
+            sx={{
+              boxShadow: "-4px 4px 6px rgba(0, 0, 0, 0.1)", // Add shadow
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "gray", // Normal border color
+                },
+                "&:hover fieldset": {
+                  borderColor: "blue", // Border color on hover
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: (theme) => theme.palette.primary.main, // Border color when focused
+                },
+              },
+            }}
             onChange={handleChangeAmt}
             error={error}
             helperText={error}
@@ -213,6 +269,20 @@ export default function AccountTransfersPage() {
             label="Purpose of transfer"
             variant="filled"
             name="purpose"
+            sx={{
+              boxShadow: "-4px 4px 6px rgba(0, 0, 0, 0.1)", // Add shadow
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "gray", // Normal border color
+                },
+                "&:hover fieldset": {
+                  borderColor: "blue", // Border color on hover
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: (theme) => theme.palette.primary.main, // Border color when focused
+                },
+              },
+            }}
             onChange={handleChange}
           />
         </Box>
@@ -225,7 +295,24 @@ export default function AccountTransfersPage() {
             mt: 3, // Add some spacing above the button
           }}
         >
-          <Button variant="contained" onClick={handleSubmit}>
+          <Button
+            sx={{
+              boxShadow: "-4px 4px 6px rgba(0, 0, 0, 0.1)", // Add shadow
+              "& .MuiOutlinedInput-root": {
+                "& fieldset": {
+                  borderColor: "gray", // Normal border color
+                },
+                "&:hover fieldset": {
+                  borderColor: "blue", // Border color on hover
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: (theme) => theme.palette.primary.main, // Border color when focused
+                },
+              },
+            }}
+            variant="contained"
+            onClick={handleSubmit}
+          >
             Send now
           </Button>
         </Box>
