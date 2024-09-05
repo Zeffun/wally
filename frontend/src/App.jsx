@@ -44,7 +44,7 @@ function App() {
               <Route path="/" element={<HomePage handleSignout={handleSignout}/>} />
               <Route path="/account/createAccount" element={<CreateAccountPage/>} />
               <Route path="/account/main" element={<AccountMainPage user={user} />}/>
-              <Route path="/account/transaction"element={<AccountTransactionsPage />}/>
+              <Route path="/account/transaction"element={<AccountTransactionsPage user={user}/>}/>
               <Route path="/account/transfer" element={<AccountTransfersPage />} />
               <Route path="/account/deposit" element={<AccountDepositsPage />} />
               <Route path="/account/help" element={<AccountHelpPage />} />
