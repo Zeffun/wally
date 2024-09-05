@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const verifyToken = require("../middleware/verify-token");
 const User = require("../models/User");
-const Account = require("../models/Account")
+const Account = require("../models/Account");
 const Update = require("../models/Update");
 const Transaction = require("../models/Transaction");
 const SALT_LENGTH = 12;
@@ -45,7 +45,7 @@ router.post("/login", async (req, res) => {
       const token = jwt.sign(
         { /*cxId: req.body.cxId,*/ username: req.body.username, _id: user._id },
         process.env.JWT_SECRET,
-        { expiresIn: "10000hr" }
+        { expiresIn: "72hr" }
       );
       return res.status(200).json({ token });
     }
@@ -55,34 +55,33 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.use(verifyToken)
+router.use(verifyToken);
 
 router.put("/changepassword", async (req, res) => {
   try {
     const updatePassword = await User.findByIdAndUpdate(
       req.user._id,
-      {hashedPassword: bcrypt.hashSync(req.body.password, SALT_LENGTH)},
-      {new: true}
-    )
-    res.status(200).json(updatePassword)
+      { hashedPassword: bcrypt.hashSync(req.body.password, SALT_LENGTH) },
+      { new: true }
+    );
+    res.status(200).json(updatePassword);
   } catch (error) {
     res.status(500).json(error);
   }
-})
-
+});
 
 router.delete("/nukenukenuke", async (req, res) => {
   try {
-    const username = req.body.username
+    const username = req.body.username;
     const user = await User.findById(req.user._id);
-    if (username !== user.username){
-      return res.status(401).json({ error: "Unauthorize"})
+    if (username !== user.username) {
+      return res.status(401).json({ error: "Unauthorize" });
     }
-    await Account.deleteMany({userId: req.user._id})
-    await Update.deleteMany({userId: req.user._id})
-    
+    await Account.deleteMany({ userId: req.user._id });
+    await Update.deleteMany({ userId: req.user._id });
+
     const nukeUser = await User.findByIdAndDelete(req.user._id);
-    res.status(200).json(nukeUser)
+    res.status(200).json(nukeUser);
   } catch (error) {
     res.status(500).json(error);
   }

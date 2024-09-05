@@ -36,6 +36,7 @@ export default function AccountTransfersPage() {
   const [accounts, setAccounts] = useState([]);
   const [recName, setRecName] = useState("Receipient account no.");
   const [error, setError] = useState(null);
+  const [fieldError, setFieldError] = useState(null);
   const [transferData, setTransferData] = useState({
     senderAcc: "",
     receiverAcc: "",
@@ -48,17 +49,19 @@ export default function AccountTransfersPage() {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setTransferData({ ...transferData, [name]: value });
+
+    if (value === "" || value.length <= 36) {
+      setFieldError(null);
+    } else {
+      // Show error if length exceeds 36 characters
+      setFieldError("Please limit to 36 characters or less.");
+    }
   };
 
   const handleChangeAmt = (event) => {
     const amountRegex = /^\d*\.?\d{0,2}$/;
     const value = event.target.value;
-    if (value === "") {
-      setTransferData({ ...transferData, amount: value });
-      setError(null);
-      return;
-    }
-    if (amountRegex.test(value)) {
+    if (value === "" || amountRegex.test(value)) {
       setTransferData({ ...transferData, amount: value });
       setError(null);
     } else {
@@ -235,6 +238,8 @@ export default function AccountTransfersPage() {
             name="purpose"
             sx={boxShadowStyle}
             onChange={handleChange}
+            error={fieldError}
+            helperText={fieldError}
           />
         </Box>
         <Box
