@@ -2,14 +2,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import {
-  Paper,
-  Button,
-  Select,
-  FormControl,
-  MenuItem,
-  InputLabel,
-} from "@mui/material";
+import { Paper, Button, FormControl, MenuItem } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as authService from "../services/authService";

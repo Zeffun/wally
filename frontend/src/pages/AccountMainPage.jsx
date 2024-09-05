@@ -22,6 +22,11 @@ export default function AccountMainPage() {
       try {
         const data = await getAccounts();
         setAccounts(data);
+        if (accounts.length >= 3) {
+          setDisabled(true);
+        } else {
+          setDisabled(false);
+        }
       } catch (error) {
         console.error(error.message);
       } finally {
@@ -29,14 +34,6 @@ export default function AccountMainPage() {
       }
     };
     loadAccount();
-  }, []);
-
-  useEffect(() => {
-    if (accounts.length >= 3) {
-      setDisabled(true);
-    } else {
-      setDisabled(false);
-    }
   }, [accounts]);
 
   const handleClick = (event) => {
@@ -64,42 +61,49 @@ export default function AccountMainPage() {
           alignItems: "center",
           flexWrap: "wrap",
           boxShadow: 3,
-          marginTop: "20px",
-          paddingTop: "64px",
+          marginTop: "75px",
+          paddingTop: "15px",
         }}
       >
-        {accounts.map((account, index) => (
-          <Card
-            key={index}
-            sx={{
-              width: { xs: "100%", md: "200px" },
-              height: { xs: "100%", md: "100px" },
-              display: { xs: "block", md: "flex" },
-              alignItems: "center",
-              justifyContent: "center",
-              mb: { xs: 2, md: 0 },
-              backgroundColor: "#f3e9e7",
-            }}
-          >
-            <CardContent>
-              <Typography
-                gutterBottom
-                sx={{ color: "text.secondary", fontSize: 14 }}
-              >
-                Account
-              </Typography>
-              <Typography
-                gutterBottom
-                sx={{ color: "text.secondary", fontSize: 14 }}
-              >
-                {account._id}
-              </Typography>
-              <Typography variant="h5" component="div">
-                ${account.balance}
-              </Typography>
-            </CardContent>
-          </Card>
-        ))}
+        {accounts.map((account, index) => {
+          const formattedBalance = new Intl.NumberFormat("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }).format(account.balance);
+
+          return (
+            <Card
+              key={index}
+              sx={{
+                width: { xs: "100%", md: "200px" },
+                height: { xs: "100%", md: "100px" },
+                display: { xs: "block", md: "flex" },
+                alignItems: "center",
+                justifyContent: "center",
+                mb: { xs: 2, md: 0 },
+                backgroundColor: "#f3e9e7",
+              }}
+            >
+              <CardContent>
+                <Typography
+                  gutterBottom
+                  sx={{ color: "text.secondary", fontSize: 14 }}
+                >
+                  Account
+                </Typography>
+                <Typography
+                  gutterBottom
+                  sx={{ color: "text.secondary", fontSize: 14 }}
+                >
+                  {account._id}
+                </Typography>
+                <Typography variant="h5" component="div">
+                  ${formattedBalance}
+                </Typography>
+              </CardContent>
+            </Card>
+          );
+        })}
       </Box>
       <Box
         sx={{
