@@ -18,6 +18,8 @@ mongoose.connection.on("connected", () => {
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(express.static("../frontend/dist"));
+
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
