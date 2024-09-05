@@ -110,6 +110,7 @@ export default function AccountTransfersPage() {
           justifyContent: "center", // Center vertically
           alignItems: "center", // Center horizontally
           height: "100vh",
+          paddingTop: "64px",
         }}
         noValidate
         autoComplete="off"

@@ -65,6 +65,7 @@ export default function AccountMainPage() {
           flexWrap: "wrap",
           boxShadow: 3,
           marginTop: "20px",
+          paddingTop: "64px",
         }}
       >
         {accounts.map((account, index) => (
