@@ -21,7 +21,6 @@ export default function AccountMainPage() {
     const loadAccount = async () => {
       try {
         const data = await getAccounts();
-        console.log(data);
         setAccounts(data);
         if (data.length >= 3) {
           setDisabled(true);
@@ -56,13 +55,13 @@ export default function AccountMainPage() {
           p: 2,
           display: { xs: "block", md: "flex" },
           width: "80%",
-          height: { xs: "auto", md: "20vh" },
+          height: { xs: "20vh", md: "20vh" },
           margin: "0 auto",
           justifyContent: { xs: "center", md: "space-around" },
           alignItems: "center",
           flexWrap: "wrap",
           boxShadow: 3,
-          marginTop: "75px",
+          marginTop: "100px",
           paddingTop: "15px",
         }}
       >
@@ -77,7 +76,7 @@ export default function AccountMainPage() {
               key={index}
               sx={{
                 width: { xs: "100%", md: "200px" },
-                height: { xs: "100%", md: "100px" },
+                height: { xs: "100%", md: "130px" },
                 display: { xs: "block", md: "flex" },
                 alignItems: "center",
                 justifyContent: "center",
@@ -88,9 +87,9 @@ export default function AccountMainPage() {
               <CardContent>
                 <Typography
                   gutterBottom
-                  sx={{ color: "text.secondary", fontSize: 14 }}
+                  sx={{ fontSize: 20 }}
                 >
-                  <h1>{account.acId}</h1>
+                  {account.acId}
                 </Typography>
                 <Typography
                   gutterBottom
@@ -110,7 +109,7 @@ export default function AccountMainPage() {
         sx={{
           p: 2,
           display: { xs: "flex", md: "flex" },
-          width: "15%",
+          width: {xs:"50%", md: "15%"},
           height: "100%",
           margin: "0 auto",
           justifyContent: { xs: "space-around", md: "space-around" },

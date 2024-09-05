@@ -27,7 +27,6 @@ export default function SignUpPage(props) {
     try {
       const newUserResponse = await authService.signup(formData);
       props.setUser(newUserResponse.user);
-      console.log(newUserResponse);
       navigate('/account/main');
     } catch (err) {
       updateMessage(err.message);

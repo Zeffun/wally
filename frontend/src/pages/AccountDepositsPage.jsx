@@ -38,7 +38,7 @@ export default function AccountDepositsPage() {
     const { name, value } = event.target;
     setAccountId(value);
     setDepositTransaction({ ...depositTransaction, [name]: value });
-    console.log(accountData);
+    
   };
 
   const handleChange = (event) => {
@@ -69,16 +69,16 @@ export default function AccountDepositsPage() {
     try {
       const balance = parseFloat(accountData.balance);
 
-      const newDepositResponse = await authService.depositAccount(
+      await authService.depositAccount(
         { ...accountData, balance },
         accountId
       );
-      const newTransactionResponse = await authService.updateTransaction(
+      await authService.updateTransaction(
         depositTransaction,
         accountId
       );
-      console.log(newDepositResponse);
-      console.log(newTransactionResponse);
+      
+      
       navigate("/account/main");
     } catch (err) {
       console.error(err.message);

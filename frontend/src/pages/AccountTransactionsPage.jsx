@@ -24,10 +24,6 @@ export default function AccountTransactionsPage(props) {
         setTransactions(transactionData);
         setUpdates(updatesData);
 
-        // Log the data to the console
-        console.log(transactionData[0].amount);
-        console.log(props.user);
-        console.log(typeof updatesData[0].amount);
       } catch (error) {
         console.error("Error loading data:", error);
       } finally {
@@ -71,8 +67,8 @@ export default function AccountTransactionsPage(props) {
       >
         <br></br>
         <br></br>
-        <Typography sx={{ padding: 2, fontSize: { xs: "1rem", md: "2rem" } }}>
-          <h1>Transfers</h1>
+        <Typography sx={{ padding: 2, fontSize: { xs: "1rem", md: "2rem" }, fontWeight: "bold" }}>
+          Transfers
         </Typography>
         {transactions.map((transaction, index) => (
           <Card key={index} sx={{ mb: 2, width: "100%" }}>
@@ -138,8 +134,8 @@ export default function AccountTransactionsPage(props) {
             </CardContent>
           </Card>
         ))}
-        <Typography sx={{ padding: 2, fontSize: { xs: "1rem", md: "2rem" } }}>
-          <h1>Deposits/Withdrawals</h1>
+        <Typography sx={{ padding: 2, fontSize: { xs: "1rem", md: "2rem" }, fontWeight: "bold" }}>
+          Deposits/Withdrawals
         </Typography>
         {updates.map((update, index) => (
           <Card key={index} sx={{ mb: 2, width: "100%" }}>
@@ -148,7 +144,7 @@ export default function AccountTransactionsPage(props) {
                 ${Math.abs(update.amount)}
               </Typography>
               <CardContent
-                sx={{ display: "flex", justifyContent: "space-between" }}
+                sx={{ display: {xs: "block", md: "flex"}, justifyContent: "space-between" }}
               >
                 <Box>
                   <Typography>

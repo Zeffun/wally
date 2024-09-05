@@ -35,10 +35,10 @@ export default function AccountProfilePage({ handleSignout }) {
   const handleDelete = async (event) => {
     event.preventDefault();
     try {
-      const newTransactionResponse = await authService.deleteUser(userAuth);
+      await authService.deleteUser(userAuth);
       handleSignout();
       navigate("/");
-      console.log(newTransactionResponse);
+      
     } catch (err) {
       console.error(err.message);
       setError(true);
@@ -52,10 +52,10 @@ export default function AccountProfilePage({ handleSignout }) {
   const handleChangePassword = async (event) => {
     event.preventDefault();
     try {
-      const passswordChangeResponse = await authService.changePassword(
+      await authService.changePassword(
         newPassword
       );
-      console.log(passswordChangeResponse);
+      
       setPasswordIndicator(true);
     } catch (err) {
       console.error(err.message);
@@ -69,6 +69,7 @@ export default function AccountProfilePage({ handleSignout }) {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
+        mt: { xs: 10, md: "auto"} 
       }}
     >
       <Card
