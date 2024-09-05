@@ -63,7 +63,7 @@ export default function TrsfFormNarrow({
         sx={{ width: "100%", mt: 3 }}
       >
         <Grid item>
-          <Button onClick={handleCheckName}>Send now</Button>
+          <Button onClick={handleCheckName}>check name</Button>
         </Grid>
       </Grid>
 

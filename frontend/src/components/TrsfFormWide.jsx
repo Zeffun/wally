@@ -89,7 +89,7 @@ export default function TrsfFormWide({
           alignItems: "center",
         }}
       >
-        <Box sx={{ marginRight: 2 }}>Currency</Box> {/* Label on the left */}
+        <Box sx={{ marginRight: 2 }}>Currency:</Box> {/* Label on the left */}
         <TextField
           id="currency"
           select
