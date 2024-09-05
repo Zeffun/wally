@@ -61,7 +61,7 @@ export default function AccountMainPage() {
           alignItems: "center",
           flexWrap: "wrap",
           boxShadow: 3,
-          marginTop: "75px",
+          marginTop: "100px",
           paddingTop: "15px",
         }}
       >
@@ -76,7 +76,7 @@ export default function AccountMainPage() {
               key={index}
               sx={{
                 width: { xs: "100%", md: "200px" },
-                height: { xs: "100%", md: "100px" },
+                height: { xs: "100%", md: "130px" },
                 display: { xs: "block", md: "flex" },
                 alignItems: "center",
                 justifyContent: "center",
@@ -87,9 +87,9 @@ export default function AccountMainPage() {
               <CardContent>
                 <Typography
                   gutterBottom
-                  sx={{ color: "text.secondary", fontSize: 14 }}
+                  sx={{ fontSize: 20 }}
                 >
-                  <h1>{account.acId}</h1>
+                  {account.acId}
                 </Typography>
                 <Typography
                   gutterBottom
