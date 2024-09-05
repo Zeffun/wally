@@ -98,18 +98,18 @@ export default function AccountTransactionsPage(props) {
               >
                 <Box>
                   <Typography>
-                    <strong>Was sent from</strong> Account ID:{" "}
+                    <strong>was sent from</strong> Account ID:{" "}
                     {transaction.senderAcc._id}
                   </Typography>
                   <Typography>
                     (
                     {transaction.senderAcc.userId == props.user._id
-                      ? "You"
+                      ? "Your account"
                       : "User ID: " + transaction.senderAcc.userId}
                     )
                   </Typography>
                   <Typography>
-                    <strong>To</strong> Account ID:{" "}
+                    <strong>to</strong> Account ID:{" "}
                     {transaction.receiverAcc._id}
                   </Typography>
                   <Typography>

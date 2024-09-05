@@ -21,7 +21,7 @@ export default function HomePage({ handleSignout }) {
   
   return (
     <div style={backgroundStyle}>
-      <h1 style={headingStyle}>Your money is safe with us</h1>
+      <h1 style={headingStyle}><em>Your money is safe with us.</em></h1>
     </div>
   );
 }
