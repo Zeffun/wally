@@ -89,13 +89,13 @@ export default function AccountMainPage() {
                   gutterBottom
                   sx={{ color: "text.secondary", fontSize: 14 }}
                 >
-                  Account
+                  <h1>{account.acId}</h1>
                 </Typography>
                 <Typography
                   gutterBottom
                   sx={{ color: "text.secondary", fontSize: 14 }}
                 >
-                  {account._id}
+                  Account ID: {account._id}
                 </Typography>
                 <Typography variant="h5" component="div">
                   ${formattedBalance}
