@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import { newTransfer } from "../services/transfService";
 import { getAccountById, getAccounts } from "../services/authService";
 // import Stack from "@mui/material/Stack";
-
 const currencies = [
   {
     value: "SGD",
@@ -43,13 +42,11 @@ export default function AccountTransfersPage() {
     amount: 0,
     purpose: "",
   });
-
   const navigate = useNavigate();
   const handleChange = (event) => {
     const { name, value } = event.target;
     setTransferData({ ...transferData, [name]: value });
   };
-
   const handleChangeAmt = (event) => {
     const amountRegex = /^\d*\.?\d{0,2}$/;
     const value = event.target.value;
@@ -70,7 +67,6 @@ export default function AccountTransfersPage() {
     try {
       // Extract receiverAcc from transferData
       const { receiverAcc } = transferData;
-
       // Call getAccountById with receiverAcc as a parameter
       const checkNameResponse = await getAccountById({
         accountId: receiverAcc,
@@ -82,7 +78,6 @@ export default function AccountTransfersPage() {
       setRecName("No account found");
     }
   };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
@@ -107,7 +102,6 @@ export default function AccountTransfersPage() {
     };
     loadAccount();
   }, []);
-
   return (
     <>
       <Backdrop
