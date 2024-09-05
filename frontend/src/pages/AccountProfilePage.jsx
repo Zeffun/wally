@@ -69,6 +69,7 @@ export default function AccountProfilePage({ handleSignout }) {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
+        mt: { xs: 10, md: "auto"} 
       }}
     >
       <Card
