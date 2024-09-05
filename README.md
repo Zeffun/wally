@@ -1,70 +1,66 @@
-# Wally
+# Development of Wally  (V1.0.0)
 
-## Setup Guide
 
-- npm install
-- check package.json for devdep and dep files in back/front end
+## Project summary
 
-## Bruno
+### MVP
+- App back-end application is built with Express and Node
+- App front-end application is built with React.
+- MongoDB is used as the database management system.
+- The back-end and front-end applications implement JWT token-based authentication to sign up, sign in, and sign out users.
+- Authorization is implemented across the front-end and back-end. Guest users (those not signed in) should not be able to create, update, or delete data in the application or access functionality allowing those actions.
+- The project has at least two data entities in addition to the User model. At least one entity must have a relationship with the User model.
+- The project has full CRUD functionality on both the back-end and front-end.
+- The front-end application does not hold any secret keys. Public APIs that require secret keys must be accessed from the back-end application.
+- The project is deployed online so that the rest of the world can use it.
 
-eg. putPasswordForUser
-eg. getTransactionForUser
-eg. postNewUser
+### Timeframe
 
-- [HTTPmethod][detailed use]
+- Approx. 1 week
 
-## Commit Rules
+### Languages and tools used
 
-1. `build`:
+- React & other libraries (Mui)
+- Express
+- JavaScript
+- HTML
+- CSS
+- MongoDb
+- Git & GitHub
 
-   - **When to Use**: Use this type for changes that affect the build system or external dependencies (e.g., changes to `package.json`, webpack, or build scripts).
-   - **Example**: `build: update webpack to version 5`
+### Description of App
 
-2. `chore`:
+#### 1. Introduction
+Welcome to **Wally**! By using our app, you agree to the following Terms and Conditions. Please read them carefully before using the app.
+#### 2. Account Registration
+- Users must register an account to use Wally.
+- You are responsible for keeping your login details secure.
+- You agree to provide accurate and complete information during registration.
+#### 3. Transactions
+- **Transfers:** You can transfer money to other users within the app. Please double-check all account numbers and amounts before confirming a transfer. Transfers cannot be reversed once completed.
+- **Deposits:** You can deposit funds into your Wally account to increase your balance.
+- **Withdrawals:** You may withdraw funds from your account as long as you have sufficient balance.
+#### 4. Fees
+- Wally may charge transaction or service fees for certain actions. All fees will be clearly displayed before you confirm any transaction.
+#### 5. Prohibited Activities
+You agree not to use Wally for:
+- Fraudulent, illegal, or unauthorized transactions.
+- Misrepresentation or sharing false information.
+- Any activity that violates local laws or regulations.
+#### 6. Limitation of Liability
+- Wally is a simulation app. We are not responsible for any loss of virtual funds, errors in transaction processing, or other financial issues that may arise during your use of the app.
+- Wally makes no guarantees regarding uninterrupted or error-free access to the app.
+#### 7. Account Suspension or Termination
+We reserve the right to suspend or terminate your account if we detect any suspicious or unauthorized activity, or if you violate these terms.
+#### 8. Privacy
+Your personal information will be collected, stored, and used in accordance with our **Privacy Policy**. We take steps to protect your data, but you are responsible for safeguarding your login information.
+#### 9. Changes to Terms
+We may update these Terms and Conditions from time to time. Changes will be communicated via the app, and continued use of Wally implies acceptance of the updated terms.
+#### 10. Contact Us
+If you have any questions or concerns regarding these terms, please contact our support team.
 
-   - **When to Use**: Use this type for routine tasks that don't modify application source code, such as configuration changes, updating packages, or setting up the environment.
-   - **Example**: `chore: update npm dependencies`
 
-3. `ci`:
+### Summarised review after completion
 
-   - **When to Use**: Use this type for changes to your continuous integration configuration files and scripts (e.g., GitHub Actions, Travis, CircleCI). This doesn't affect the source code or tests.
-   - **Example**: `ci: add Node.js 16 to the test matrix`
+### Future state of Wally
 
-4. `docs`:
-
-   - **When to Use**: Use this type for changes to documentation only. This could be updating a README file, adding documentation comments, or making markdown files.
-   - **Example**: `docs: add usage instructions to README`
-
-5. `feat`:
-
-   - **When to Use**: Use this type when adding a new feature or functionality to the codebase. It signifies that new user-facing features have been added.
-   - **Example**: `feat: add user login functionality`
-
-6. `fix`:
-
-   - **When to Use**: Use this type for bug fixes. This indicates that the codebase has been modified to fix an issue or bug.
-   - **Example**: `fix: correct issue with form validation`
-
-7. `perf`:
-
-   - **When to Use**: Use this type when making changes that improve performance, such as optimizing code, reducing load times, or increasing efficiency.
-   - **Example**: `perf: reduce API response time by optimizing queries`
-
-8. `refactor`:
-
-   - **When to Use**: Use this type for code changes that neither fix a bug nor add a feature. Typically, this is for code restructuring, cleaning, or simplifying code.
-   - **Example**: `refactor: simplify authentication middleware`
-
-9. `revert`:
-
-   - **When to Use**: Use this type when you need to undo a previous commit. The message should describe the commit being reverted.
-   - **Example**: `revert: revert "feat: add user login functionality"`
-
-10. `style`:
-
-    - **When to Use**: Use this type for changes that do not affect the logic of the code but relate to code style, such as formatting, whitespace, and semicolons.
-    - **Example**: `style: format code with Prettier`
-
-11. `test`:
-    - **When to Use**: Use this type for adding or updating tests, such as creating unit tests, integration tests, or updating existing tests.
-    - **Example**: `test: add tests for user login functionality`
