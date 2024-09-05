@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { newTransfer } from "../services/transfService";
 import { getAccountById, getAccounts } from "../services/authService";
+import { Container, Typography, Paper } from "@mui/material";
 // import Stack from "@mui/material/Stack";
 
 const currencies = [
@@ -122,78 +123,72 @@ export default function AccountTransfersPage() {
       <Box
         component="form"
         sx={{
-          "& .MuiTextField-root": { m: 1.5, width: "35ch" }, // TextField margin and width
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center", // Center vertically
-          alignItems: "center", // Center horizontally
           height: "100vh",
-          paddingTop: "64px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
         noValidate
         autoComplete="off"
       >
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center", // Align the text fields and labels to the left
-          }}
-        >
-          <Box sx={{ marginRight: 2 }}>Send it to : </Box>{" "}
-          <TextField
-            id="controlled acnum"
-            label={recName}
-            name="receiverAcc"
-            value={transferData.receiverAcc}
-            sx={boxShadowStyle}
-            onChange={handleChange}
-          />
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end", // Align button to the right
-            width: "100%", // Full width
-            maxWidth: "400px", // Limit the width of the main container
-            mt: 0.25, // Add some spacing above the button
-          }}
-        >
-          <Button onClick={handleCheckName}>Check receipient</Button>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <Box sx={{ marginRight: 2 }}>Send from:</Box>{" "}
-          {/* Label on the left */}
-          <TextField
-            id="senderAcc"
-            select
-            label="Please select sending account"
-            helperText=""
-            value={transferData.senderAcc}
-            name="senderAcc"
-            sx={boxShadowStyle}
-            onChange={handleChange}
+        <Paper elevation={10} sx={{ padding: 3, width: {xs: "90%", md: "30%"}}}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-start",
+              mb: 1, // Align the text fields and labels to the left
+            }}
           >
-            {accounts.map((account) => (
-              <MenuItem key={account._id} value={account._id}>
-                {account._id}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Box>
-        <Box
-          sx={{
-            width: "46ch",
+            <Typography sx={{ marginRight: 2 , fontSize: {xs: "80%", md: "100%"}}}>Send it to : </Typography>{" "}
+            <TextField
+              id="controlled acnum"
+              label={recName}
+              name="receiverAcc"
+              value={transferData.receiverAcc}
+              sx={{width: "70%"}}
+              onChange={handleChange}
+            />
+          </Box>
+          <Box sx={{display: "flex", justifyContent: {xs: "center", md: "flex-end"}, mr: 2.5, mb: 1}}>
+          <Button onClick={handleCheckName}>Check receipient</Button>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-start",
+              mb: 2.5,
+            }}
+          >
+            <Typography sx={{ marginRight: 2, fontSize: {xs: "80%", md: "100%"} }}>Send from:</Typography>{" "}
+            {/* Label on the left */}
+            <TextField
+              id="senderAcc"
+              select
+              label="Please select sending account"
+              helperText=""
+              value={transferData.senderAcc}
+              name="senderAcc"
+              sx={{width: "70%"}}
+              onChange={handleChange}
+            >
+              {accounts.map((account) => (
+                <MenuItem key={account._id} value={account._id}>
+                  {account._id}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Box>
+          <Box
+          sx={{         
             display: "flex",
             alignItems: "center",
+            justifyContent: "flex-start",
+            mb: 2.5
           }}
         >
-          <Box sx={{ marginRight: 2 }}>Currency</Box> {/* Label on the left */}
+          <Typography sx={{ marginRight: {xs: 1, md: 3}, fontSize: {xs: "80%", md: "100%"} }}>Currency</Typography> {/* Label on the left */}
           <TextField
             id="currency"
             select
@@ -202,7 +197,7 @@ export default function AccountTransfersPage() {
             helperText=""
             value={transferData.currency}
             name="currency"
-            sx={boxShadowStyle}
+            sx={{width: {xs: "40%", md: "28%"} }}
             onChange={handleChange}
           >
             {currencies.map((option) => (
@@ -211,13 +206,13 @@ export default function AccountTransfersPage() {
               </MenuItem>
             ))}
           </TextField>
-          <Box sx={{ marginRight: 2 }}>Amt:</Box> {/* Label on the left */}
+          <Typography sx={{ marginRight: {xs: 1, md: 2}, ml: {xs: 1, md: 2}, fontSize: {xs: "80%", md: "100%"} }}>Amt:</Typography> {/* Label on the left */}
           <TextField
             id="amt"
             label=""
             value={transferData.amount}
             name="amount"
-            sx={boxShadowStyle}
+            sx={{width: "28%"}}
             onChange={handleChangeAmt}
             error={error}
             helperText={error}
@@ -225,18 +220,18 @@ export default function AccountTransfersPage() {
         </Box>
         <Box
           sx={{
-            width: "46ch",
             display: "flex",
             alignItems: "center",
+            justifyContent: "flex-start"
           }}
         >
-          <Box sx={{ marginRight: 2 }}>Purpose:</Box> {/* Label on the left */}
+          <Typography sx={{ marginRight: 3, fontSize: {xs: "80%", md: "100%"} }}>Purpose:</Typography> {/* Label on the left */}
           <TextField
             id="Purpose"
             label="Purpose of transfer"
             variant="filled"
             name="purpose"
-            sx={boxShadowStyle}
+            sx={{width: "71%"}}
             onChange={handleChange}
             error={fieldError}
             helperText={fieldError}
@@ -245,20 +240,22 @@ export default function AccountTransfersPage() {
         <Box
           sx={{
             display: "flex",
-            justifyContent: "flex-end", // Align button to the right
+            justifyContent: {xs: "center", md: "flex-end"}, // Align button to the right
             width: "100%", // Full width
             maxWidth: "400px", // Limit the width of the main container
             mt: 3, // Add some spacing above the button
           }}
         >
           <Button
-            sx={boxShadowStyle}
+            sx={{mr: {xs: 0, md: 3}}}
             variant="contained"
             onClick={handleSubmit}
           >
             Send now
           </Button>
+          
         </Box>
+        </Paper>
       </Box>
     </>
   );
