@@ -21,8 +21,9 @@ export default function AccountMainPage() {
     const loadAccount = async () => {
       try {
         const data = await getAccounts();
+        console.log(data);
         setAccounts(data);
-        if (accounts.length >= 3) {
+        if (data.length >= 3) {
           setDisabled(true);
         } else {
           setDisabled(false);
@@ -34,7 +35,7 @@ export default function AccountMainPage() {
       }
     };
     loadAccount();
-  }, [accounts]);
+  }, []);
 
   const handleClick = (event) => {
     event.preventDefault();

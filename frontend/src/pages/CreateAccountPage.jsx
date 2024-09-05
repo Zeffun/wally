@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function CreateAccountPage() {
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
   const [accountData, setAccountData] = useState({
     acId: "",
     currency: "",
@@ -23,6 +24,16 @@ export default function CreateAccountPage() {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setAccountData({ ...accountData, [name]: value });
+  };
+  const handleChangeAmt = (event) => {
+    const amountRegex = /^\d*\.?\d{0,2}$/;
+    const value = event.target.value;
+    if (value === "" || amountRegex.test(value)) {
+      setAccountData({ ...accountData, balance: value });
+      setError(null);
+    } else {
+      setError("Invalid amount");
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -96,7 +107,9 @@ export default function CreateAccountPage() {
             variant="outlined"
             name="balance"
             value={accountData.balance}
-            onChange={handleChange}
+            onChange={handleChangeAmt}
+            error={error}
+            helperText={error}
             required
           />
         </Box>
@@ -105,14 +118,14 @@ export default function CreateAccountPage() {
           color="textSecondary"
           sx={{ marginBottom: 1 }}
         >
-          By signing up, you agree to wally terms and conditions.
+          By signing up, you agree to wally's terms and conditions.
         </Typography>
         <Typography
           variant="body2"
           color="textSecondary"
           sx={{ marginBottom: 1 }}
         >
-          Your particulars will only be visible to wally
+          Your particulars will only be visible to wally.
         </Typography>
         <Button
           fullWidth

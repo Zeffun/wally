@@ -14,6 +14,7 @@ const accountSchema = new mongoose.Schema(
     balance: {
       type: Number,
       required: true,
+      match: [/^\d*\.?\d{0,2}$/, "Invalid amount"],
     },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },

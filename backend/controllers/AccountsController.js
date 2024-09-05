@@ -7,14 +7,23 @@ router.use(verifyToken);
 const wallyId = "66d53bce24f856a49697a87d";
 
 router.post("/create", async (req, res) => {
+  const amountRegex = /^\d*\.?\d{0,2}$/;
   req.body.userId = req.user._id;
-  const newAccount = await Account.create(req.body);
-  const { balance } = req.body;
-  const wallyAccount = await Account.findById(wallyId);
-  wallyAccount.balance += balance;
-  await wallyAccount.save();
-  // Account._doc.userid = req.user
-  res.status(201).json({ newAccount });
+  try {
+    const { balance } = req.body;
+    if (!amountRegex.test(balance)) {
+      return res.status(400).json({ error: "Invalid amount" });
+    }
+    const newAccount = await Account.create(req.body);
+    const wallyAccount = await Account.findById(wallyId);
+    wallyAccount.balance += balance;
+    await wallyAccount.save();
+    // Account._doc.userid = req.user
+    res.status(201).json({ newAccount });
+  } catch (error) {
+    console.error("Account creation error:", error);
+    res.status(500).json({ error: error.message });
+  }
 });
 
 router.get("/", async (req, res) => {
