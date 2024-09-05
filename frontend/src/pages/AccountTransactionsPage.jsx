@@ -64,8 +64,9 @@ export default function AccountTransactionsPage(props) {
                 <Typography  sx={{ padding: 2, fontSize:{ xs: "1rem", md: "2rem"} }}><h1>Transfers</h1></Typography>
                 {transactions.map((transaction, index) => (
                     <Card key={index} sx={{ mb: 2, width: "100%" }}>
+                        
                         <CardContent>
-                            <Typography variant="h5" color={transaction.senderAcc.userId == props.user._id ? "red" : "green"}>${transaction.amount}</Typography>
+                            <Typography variant="h5" color={(transaction.senderAcc.userId == props.user._id && transaction.receiverAcc.userId == props.user._id) ? "blue" : transaction.senderAcc.userId == props.user._id ? "red" : "green"}>${transaction.amount}</Typography>
                             <CardContent sx={{ display: {xs: "block",  md: "flex"}, justifyContent: "space-between" }}>
                                 <Box>
                                     <Typography><strong>Was sent from</strong> Account ID: {transaction.senderAcc._id}</Typography>
