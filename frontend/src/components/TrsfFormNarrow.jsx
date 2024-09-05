@@ -14,6 +14,7 @@ export default function TrsfFormNarrow({
   handleChangeAmt,
   error,
   handleSubmit,
+  handleCheckName,
 }) {
   return (
     <Box
@@ -53,6 +54,16 @@ export default function TrsfFormNarrow({
             sx={boxShadowStyle}
             onChange={handleChange}
           />
+        </Grid>
+      </Grid>
+      <Grid
+        container
+        spacing={2}
+        justifyContent="flex-end"
+        sx={{ width: "100%", mt: 3 }}
+      >
+        <Grid item>
+          <Button onClick={handleCheckName}>Send now</Button>
         </Grid>
       </Grid>
 
