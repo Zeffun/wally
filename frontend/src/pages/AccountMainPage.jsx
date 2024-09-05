@@ -21,7 +21,6 @@ export default function AccountMainPage() {
     const loadAccount = async () => {
       try {
         const data = await getAccounts();
-        console.log(data);
         setAccounts(data);
         if (data.length >= 3) {
           setDisabled(true);

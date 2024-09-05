@@ -24,10 +24,6 @@ export default function AccountTransactionsPage(props) {
         setTransactions(transactionData);
         setUpdates(updatesData);
 
-        // Log the data to the console
-        console.log(transactionData[0].amount);
-        console.log(props.user);
-        console.log(typeof updatesData[0].amount);
       } catch (error) {
         console.error("Error loading data:", error);
       } finally {

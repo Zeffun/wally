@@ -40,11 +40,11 @@ export default function CreateAccountPage() {
     event.preventDefault();
     try {
       const balance = parseFloat(accountData.balance);
-      const newAccountResponse = await authService.createAccount({
+      await authService.createAccount({
         ...accountData,
         balance,
       });
-      console.log(newAccountResponse);
+      
       navigate("/account/main");
     } catch (err) {
       console.error(err.message);

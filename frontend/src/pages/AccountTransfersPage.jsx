@@ -92,11 +92,11 @@ export default function AccountTransfersPage() {
     setIsLoading(true);
     try {
       const amount = parseFloat(transferData.amount);
-      const newTransferResponse = await newTransfer({
+      await newTransfer({
         ...transferData,
         amount,
       });
-      console.log(newTransferResponse);
+      
       navigate("/account/main");
     } catch (err) {
       console.error(err.message);

@@ -49,7 +49,6 @@ export default function AccountWithdrawPage() {
     const { name, value } = event.target;
     setAccountId(value);
     setWithdrawTransaction({ ...withdrawTransaction, [name]: value });
-    console.log(value);
   };
 
   const handleChange = (event) => {
@@ -83,16 +82,15 @@ export default function AccountWithdrawPage() {
       if (balance > accounts.balance) {
         errorMessage("Insufficient Balance!!");
       }
-      const withdrawResponse = await authService.withdrawAccount(
+      await authService.withdrawAccount(
         { ...accountData, balance },
         accountId
       );
-      const newTransactionResponse = await authService.updateTransaction(
+      await authService.updateTransaction(
         { ...withdrawTransaction, amount },
         accountId
       );
-      console.log(withdrawResponse);
-      console.log(newTransactionResponse);
+      
       navigate("/account/main");
     } catch (err) {
       errorMessage(err.message);
