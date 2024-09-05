@@ -3,7 +3,7 @@
 
 ## Project summary
 
-### MVP
+## MVP
 - App back-end application is built with Express and Node
 - App front-end application is built with React.
 - MongoDB is used as the database management system.
@@ -14,11 +14,11 @@
 - The front-end application does not hold any secret keys. Public APIs that require secret keys must be accessed from the back-end application.
 - The project is deployed online so that the rest of the world can use it.
 
-### Timeframe
+## Timeframe
 
 - Approx. 1 week
 
-### Languages and tools used
+## Languages and tools used
 
 - React & other libraries (Mui)
 - Express
@@ -28,7 +28,7 @@
 - MongoDb
 - Git & GitHub
 
-### Description of App
+## Description of App
 
 #### 1. Introduction
 Welcome to **Wally**! By using our app, you agree to the following Terms and Conditions. Please read them carefully before using the app.
@@ -60,7 +60,7 @@ We may update these Terms and Conditions from time to time. Changes will be comm
 If you have any questions or concerns regarding these terms, please contact our support team.
 
 
-### Summarised review after completion
+## Summarised review after completion
 
-### Future state of Wally
+## Future state of Wally
 
